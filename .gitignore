@@ -1,0 +1,8 @@
+*.class
+**/target
+**/target/*
+*.jar
+hs_err_pid*
+
+# Files
+development_notes.md
