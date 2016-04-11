@@ -13,14 +13,14 @@ class RocketCalculatorTest extends FunSuite with Matchers {
   val underTest: RocketCalculator = new RocketCalculator()
   val planet: Planet = Planet(Vector2D(100, 100), 10)
 
-  test("planet gravity attracts rocket") {
+  test("planet's gravity attracts rocket") {
     // given
     val physics: GamePhysics = new GamePhysics()
     val input = PlayerInput()
     val rocket = rocketAtOriginPointingUp()
 
     // when
-    val updatedRocket: Rocket = underTest.updateUserPosition(rocket, input, planet, physics)
+    val updatedRocket: Rocket = underTest.updateRocket(rocket, input, planet, physics)
 
     // then
     val movingTowardsPlanet = updatedRocket.velocity.normalise ~= Vector2D(1, 1).normalise
@@ -33,7 +33,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
     val rocket = rocketAtOriginPointingUp()
 
     // when
-    val updatedRocket: Rocket = underTest.updateUserPosition(rocket, input, planet, physics)
+    val updatedRocket: Rocket = underTest.updateRocket(rocket, input, planet, physics)
 
     // then
     val rorationFaces90DegCounterClockwise = updatedRocket.rotation ~= Vector2D(-1, 0)
@@ -46,7 +46,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
     val rocket = rocketAtOriginPointingUp()
 
     // when
-    val updatedRocket: Rocket = underTest.updateUserPosition(rocket, input, planet, physics)
+    val updatedRocket: Rocket = underTest.updateRocket(rocket, input, planet, physics)
 
     // then
     val rorationFaces90DegClockwise = updatedRocket.rotation ~= Vector2D(1, 0)
@@ -59,7 +59,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
     val rocket = rocketAtOriginPointingUp()
 
     // when
-    val updatedRocket: Rocket = underTest.updateUserPosition(rocket, input, planet, physics)
+    val updatedRocket: Rocket = underTest.updateRocket(rocket, input, planet, physics)
 
     // then
     val positionIsUp10 = updatedRocket.position ~= Vector2D(0, 10)

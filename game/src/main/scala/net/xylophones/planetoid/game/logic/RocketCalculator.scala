@@ -5,7 +5,7 @@ import net.xylophones.planetoid.game.model.{Planet, PlayerInput, Rocket, GamePhy
 
 class RocketCalculator {
 
-  def updateUserPosition(player: Rocket, input: PlayerInput, planet: Planet, physics: GamePhysics) = {
+  def updateRocket(player: Rocket, input: PlayerInput, planet: Planet, physics: GamePhysics): Rocket = {
     val planetForce = forceDueToPlanetGravity(player, planet, physics.gForce)
 
     val rotation = newRotation(player, input, physics.rotationSpeed)
@@ -14,7 +14,7 @@ class RocketCalculator {
 
     val accel = (planetForce + thrustForce) / physics.spaceShipMass
 
-    val velocity = (player.velocity + accel) truncate physics.spaceShipMaxVelocity
+    val velocity = (player.velocity + accel) truncate physics.spaceShipMaxSpeed
     val position = player.position + velocity
 
     Rocket(position, rotation, velocity)
