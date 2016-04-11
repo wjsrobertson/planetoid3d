@@ -5,19 +5,19 @@ import net.xylophones.planetoid.game.model.{Planet, PlayerInput, Rocket, GamePhy
 
 class RocketCalculator {
 
-  def updateRocket(player: Rocket, input: PlayerInput, planet: Planet, physics: GamePhysics): Rocket = {
-    val planetForce = forceDueToPlanetGravity(player, planet, physics.gForce)
+  def updateRocket(rocket: Rocket, input: PlayerInput, planet: Planet, physics: GamePhysics): Rocket = {
+    val planetForce = forceDueToPlanetGravity(rocket, planet, physics.gForce)
 
-    val rotation = newRotation(player, input, physics.rotationSpeed)
+    val rotation = newRotation(rocket, input, physics.rocketRotationSpeed)
 
-    val thrustForce = if (input.thrust) rotation * physics.thrustForce else Vector2D(0, 0)
+    val thrustForce = if (input.thrust) rotation * physics.rocketThrustForce else Vector2D(0, 0)
 
-    val accel = (planetForce + thrustForce) / physics.spaceShipMass
+    val accel = (planetForce + thrustForce) / physics.rocketMass
 
-    val velocity = (player.velocity + accel) truncate physics.spaceShipMaxSpeed
-    val position = player.position + velocity
+    val velocity = (rocket.velocity + accel) truncate physics.rocketMaxSpeed
+    val position = rocket.position + velocity
 
-    Rocket(position, rotation, velocity)
+    Rocket(position, rotation, velocity, rocket.radius)
   }
 
   private def forceDueToPlanetGravity(player: Rocket, planet: Planet, gForce: Double): Vector2D = {

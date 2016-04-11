@@ -11,7 +11,7 @@ import scala.math.Pi
 class RocketCalculatorTest extends FunSuite with Matchers {
 
   val underTest: RocketCalculator = new RocketCalculator()
-  val planet: Planet = Planet(Vector2D(100, 100), 10)
+  val planet: Planet = Planet(Vector2D(100, 100), 999)
 
   test("planet's gravity attracts rocket") {
     // given
@@ -28,7 +28,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
   }
 
   test("rocket rotates when user input indicates left") {
-    val physics: GamePhysics = new GamePhysics(rotationSpeed = Pi / 2, gForce = 1, thrustForce = 10)
+    val physics: GamePhysics = new GamePhysics(rocketRotationSpeed = Pi / 2, gForce = 1, rocketThrustForce = 10)
     val input = PlayerInput(left = true)
     val rocket = rocketAtOriginPointingUp()
 
@@ -41,7 +41,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
   }
 
   test("rocket rotates when user input indicates right") {
-    val physics: GamePhysics = new GamePhysics(rotationSpeed = Pi / 2, gForce = 1, thrustForce = 10)
+    val physics: GamePhysics = new GamePhysics(rocketRotationSpeed = Pi / 2, gForce = 1, rocketThrustForce = 10)
     val input = PlayerInput(right = true)
     val rocket = rocketAtOriginPointingUp()
 
@@ -54,7 +54,7 @@ class RocketCalculatorTest extends FunSuite with Matchers {
   }
 
   test("rocket moves forward when user input indicates thrust") {
-    val physics: GamePhysics = new GamePhysics(gForce = 0, thrustForce = 10, spaceShipMass = 1)
+    val physics: GamePhysics = new GamePhysics(gForce = 0, rocketThrustForce = 10, rocketMass = 1)
     val input = PlayerInput(thrust = true)
     val rocket = rocketAtOriginPointingUp()
 
@@ -71,6 +71,6 @@ class RocketCalculatorTest extends FunSuite with Matchers {
     val rotation = Vector2D(0, 1)
     val velocity = Vector2D(0, 0)
 
-    Rocket(position, rotation, velocity)
+    Rocket(position, rotation, velocity, 999)
   }
 }

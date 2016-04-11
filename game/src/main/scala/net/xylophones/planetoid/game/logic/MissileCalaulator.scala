@@ -7,7 +7,7 @@ class MissileCalaulator {
   def updateMissile(missile: Missile, physics: GamePhysics): Missile = {
     val newPosition = missile.position + (missile.rotation.normalise * physics.missileSpeed)
 
-    Missile(newPosition, missile.rotation)
+    Missile(newPosition, missile.rotation, missile.radius)
   }
 
 }
