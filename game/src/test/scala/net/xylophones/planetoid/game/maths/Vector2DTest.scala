@@ -66,7 +66,7 @@ class Vector2DTest extends FunSuite with Matchers {
     val v1 = Vector2D(10, 20)
 
     // when
-    val result = v1 scaleBy 10
+    val result = v1 * 10
 
     // then
     result.x shouldBe 100d +- tolerance
@@ -84,7 +84,7 @@ class Vector2DTest extends FunSuite with Matchers {
     mag shouldBe 25d +- tolerance
   }
 
-  test("truncating") {
+  test("truncating when over max length") {
     // given
     val v1 = Vector2D(7, 24)
 
@@ -95,6 +95,17 @@ class Vector2DTest extends FunSuite with Matchers {
     result.magnitude shouldBe 1d +- tolerance
     result.x shouldBe (7d/25d) +- tolerance
     result.y shouldBe (24d/25d) +- tolerance
+  }
+
+  test("truncating when under max length") {
+    // given
+    val v1 = Vector2D(1, 1)
+
+    // when
+    val result = v1 truncate 2
+
+    // then
+    v1 shouldBe result
   }
 
   test("normalising") {
@@ -110,6 +121,17 @@ class Vector2DTest extends FunSuite with Matchers {
     result.y shouldBe (24d/25d) +- tolerance
   }
 
+  test("normalising for zero length") {
+    // given
+    val v1 = Vector2D(0, 0)
+
+    // when
+    val result = v1.normalise
+
+    // then
+    v1 shouldBe result
+  }
+
   test("dot product") {
     // given
     val v1 = Vector2D(-6, 8)
@@ -122,6 +144,37 @@ class Vector2DTest extends FunSuite with Matchers {
     result shouldBe 66d +- tolerance
   }
 
+  test("approximate comparison (~=) when similar") {
+    // given
+    val v1 = Vector2D(1.0000001, 1)
 
+    // when
+    val approxEqual = v1 ~= Vector2D(1, 1)
 
+    // then
+    approxEqual shouldBe true
+  }
+
+  test("approximate comparison (~=) when different") {
+    // given
+    val v1 = Vector2D(1.0000001, 1)
+
+    // when
+    val approxEqual = v1 ~= Vector2D(9, 9)
+
+    // then
+    approxEqual shouldBe false
+  }
+
+  test("rotate") {
+    // given
+    val v1 = Vector2D(0, 1)
+
+    // when
+    val rotated = v1.rotate(scala.math.Pi / 2)
+
+    // then
+    val approxEqual = rotated ~= Vector2D(-1, 0)
+    approxEqual shouldBe true
+  }
 }

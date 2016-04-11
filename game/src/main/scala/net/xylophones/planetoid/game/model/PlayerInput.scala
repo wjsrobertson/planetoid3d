@@ -1,3 +1,6 @@
 package net.xylophones.planetoid.game.model
 
-case class PlayerInput(var left: Boolean, val right: Boolean, val thrust: Boolean, val fireMissile: Boolean)
+case class PlayerInput(val left: Boolean = false,
+                       val right: Boolean = false,
+                       val thrust: Boolean = false,
+                       val fireMissile: Boolean = false)
