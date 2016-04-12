@@ -2,8 +2,8 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.model._
 
-class GamePositionUpdater(missileCalculator: MissileCalculator,
-                          rocketCalculator: RocketCalculator,
+class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
+                          rocketCalculator: RocketPositionCalculator,
                           boundsChecker: BoundsChecker) {
 
   def updateRocketAndMissilePositions(model: GameModel, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]) = {

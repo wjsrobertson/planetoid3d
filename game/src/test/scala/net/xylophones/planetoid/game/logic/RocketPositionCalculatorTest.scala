@@ -8,9 +8,9 @@ import org.scalatest.junit.JUnitRunner
 import scala.math.Pi
 
 @RunWith(classOf[JUnitRunner])
-class RocketCalculatorTest extends FunSuite with Matchers {
+class RocketPositionCalculatorTest extends FunSuite with Matchers {
 
-  val underTest: RocketCalculator = new RocketCalculator(new BoundsChecker())
+  val underTest: RocketPositionCalculator = new RocketPositionCalculator(new BoundsChecker())
   val planet: Planet = Planet(Vector2D(100, 100), 999)
 
   test("planet's gravity attracts rocket") {

@@ -3,7 +3,7 @@ package net.xylophones.planetoid.game.logic
 import net.xylophones.planetoid.game.maths.Vector2D
 import net.xylophones.planetoid.game.model.{Planet, PlayerInput, Rocket, GamePhysics}
 
-class RocketCalculator(boundsChecker: BoundsChecker) {
+class RocketPositionCalculator(boundsChecker: BoundsChecker) {
 
   def updateRocketPosition(rocket: Rocket, input: PlayerInput, planet: Planet, physics: GamePhysics): Rocket = {
     val planetForce = forceDueToPlanetGravity(rocket, planet, physics.gForce)
@@ -16,7 +16,7 @@ class RocketCalculator(boundsChecker: BoundsChecker) {
 
     val velocity = (rocket.velocity + accel) truncate physics.rocketMaxSpeed
     val newPosition = rocket.position + velocity
-    
+
     val position = boundsChecker.warpOverBounds(newPosition, physics)
 
     Rocket(position, rotation, velocity, rocket.radius)

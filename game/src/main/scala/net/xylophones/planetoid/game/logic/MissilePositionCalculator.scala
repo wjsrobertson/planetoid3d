@@ -2,7 +2,7 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.model.{GamePhysics, Missile}
 
-class MissileCalculator {
+class MissilePositionCalculator {
 
   def updateMissilePosition(missile: Missile, physics: GamePhysics): Missile = {
     val newPosition = missile.position + (missile.rotation.normalise * physics.missileSpeed)

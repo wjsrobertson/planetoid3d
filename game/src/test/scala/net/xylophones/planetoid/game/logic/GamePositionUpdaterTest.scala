@@ -12,8 +12,8 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
   val tolerance: Double = 0.00001
 
   val underTest = new GamePositionUpdater(
-    new MissileCalculator,
-    new RocketCalculator(new BoundsChecker),
+    new MissilePositionCalculator,
+    new RocketPositionCalculator(new BoundsChecker),
     new BoundsChecker
   )
 

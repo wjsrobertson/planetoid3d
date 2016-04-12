@@ -7,9 +7,9 @@ import org.scalatest._
 import org.scalatest.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
-class MissileCalculatorTest extends FunSuite with Matchers {
+class MissilePositionCalculatorTest extends FunSuite with Matchers {
 
-  val underTest = new MissileCalculator
+  val underTest = new MissilePositionCalculator
 
   test("missile should move according to speed") {
     // given
