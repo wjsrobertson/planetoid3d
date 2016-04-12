@@ -8,4 +8,6 @@ class GamePhysics(val gForce: Double = 1,
                   val rocketRotationSpeed: Double = 1,
                   val rocketRadius: Int = 30,
                   val missileSpeed: Double = 5,
-                  val missileRadius: Int = 4)
+                  val missileRadius: Int = 4,
+                  val universeWidth: Int = 3840,
+                  val universeHeight: Int = 2160)

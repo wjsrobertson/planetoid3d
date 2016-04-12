@@ -1,7 +1,74 @@
 package net.xylophones.planetoid.game.logic
 
-class CollisionCalculatorTest {
+import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.model.Circular
+import org.junit.runner.RunWith
+import org.scalatest.{Matchers, FunSuite}
+import org.scalatest.junit.JUnitRunner
 
+@RunWith(classOf[JUnitRunner])
+class CollisionCalculatorTest extends FunSuite with Matchers {
 
+  var underTest = new CollisionCalculator()
+
+  test("two intersecting circles collide") {
+    /*
+    given
+     */
+    val c1 = new Circular {
+      override def radius = 10
+      override def position = Vector2D(0,0)
+    }
+
+    val c2 = new Circular {
+      override def radius = 2
+      override def position = Vector2D(9,0)
+    }
+
+    // when
+    val collision = underTest.isCollision(c1, c2)
+
+    // then
+    collision shouldBe true
+  }
+
+  test("two identical circles collide") {
+    /*
+    given
+     */
+    val c1 = new Circular {
+      override def radius = 10
+      override def position = Vector2D(0,0)
+    }
+
+    val c2 = c1
+
+    // when
+    val collision = underTest.isCollision(c1, c2)
+
+    // then
+    collision shouldBe true
+  }
+
+  test("two non-intersecting circles do not collide") {
+    /*
+    given
+     */
+    val c1 = new Circular {
+      override def radius = 10
+      override def position = Vector2D(0,0)
+    }
+
+    val c2 = new Circular {
+      override def radius = 2
+      override def position = Vector2D(90,0)
+    }
+
+    // when
+    val collision = underTest.isCollision(c1, c2)
+
+    // then
+    collision shouldBe false
+  }
 
 }

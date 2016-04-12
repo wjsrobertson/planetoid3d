@@ -9,7 +9,7 @@ import org.scalatest.junit.JUnitRunner
 @RunWith(classOf[JUnitRunner])
 class MissileCalculatorTest extends FunSuite with Matchers {
 
-  val underTest = new MissileCalaulator()
+  val underTest = new MissileCalculator
 
   test("missile should move according to speed") {
     // given
@@ -19,7 +19,7 @@ class MissileCalculatorTest extends FunSuite with Matchers {
     val physics = new GamePhysics(missileSpeed = 10)
 
     // when
-    val updatedMissile = underTest.updateMissile(missile, physics)
+    val updatedMissile = underTest.updateMissilePosition(missile, physics)
 
     // then
     val correctPosition = updatedMissile.position ~= Vector2D(0, 10)
