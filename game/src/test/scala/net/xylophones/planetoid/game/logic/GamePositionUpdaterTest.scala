@@ -2,6 +2,7 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.maths.Vector2D
 import net.xylophones.planetoid.game.model._
+import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.junit.JUnitRunner
@@ -16,8 +17,6 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     new RocketPositionCalculator(new BoundsChecker),
     new BoundsChecker
   )
-
-  val vec = Vector2D(0, 0)
 
   test("missile gets removed if it is offscreen") {
     /*
@@ -103,22 +102,6 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(planet, players, Set(missile))
 
     model
-  }
-
-  private def createDummyPlanet() = {
-    Planet(vec, 10)
-  }
-
-  private def createDummyPlayer() = {
-    val rocket = Rocket(vec, vec, vec, 10)
-
-    Player(rocket, alive = true)
-  }
-
-  private def createDummyPlayers() = {
-    val rocket = Rocket(vec, vec, vec, 10)
-
-    Vector(createDummyPlayer(), createDummyPlayer())
   }
 
   private def createDummyPlayerInput() = {

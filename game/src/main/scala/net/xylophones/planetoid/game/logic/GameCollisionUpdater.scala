@@ -1,6 +1,5 @@
 package net.xylophones.planetoid.game.logic
 
-import scala.collection.mutable.MutableList
 import net.xylophones.planetoid.game.model._
 
 class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
@@ -29,7 +28,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
 
   private def checkMissileOrPlanetCollision(player: Player, missiles: Set[Missile], planet: Planet) = {
     val missileResult = checkMissileCollision(player, missiles)
-    val planetResult = checkPLanetCollision(player, planet)
+    val planetResult = checkPlanetCollision(player, planet)
 
     mergeCollisionResults(missileResult, planetResult)
   }
@@ -44,7 +43,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
     } else CollisionResult(player = player)
   }
 
-  private def checkPLanetCollision(player: Player, planet: Planet): CollisionResult = {
+  private def checkPlanetCollision(player: Player, planet: Planet): CollisionResult = {
     val isColliding = collisionCalculator.isCollision(player.rocket, planet)
 
     if (isColliding) {
@@ -65,5 +64,4 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
       CollisionResult(r1.player, isCollision = true, r1.events ++ r2.events, r1.impactMissiles ++ r2.impactMissiles)
     }
   }
-
 }

@@ -2,6 +2,7 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.maths.Vector2D
 import net.xylophones.planetoid.game.model._
+import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FunSuite, Matchers}
@@ -56,7 +57,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val physics = new GamePhysics()
     val player1 = Player(createRocketAt(Vector2D(10, 10)), alive = true)
     val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
-    val model = GameModel(createOffscreenPlanet(), Vector(player1, createDummyPlayer()), Set(missile))
+    val model = GameModel(createDummyPlanet(), Vector(player1, createDummyPlayer()), Set(missile))
 
     // when
     val result: (GameModel, Set[GameEvent.Value]) = underTest.updateForCollisions(model, physics)
@@ -68,20 +69,4 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     newModel.players(0).alive shouldBe false
     newModel.missiles shouldBe empty
   }
-
-  private def createOffscreenPlanet() = {
-    Planet(Vector2D(10000, 10000), 10)
-  }
-
-  private def createRocketAt(position: Vector2D) = {
-    Rocket(position, Vector2D(0,1), Vector2D(0,0), 5)
-  }
-
-  private def createDummyPlayer() = {
-    val vec = Vector2D(-1000, -1000)
-    val rocket = Rocket(vec, vec, vec, 10)
-
-    Player(rocket, alive = true)
-  }
-
 }

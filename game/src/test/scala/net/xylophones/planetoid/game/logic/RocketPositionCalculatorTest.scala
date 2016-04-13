@@ -2,6 +2,7 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.maths.Vector2D
 import net.xylophones.planetoid.game.model.{PlayerInput, Rocket, Planet, GamePhysics}
+import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
 import org.scalatest._
 import org.scalatest.junit.JUnitRunner
@@ -17,7 +18,7 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
     // given
     val physics: GamePhysics = new GamePhysics()
     val input = PlayerInput()
-    val rocket = rocketAtOriginPointingUp()
+    val rocket = createRocketAtOriginPointingUp()
 
     // when
     val updatedRocket: Rocket = underTest.updateRocketPosition(rocket, input, planet, physics)
@@ -30,7 +31,7 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
   test("rocket rotates when user input indicates left") {
     val physics: GamePhysics = new GamePhysics(rocketRotationSpeed = Pi / 2, gForce = 1, rocketThrustForce = 10)
     val input = PlayerInput(left = true)
-    val rocket = rocketAtOriginPointingUp()
+    val rocket = createRocketAtOriginPointingUp()
 
     // when
     val updatedRocket: Rocket = underTest.updateRocketPosition(rocket, input, planet, physics)
@@ -43,7 +44,7 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
   test("rocket rotates when user input indicates right") {
     val physics: GamePhysics = new GamePhysics(rocketRotationSpeed = Pi / 2, gForce = 1, rocketThrustForce = 10)
     val input = PlayerInput(right = true)
-    val rocket = rocketAtOriginPointingUp()
+    val rocket = createRocketAtOriginPointingUp()
 
     // when
     val updatedRocket: Rocket = underTest.updateRocketPosition(rocket, input, planet, physics)
@@ -56,7 +57,7 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
   test("rocket moves forward when user input indicates thrust") {
     val physics: GamePhysics = new GamePhysics(gForce = 0, rocketThrustForce = 10, rocketMass = 1)
     val input = PlayerInput(thrust = true)
-    val rocket = rocketAtOriginPointingUp()
+    val rocket = createRocketAtOriginPointingUp()
 
     // when
     val updatedRocket: Rocket = underTest.updateRocketPosition(rocket, input, planet, physics)
@@ -64,13 +65,5 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
     // then
     val positionIsUp10 = updatedRocket.position ~= Vector2D(0, 10)
     positionIsUp10 shouldBe true
-  }
-
-  def rocketAtOriginPointingUp(): Rocket = {
-    val position = Vector2D(0, 0)
-    val rotation = Vector2D(0, 1)
-    val velocity = Vector2D(0, 0)
-
-    Rocket(position, rotation, velocity, 999)
   }
 }
