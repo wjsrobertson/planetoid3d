@@ -25,7 +25,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics
     val xOffscreen = phys.universeWidth + 99
-    val missile = Missile(Vector2D(xOffscreen, 10), Vector2D(1, 0), 10)
+    val missile = new Missile(Vector2D(xOffscreen, 10), Vector2D(1, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelFromMissile(missile)
 
@@ -42,7 +42,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics
     val xOnScreen = phys.universeWidth - 10
-    val missile = Missile(Vector2D(xOnScreen, 10), Vector2D(1, 0), 10)
+    val missile = new Missile(Vector2D(xOnScreen, 10), Vector2D(1, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelFromMissile(missile)
 
@@ -92,7 +92,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
   def createGameModelWithRocketAsPLayer1(rocket: Rocket) = {
     val players = Vector(Player(rocket, alive = true), createDummyPlayer())
     val planet = createDummyPlanet()
-    val model = GameModel(planet, players, Vector())
+    val model = GameModel(planet, players, Set.empty)
 
     model
   }
@@ -100,7 +100,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
   def createGameModelFromMissile(missile: Missile): GameModel = {
     val players = createDummyPlayers()
     val planet = createDummyPlanet()
-    val model = GameModel(planet, players, Vector(missile))
+    val model = GameModel(planet, players, Set(missile))
 
     model
   }

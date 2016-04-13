@@ -15,7 +15,7 @@ class MissilePositionCalculatorTest extends FunSuite with Matchers {
     // given
     val position = Vector2D(0, 0)
     val rotation = Vector2D(0, 1)
-    val missile = Missile(position, rotation, 999)
+    val missile = new Missile(position, rotation, 999)
     val physics = new GamePhysics(missileSpeed = 10)
 
     // when
