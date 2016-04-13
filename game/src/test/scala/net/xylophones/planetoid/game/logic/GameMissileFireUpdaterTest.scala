@@ -18,11 +18,12 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
     val player2Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = false)
 
     // when
-    val result: (GameModel, Set[GameEvent.Value]) = underTest.update(model, Vector(player1Input, player2Input))
-    val newModel = result._1
-    val events = result._2
+    val result = underTest.updateToFireMissiles(model, Vector(player1Input, player2Input))
 
     // then
+    val newModel = result.model
+    val events = result.events
+
     newModel.missiles should have size 1
     val missileRotation = newModel.missiles.head.rotation
     val missileRotationMatchesRocket = missileRotation ~= model.players(0).rocket.rotation

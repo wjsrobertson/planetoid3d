@@ -22,11 +22,11 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(planet, Vector(player1, createDummyPlayer()), Set.empty)
 
     // when
-    val result: (GameModel, Set[GameEvent.Value]) = underTest.updateForCollisions(model, physics)
+    val result = underTest.updateForCollisions(model, physics)
 
     // then
-    val newModel = result._1
-    val events = result._2
+    val newModel = result.model
+    val events = result.events
 
     newModel.players(0).alive shouldBe false
   }
@@ -41,11 +41,11 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(planet, Vector(createDummyPlayer(), player2), Set.empty)
 
     // when
-    val result: (GameModel, Set[GameEvent.Value]) = underTest.updateForCollisions(model, physics)
+    val result = underTest.updateForCollisions(model, physics)
 
     // then
-    val newModel = result._1
-    val events = result._2
+    val newModel = result.model
+    val events = result.events
 
     newModel.players(1).alive shouldBe false
   }
@@ -60,11 +60,11 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(createDummyPlanet(), Vector(player1, createDummyPlayer()), Set(missile))
 
     // when
-    val result: (GameModel, Set[GameEvent.Value]) = underTest.updateForCollisions(model, physics)
+    val result = underTest.updateForCollisions(model, physics)
 
     // then
-    val newModel = result._1
-    val events = result._2
+    val newModel = result.model
+    val events = result.events
 
     newModel.players(0).alive shouldBe false
     newModel.missiles shouldBe empty

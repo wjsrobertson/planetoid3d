@@ -10,7 +10,7 @@ class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
     val updatedMissiles = updateMissilesRemovingIfOffScreen(model, physics)
     val updatedPlayers = updateRocketsWarpingIfOffScreen(model, physics, playerInputs)
 
-    GameModel(model.planet, updatedPlayers, updatedMissiles)
+    new GameModelUpdateResult(GameModel(model.planet, updatedPlayers, updatedMissiles), Set.empty)
   }
 
   private def updateRocketsWarpingIfOffScreen(model: GameModel, physics: GamePhysics, inputs: IndexedSeq[PlayerInput]) = {

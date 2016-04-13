@@ -1,10 +1,10 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.model.{Player, GameEvent, PlayerInput, GameModel, Missile}
+import net.xylophones.planetoid.game.model._
 
 class GameMissileFireUpdater {
 
-  def update(model: GameModel, playerInputs: IndexedSeq[PlayerInput]): (GameModel, Set[GameEvent.Value]) = {
+  def updateToFireMissiles(model: GameModel, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val p1Missile = createMissileIfFiring(model.players(0), playerInputs(0))
     val p2Missile = createMissileIfFiring(model.players(1), playerInputs(1))
     val missiles = model.missiles ++ p1Missile ++ p2Missile
@@ -13,7 +13,7 @@ class GameMissileFireUpdater {
     val missileFired = p1Missile.isDefined || p2Missile.isDefined
     val events: Set[GameEvent.Value] = if (missileFired) Set(GameEvent.MissileFired) else Set.empty
 
-    (newModel, events)
+    new GameModelUpdateResult(newModel, events)
   }
 
   def createMissileIfFiring(player: Player, input: PlayerInput) = {

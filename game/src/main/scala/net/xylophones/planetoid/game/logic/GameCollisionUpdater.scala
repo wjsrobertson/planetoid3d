@@ -9,7 +9,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
                                      val events: Set[GameEvent.Value] = Set.empty,
                                      val impactMissiles: Set[Missile] = Set.empty)
 
-  def updateForCollisions(model: GameModel, physics: GamePhysics): (GameModel, Set[GameEvent.Value]) = {
+  def updateForCollisions(model: GameModel, physics: GamePhysics): GameModelUpdateResult = {
     val p1Result = checkMissileOrPlanetCollision(model.players(0), model.missiles, model.planet)
     val p2Result = checkMissileOrPlanetCollision(model.players(1), model.missiles, model.planet)
 
@@ -20,9 +20,9 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
       val newModel = GameModel(model.planet, Vector(p1Result.player, p2Result.player), remainingMissiles)
       val events = p1Result.events ++ p2Result.events
 
-      (newModel, events)
+      new GameModelUpdateResult(newModel, events)
     } else {
-      (model, Set.empty)
+      new GameModelUpdateResult(model, Set.empty)
     }
   }
 
