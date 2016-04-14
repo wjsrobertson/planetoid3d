@@ -1,6 +1,7 @@
 package net.xylophones.planetoid.web.msg;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.Session;
@@ -13,7 +14,9 @@ public class IncomingMessageProcessor {
     @Autowired
     private IncomingMessageParser incomingMessageParser;
 
-    Map<IncomingMessageType,AbstractIncomingMessageHandler> handlers;
+    @Autowired
+    @Qualifier("messageHandlers")
+    private Map<IncomingMessageType,AbstractIncomingMessageHandler> handlers;
 
     public void process(String message, Session session) {
         Optional<IncomingMessage> maybeMessage = incomingMessageParser.parse(message, session);
@@ -24,5 +27,4 @@ public class IncomingMessageProcessor {
             handler.handleMessage(incomingMessage);
         }
     }
-
 }
