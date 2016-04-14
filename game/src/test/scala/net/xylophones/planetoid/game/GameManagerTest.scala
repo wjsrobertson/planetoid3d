@@ -12,7 +12,7 @@ import org.mockito.Mockito._
 import org.mockito.Matchers.{eq => eqm}
 
 @RunWith(classOf[JUnitRunner])
-class GameManagerTest extends FunSuite with Matchers /*with MockFactory*/ with MockitoSugar {
+class GameManagerTest extends FunSuite with Matchers with MockitoSugar {
 
   val modelUpdater = mock[GameModelUpdater]
   val result = mock[GameModelUpdateResult]

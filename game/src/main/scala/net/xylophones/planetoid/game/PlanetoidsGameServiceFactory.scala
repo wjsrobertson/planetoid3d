@@ -4,7 +4,7 @@ import net.xylophones.planetoid.game.logic._
 
 class PlanetoidsGameServiceFactory {
 
-  def create = {
+  def create() = {
     val boundsChecker = new BoundsChecker
     val collisionCalculator = new CollisionCalculator
     val missilePositionCalculator = new MissilePositionCalculator
