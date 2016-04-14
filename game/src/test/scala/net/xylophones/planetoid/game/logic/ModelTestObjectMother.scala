@@ -1,15 +1,13 @@
 package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.maths.Vector2D
-import net.xylophones.planetoid.game.model.{Player, Rocket, Planet}
+import net.xylophones.planetoid.game.model.{GameModel, Player, Rocket, Planet}
 
 object ModelTestObjectMother {
 
   val vec = Vector2D(0, 0)
 
-  def createDummyPlanet() = {
-    Planet(Vector2D(10000, 10000), 10)
-  }
+  def createDummyPlanet() = Planet(Vector2D(10000, 10000), 10)
 
   def createDummyPlayer() = {
     val vec = Vector2D(-1000, -1000)
@@ -32,7 +30,8 @@ object ModelTestObjectMother {
     Rocket(position, rotation, velocity, 999)
   }
 
-  def createRocketAt(position: Vector2D) = {
-    Rocket(position, Vector2D(0,1), Vector2D(0,0), 5)
-  }
+  def createRocketAt(position: Vector2D) = Rocket(position, Vector2D(0, 1), Vector2D(0, 0), 5)
+
+  def createDummyModel() = GameModel(createDummyPlanet(), createDummyPlayers(), Set())
+
 }
