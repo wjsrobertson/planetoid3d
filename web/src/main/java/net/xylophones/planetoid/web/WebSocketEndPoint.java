@@ -1,5 +1,7 @@
 package net.xylophones.planetoid.web;
 
+import net.xylophones.planetoid.web.msg.IncomingMessageProcessor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.SpringConfigurator;
 
@@ -11,9 +13,13 @@ import java.io.IOException;
 @ServerEndpoint(value = "/websocket", configurator = SpringConfigurator.class)
 public class WebSocketEndPoint {
 
+    @Autowired
+    private IncomingMessageProcessor incomingMessageProcessor;
+
     @OnMessage
     public void onMessage(String message, Session session) throws IOException, InterruptedException {
         System.out.println("Message sent by session with ID " + session.getId() + " - " + message);
+        incomingMessageProcessor.process(message, session);
     }
 
     @OnError
@@ -29,6 +35,10 @@ public class WebSocketEndPoint {
     @OnClose
     public void onClose(Session session) {
         System.out.println("Session closed with ID " + session.getId());
+
+        // if in queue remove
+
+        // if in game then cancel
     }
 
 }
