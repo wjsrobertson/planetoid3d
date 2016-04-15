@@ -3,16 +3,18 @@ package net.xylophones.planetoid.web.msg;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 import javax.websocket.Session;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Optional;
 
 public abstract class AbstractIncomingMessageHandler<T> {
 
-    // todo - autowire
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private final Class<T> messageClass;
 
@@ -22,18 +24,19 @@ public abstract class AbstractIncomingMessageHandler<T> {
     }
 
     public void handleMessage(IncomingMessage message) {
-        T payload = convertPayload(message);
-        process(payload, message.getSession());
+        Optional<T> maybePayload = convertPayload(message);
+        maybePayload.ifPresent(payload -> process(payload, message.getSession()));
     }
 
     protected abstract void process(T payload, Session session);
 
-    private T convertPayload(IncomingMessage message) {
+    public abstract IncomingMessageType supportedMessageType();
+
+    private Optional<T> convertPayload(IncomingMessage message) {
         try {
-            return objectMapper.readValue(message.getPayload(), messageClass);
+            return Optional.of(objectMapper.readValue(message.getPayload(), messageClass));
         } catch (IOException e) {
-            // todo - handle
-            return null;
+            return Optional.empty();
         }
     }
 
