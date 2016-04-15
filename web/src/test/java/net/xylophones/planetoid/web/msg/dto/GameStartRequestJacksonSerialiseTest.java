@@ -1,6 +1,7 @@
 package net.xylophones.planetoid.web.msg.dto;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import net.xylophones.planetoid.web.spring.JacksonBeans;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +13,7 @@ public class GameStartRequestJacksonSerialiseTest {
 
     @Before
     public void setUp() throws Exception {
-        jacksonObjectMapper = new ObjectMapper();
+        jacksonObjectMapper = new JacksonBeans().jackson();
     }
 
     @Test

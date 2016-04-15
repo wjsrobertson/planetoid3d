@@ -1,8 +1,10 @@
 package net.xylophones.planetoid.game.maths
 
+import scala.beans.BeanProperty
 import scala.math._
 
-case class Vector2D(val x: Double, val y: Double) {
+case class Vector2D(val x: Double,
+                    val y: Double) {
 
   def +(that: Vector2D) = Vector2D(x + that.x, y + that.y)
 
