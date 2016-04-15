@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.web;
 
-import net.xylophones.planetoid.web.msg.IncomingMessageProcessor;
+import net.xylophones.planetoid.web.msg.IncomingMessageRouter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.server.standard.SpringConfigurator;
@@ -14,12 +14,12 @@ import java.io.IOException;
 public class WebSocketEndPoint {
 
     @Autowired
-    private IncomingMessageProcessor incomingMessageProcessor;
+    private IncomingMessageRouter incomingMessageRouter;
 
     @OnMessage
     public void onMessage(String message, Session session) throws IOException, InterruptedException {
         System.out.println("Message sent by session with ID " + session.getId() + " - " + message);
-        incomingMessageProcessor.process(message, session);
+        incomingMessageRouter.process(message, session);
     }
 
     @OnError

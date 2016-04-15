@@ -1,7 +1,9 @@
 package net.xylophones.planetoid.web.msg;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.xylophones.planetoid.web.msg.model.GameStartSession;
+import net.xylophones.planetoid.web.msg.model.DownstreamPlayer;
+import net.xylophones.planetoid.web.msg.model.IncomingMessage;
+import net.xylophones.planetoid.web.msg.model.IncomingMessageType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,10 +20,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameStartRequestMessageHandlerTest {
+public class GameStartRequestMessageProcessorTest {
 
     @InjectMocks
-    private GameStartRequestMessageHandler underTest;
+    private GameStartRequestMessageProcessor underTest;
 
     @Mock
     private GameStartQueue gameStartQueue;
@@ -30,7 +32,7 @@ public class GameStartRequestMessageHandlerTest {
     private Session session;
 
     @Captor
-    private ArgumentCaptor<GameStartSession> gameStartSessionCaptor;
+    private ArgumentCaptor<DownstreamPlayer> downstreamPlayerCaptor;
 
     @Before
     public void setUp() throws Exception {
@@ -42,16 +44,16 @@ public class GameStartRequestMessageHandlerTest {
     public void checkPayloadGetsPassedToGameStartQueue() throws Exception {
         // given
         String payload = "{\"id\":\"1234\",\"name\":\"Will Robertson\"}";
-        IncomingMessage message = new IncomingMessage(IncomingMessageType.GameRequest, payload, session);
+        IncomingMessage message = new IncomingMessage(IncomingMessageType.GameStartRequest, payload, session);
 
         // when
         underTest.handleMessage(message);
 
         // then
-        verify(gameStartQueue).add(gameStartSessionCaptor.capture());
-        GameStartSession gameStartSession = gameStartSessionCaptor.getValue();
+        verify(gameStartQueue).add(downstreamPlayerCaptor.capture());
+        DownstreamPlayer gameStartSession = downstreamPlayerCaptor.getValue();
 
-        assertThat(gameStartSession.getGameStartRequest().getId()).isEqualTo("1234");
-        assertThat(gameStartSession.getGameStartRequest().getName()).isEqualTo("Will Robertson");
+        assertThat(gameStartSession.getUserId()).isEqualTo("1234");
+        assertThat(gameStartSession.getName()).isEqualTo("Will Robertson");
     }
 }

@@ -1,10 +1,10 @@
-package net.xylophones.planetoid.web.msg;
+package net.xylophones.planetoid.web.msg.model;
 
 import java.util.Optional;
 
 public enum IncomingMessageType {
 
-    GameRequest("greq:"), Control("ctrl:");
+    GameStartRequest("greq:"), GameControl("ctrl:");
 
     IncomingMessageType(String prefix) {
         this.prefix = prefix;

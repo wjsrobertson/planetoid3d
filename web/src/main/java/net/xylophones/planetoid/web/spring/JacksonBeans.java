@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class JacksonFactory {
+public class JacksonBeans {
 
     @Bean
     public ObjectMapper jackson() {

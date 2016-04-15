@@ -1,4 +1,4 @@
-package net.xylophones.planetoid.web.msg;
+package net.xylophones.planetoid.web.msg.model;
 
 import javax.websocket.Session;
 

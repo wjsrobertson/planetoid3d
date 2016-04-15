@@ -1,12 +1,14 @@
 package net.xylophones.planetoid.web.msg;
 
+import net.xylophones.planetoid.web.msg.model.IncomingMessage;
+import net.xylophones.planetoid.web.msg.model.IncomingMessageType;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.Session;
 import java.util.Optional;
 
 @Component
-public class IncomingMessageParser {
+public class IncomingMessageCreator {
 
     public Optional<IncomingMessage> parse(String message, Session session) {
         Optional<IncomingMessageType> maybeMessageType = IncomingMessageType.getMessageType(message);

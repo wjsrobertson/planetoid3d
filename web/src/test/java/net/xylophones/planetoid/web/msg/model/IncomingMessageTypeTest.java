@@ -1,4 +1,4 @@
-package net.xylophones.planetoid.web.msg;
+package net.xylophones.planetoid.web.msg.model;
 
 import org.junit.Test;
 
@@ -18,7 +18,7 @@ public class IncomingMessageTypeTest {
 
         // then
         assertThat(messageType.isPresent()).isTrue();
-        assertThat(messageType.get()).isEqualTo(IncomingMessageType.GameRequest);
+        assertThat(messageType.get()).isEqualTo(IncomingMessageType.GameStartRequest);
     }
 
     @Test

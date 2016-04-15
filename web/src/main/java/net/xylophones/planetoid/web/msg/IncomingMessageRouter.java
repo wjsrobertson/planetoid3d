@@ -1,7 +1,8 @@
 package net.xylophones.planetoid.web.msg;
 
+import net.xylophones.planetoid.web.msg.model.IncomingMessage;
+import net.xylophones.planetoid.web.msg.model.IncomingMessageType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -12,15 +13,15 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Component
-public class IncomingMessageProcessor {
+public class IncomingMessageRouter {
 
     @Autowired
-    private IncomingMessageParser incomingMessageParser;
+    private IncomingMessageCreator incomingMessageCreator;
 
     @Autowired
-    private Set<AbstractIncomingMessageHandler> handlerSet;
+    private Set<AbstractIncomingMessageProcessor> handlerSet;
 
-    private Map<IncomingMessageType,AbstractIncomingMessageHandler> handlers = new ConcurrentHashMap<>();
+    private Map<IncomingMessageType,AbstractIncomingMessageProcessor> handlers = new ConcurrentHashMap<>();
 
     @PostConstruct
     private void initialiseHandlerMap() {
@@ -30,10 +31,10 @@ public class IncomingMessageProcessor {
     }
 
     public void process(String message, Session session) {
-        Optional<IncomingMessage> maybeMessage = incomingMessageParser.parse(message, session);
+        Optional<IncomingMessage> maybeMessage = incomingMessageCreator.parse(message, session);
         if (maybeMessage.isPresent()) {
             IncomingMessage incomingMessage = maybeMessage.get();
-            AbstractIncomingMessageHandler handler = handlers.get(incomingMessage.getType());
+            AbstractIncomingMessageProcessor handler = handlers.get(incomingMessage.getType());
 
             handler.handleMessage(incomingMessage);
         }

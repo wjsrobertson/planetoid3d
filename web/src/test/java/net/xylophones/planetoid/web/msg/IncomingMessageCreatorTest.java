@@ -1,5 +1,7 @@
 package net.xylophones.planetoid.web.msg;
 
+import net.xylophones.planetoid.web.msg.model.IncomingMessage;
+import net.xylophones.planetoid.web.msg.model.IncomingMessageType;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,10 +14,10 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-public class IncomingMessageParserTest {
+public class IncomingMessageCreatorTest {
 
     @InjectMocks
-    private IncomingMessageParser underTest;
+    private IncomingMessageCreator underTest;
 
     @Mock
     private Session session;
@@ -34,6 +36,6 @@ public class IncomingMessageParserTest {
         IncomingMessage incomingMessage = maybeMessage.get();
         assertThat(incomingMessage.getPayload()).isEqualTo("blah blah");
         assertThat(incomingMessage.getSession()).isEqualTo(session);
-        assertThat(incomingMessage.getType()).isEqualTo(IncomingMessageType.GameRequest);
+        assertThat(incomingMessage.getType()).isEqualTo(IncomingMessageType.GameStartRequest);
     }
 }

@@ -1,8 +1,8 @@
 package net.xylophones.planetoid.web.msg;
 
 import com.google.common.base.Stopwatch;
-import net.xylophones.planetoid.web.msg.model.GameStartSession;
-import net.xylophones.planetoid.web.msg.model.GameStartSessionPair;
+import net.xylophones.planetoid.web.msg.model.DownstreamPlayer;
+import net.xylophones.planetoid.web.msg.model.DownstreamPlayerPair;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,11 +22,11 @@ public class GameStartQueueTest {
     @Test(timeout = 10_000)
     public void checkDoesNotBlockWhenTwoAreInQueue() throws InterruptedException {
         // given
-        underTest.add(new GameStartSession(null, null));
-        underTest.add(new GameStartSession(null, null));
+        underTest.add(new DownstreamPlayer(null, null, null));
+        underTest.add(new DownstreamPlayer(null, null, null));
 
         // when
-        GameStartSessionPair pair = underTest.getNextGameStartSessionPair();
+        DownstreamPlayerPair pair = underTest.getNextGameStartSessionPair();
 
         // then
         assertThat(pair).isNotNull();
@@ -36,11 +36,11 @@ public class GameStartQueueTest {
     public void checkBlocksWhenOneIsInQueue() throws InterruptedException {
         // given
         Stopwatch stopwatch = Stopwatch.createStarted();
-        underTest.add(new GameStartSession(null, null));
+        underTest.add(new DownstreamPlayer(null, null, null));
         addSecondEntryInNewThreadAfterTwoSeconds(underTest);
 
         // when
-        GameStartSessionPair pair = underTest.getNextGameStartSessionPair();
+        DownstreamPlayerPair pair = underTest.getNextGameStartSessionPair();
         stopwatch.stop();
 
         // then
@@ -56,7 +56,7 @@ public class GameStartQueueTest {
                 } catch (InterruptedException e) {
                     // never mind
                 }
-                underTest.add(new GameStartSession(null, null));
+                underTest.add(new DownstreamPlayer(null, null, null));
             }
         }).start();
     }
