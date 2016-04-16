@@ -1,6 +1,5 @@
 package net.xylophones.planetoid.game.maths
 
-import scala.beans.BeanProperty
 import scala.math._
 
 case class Vector2D(val x: Double,

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class GameStartPlayerNotifier {
 
     @Autowired
-    private OutboundMessageSender messageSender;
+    private MessageSender messageSender;
 
     public void notifyPlayersOfGameStart(LiveGame liveGame) {
         String gameId = liveGame.getGameId();

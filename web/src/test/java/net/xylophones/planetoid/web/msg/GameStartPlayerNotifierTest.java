@@ -10,7 +10,6 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.websocket.Session;
 
@@ -25,7 +24,7 @@ public class GameStartPlayerNotifierTest {
     private GameStartPlayerNotifier underTest;
 
     @Mock
-    private OutboundMessageSender messageSender;
+    private MessageSender messageSender;
 
     @Mock
     private Session p1Session;

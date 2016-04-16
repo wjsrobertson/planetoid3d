@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class LiveGameUpdateNotifier {
 
     @Autowired
-    private OutboundMessageSender messageSender;
+    private MessageSender messageSender;
 
     public void notifyPlayersOfGameUpdate(LiveGame liveGame, GameModelUpdateResult updateResult) {
         messageSender.sendAsync(liveGame.getPlayer1().getSession(), updateResult);
