@@ -127,7 +127,6 @@
                     <target>${jdk.version}</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -141,21 +140,52 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-eclipse-plugin</artifactId>
-                <version>2.10</version>
-                <configuration>
-                    <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
-                    <wtpversion>2.0</wtpversion>
-                    <wtpContextName>spring4ajax</wtpContextName>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.searls</groupId>
+                <artifactId>jasmine-maven-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <phantomjs>
+                        <enforceVersion>false</enforceVersion>
+                    </phantomjs>
+                    <keepServerAlive>true</keepServerAlive>
+                    <jsSrcDir>${project.basedir}/src/main/webapp/javascript</jsSrcDir>
+                    <jsTestSrcDir>${project.basedir}/src/test/javascript</jsTestSrcDir>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.timurstrekalov</groupId>
+                <artifactId>saga-maven-plugin</artifactId>
+                <version>1.5.5</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>coverage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <baseDir>http://localhost:${jasmine.serverPort}</baseDir>
+                    <outputDir>${project.build.directory}/saga-coverage</outputDir>
+                    <noInstrumentPatterns>
+                        <pattern>.*/spec/.*</pattern>
+                        <pattern>.*/classpath/.*</pattern>
+                        <pattern>.*/webjars/.*</pattern>
+                    </noInstrumentPatterns>
                 </configuration>
             </plugin>
         </plugins>
