@@ -6,9 +6,19 @@
 
 <body>
 
+<input id="name" type="text"/>
+<input id="start" type="button" value="start game"/>
+
+<hr/>
+
+<div id="freq"></div>
 <div id="messages"></div>
+<div id="game"></div>
+
 <script type="text/javascript">
     var webSocket = new WebSocket('ws:/localhost:8080/planetoid/websocket');
+    var num = 0;
+    var startTime = (Date.now() / 1000);
 
     webSocket.onerror = function (event) {
         onError(event)
@@ -23,8 +33,12 @@
     };
 
     function onMessage(event) {
-        document.getElementById('messages').innerHTML += '<br />'
-                + event.data;
+        num += 1;
+        var diff = ((Date.now()/1000) - startTime);
+        var numPerSecond = num /  diff;
+
+        document.getElementById('freq').innerHTML = numPerSecond + " -" + num;
+        document.getElementById('messages').innerHTML = event.data;
     }
 
     function onOpen(event) {
@@ -35,12 +49,18 @@
         alert(event.data);
     }
 
-    function start() {
-        var text = document.getElementById("userinput").value;
+    function startGame() {
+        var id = (Math.random() + 1).toString().substr(0, 36);
+        var name = document.getElementById("name").value;
+        var message = {id: id, name: name};
+        var messageText = "greq:" + JSON.stringify(message);
 
-        webSocket.send(text);
-        return false;
+        webSocket.send(messageText);
     }
+</script>
+
+<script>
+    document.getElementById('start').addEventListener("click", startGame);
 </script>
 
 </body>

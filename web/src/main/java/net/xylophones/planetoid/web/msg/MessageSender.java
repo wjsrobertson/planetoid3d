@@ -35,7 +35,8 @@ public class MessageSender {
 
     private String createMessageString(Object message) throws JsonProcessingException {
         String payload = objectMapper.writeValueAsString(message);
+        String messageType = message.getClass().getSimpleName();
 
-        return message.getClass().getSimpleName() + ":" + payload;
+        return String.format("{\"messageType\":\"%s\",\"payload\":%s}", messageType, payload);
     }
 }

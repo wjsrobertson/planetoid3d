@@ -50,7 +50,7 @@ public class MessageSenderTest {
         // then
         verify(basic).sendText(textMessageCaptor.capture());
         String actualMessage = textMessageCaptor.getValue();
-        assertThat(actualMessage).startsWith("Banana:").contains("yellow");
+        assertThat(actualMessage).contains("\"messageType\":\"Banana\"").contains("yellow");
     }
 
     @Test
@@ -67,7 +67,7 @@ public class MessageSenderTest {
         // then
         verify(async).sendText(textMessageCaptor.capture());
         String actualMessage = textMessageCaptor.getValue();
-        assertThat(actualMessage).startsWith("Banana:").contains("yellow");
+        assertThat(actualMessage).contains("\"messageType\":\"Banana\"").contains("yellow");
     }
 
     @Test

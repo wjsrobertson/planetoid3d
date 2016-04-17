@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import scala.Option;
 
+// TODO - this should really happen in a threadpool
 @Component
 public class LiveGameUpdater {
 
