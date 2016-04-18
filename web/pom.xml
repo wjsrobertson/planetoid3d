@@ -162,7 +162,7 @@
                         <enforceVersion>false</enforceVersion>
                     </phantomjs>
                     <keepServerAlive>true</keepServerAlive>
-                    <jsSrcDir>${project.basedir}/src/main/webapp/javascript</jsSrcDir>
+                    <jsSrcDir>src/main/javascript</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/javascript</jsTestSrcDir>
                 </configuration>
             </plugin>
