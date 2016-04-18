@@ -54,7 +54,7 @@
                         <param>${project.basedir}/game/src/main/java</param>
                         <param>${project.basedir}/game/src/main/scala</param>
                         <param>${project.basedir}/web/src/main/java</param>
-                        <param>${project.basedir}/web/src/main/javascript</param>
+                        <param>${project.basedir}/web/src/main/webapp/javascript</param>
                     </sourceDirectories>
                 </configuration>
             </plugin>
