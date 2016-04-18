@@ -4,4 +4,6 @@ jdk:
   - oraclejdk8
 
 after_success:
-  - mvn jacoco:report coveralls:report
+  - mvn jacoco:report
+  - mvn --projects :planetoid-web test saga:coverage
+  - mvn coveralls:report
