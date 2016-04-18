@@ -30,7 +30,7 @@ Planetoid.SoundPlayer = function(sounds, assetFactory) {
                 _counterForSound[soundName] = (counter + 1) % _sounds[soundName].numConcurrent;
             }
         },
-        setSoundEnabled(isSoundEnabled) {
+        setSoundEnabled: function(isSoundEnabled) {
             _isSoundEnabled = isSoundEnabled;
         }
     };
