@@ -146,6 +146,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+            <!--
             <plugin>
                 <groupId>com.github.searls</groupId>
                 <artifactId>jasmine-maven-plugin</artifactId>
@@ -164,6 +165,7 @@
                     <keepServerAlive>true</keepServerAlive>
                     <jsSrcDir>src/main/webapp/javascript</jsSrcDir>
                     <jsTestSrcDir>${project.basedir}/src/test/javascript</jsTestSrcDir>
+                    <debug>true</debug>
                 </configuration>
             </plugin>
             <plugin>
@@ -188,6 +190,7 @@
                     </noInstrumentPatterns>
                 </configuration>
             </plugin>
+            -->
         </plugins>
     </build>
 </project>
