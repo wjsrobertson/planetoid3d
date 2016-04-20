@@ -2,7 +2,7 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.SoundPlayer = function(sounds, assetFactory) {
+Planetoid.SoundPlayer = function (sounds, assetFactory) {
 
     var _sounds = sounds;
     var _assetFactory = assetFactory;
@@ -13,7 +13,7 @@ Planetoid.SoundPlayer = function(sounds, assetFactory) {
     init();
 
     function init() {
-        sounds.forEach(function(sound){
+        sounds.forEach(function (sound) {
             for (var i = 0; i < sound.numConcurrent; i++) {
                 _audio[sound.name] = _audio[sound.name] || [];
                 _audio[sound.name][i] = _assetFactory.loadAudio(sound.path);
@@ -23,14 +23,14 @@ Planetoid.SoundPlayer = function(sounds, assetFactory) {
     }
 
     return {
-        playSound: function(soundName) {
+        playSound: function (soundName) {
             if (_isSoundEnabled && _audio[soundName]) {
                 var counter = _counterForSound[soundName];
                 _audio[soundName][counter].play();
                 _counterForSound[soundName] = (counter + 1) % _sounds[soundName].numConcurrent;
             }
         },
-        setSoundEnabled: function(isSoundEnabled) {
+        setSoundEnabled: function (isSoundEnabled) {
             _isSoundEnabled = isSoundEnabled;
         }
     };

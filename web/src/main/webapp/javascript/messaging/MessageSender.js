@@ -5,7 +5,7 @@ var Planetoid = Planetoid || {};
 Planetoid.MessageSender = function (webSocketContainer) {
 
     function createMessage(messageType, payload) {
-        return messageType + ":" + payload;
+        return messageType + ":" + JSON.stringify(payload);
     }
 
     return {

@@ -2,8 +2,12 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.CanvasView = function(canvasElementId) {
+Planetoid.CanvasView = function(canvas, gameDetails) {
 
-
+    return {
+        draw: function() {
+            canvas.innerHTML = JSON.stringify(gameDetails.getGameModel());
+        }
+    }
 
 };

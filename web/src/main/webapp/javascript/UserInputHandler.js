@@ -2,33 +2,43 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.UserInputHandler = function(container, liveGameDetails) {
+Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessageSender) {
 
-    var _liveGameDetails = liveGameDetails;
-
-    container.addEventListener('keydown',
-        function (event) {
-            pressedKeys[event.keyCode] = true;
-        }
-    );
-
-    container.addEventListener('keyup',
-        function (event) {
-            pressedKeys[event.keyCode] = false;
-        }
-    );
-
-    /*
-    Keys = {
-        LEFT_KEY: 37,
-        RIGHT_KEY: 39,
-        UP_KEY: 38,
-        DOWN_KEY: 40,
-        SPACE_KEY: 32,
-        S_KEY: 83,
-        N_KEY: 78,
-        A_KEY: 65
+    var keyCodesForActions = {
+        37: 'left',
+        39: 'right',
+        38: 'thrust',
+        32: 'fireMissile'
+        // 40: 'reverseThrust'
     };
-    */
 
+    return {
+        bindAndListenForGameStart: function () {
+            container.addEventListener('keydown',
+                function (event) {
+                    if (gameDetails.isGameInProggress()) {
+                        var keyCode = event.keyCode;
+                        var actionName = keyCodesForActions[keyCode];
+                        if (actionName) {
+                            gameDetails.getUserInput()[actionName] = true;
+                        }
+
+                        playerInputMessageSender.sendMessage();
+                    }
+                }
+            );
+
+            container.addEventListener('keyup',
+                function (event) {
+                    var keyCode = event.keyCode;
+                    var actionName = keyCodesForActions[keyCode];
+                    if (actionName) {
+                        gameDetails.getUserInput()[actionName] = false;
+                    }
+
+                    playerInputMessageSender.sendMessage();
+                }
+            );
+        }
+    }
 };

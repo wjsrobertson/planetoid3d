@@ -1,0 +1,3 @@
+
+exception when trying to use websocket too early:
+    MessageSender.js:15 Uncaught InvalidStateError: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.

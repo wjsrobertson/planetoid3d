@@ -13,7 +13,7 @@ Planetoid.GameUpdateMessageProcessor = function (liveGameDetails, soundPlayer) {
     }
 
     return {
-        processGameUpdate: function (gameUpdate) {
+        processMessage: function (gameUpdate) {
             updateGameModel(gameUpdate.model);
 
             gameUpdate.events.forEach(function (event) {

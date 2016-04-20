@@ -11,7 +11,8 @@ Planetoid.WebSocketContainer = function (messageRouter, websocketUrl) {
     }
 
     function onMessage(event) {
-        messageRouter.routeMessage(event.data);
+        var message = JSON.parse(event.data);
+        messageRouter.routeMessage(message);
     }
 
     function createWebSocket() {
