@@ -23,8 +23,9 @@ Planetoid.Initialiser.bindAndListenForGameStart = function (canvasId, nameInputI
     var playerInputMessageSender = Planetoid.PlayerInputMessageSender(gameDetails, messageSender);
 
     var canvas = document.getElementById(canvasId);
-    var userInputHandler = Planetoid.UserInputHandler(canvas, gameDetails, playerInputMessageSender);
-    var view = Planetoid.CanvasView(canvas, gameDetails);
+    var gameDiv =  window; //document.getElementByName("game");
+    var userInputHandler = Planetoid.UserInputHandler(window, gameDetails, playerInputMessageSender);
+    var view = Planetoid.CanvasView(canvas, gameDetails, Planetoid.Config.images);
 
     var gameOrchestrator = Planetoid.GameOrchestrator(view, gameDetails);
 

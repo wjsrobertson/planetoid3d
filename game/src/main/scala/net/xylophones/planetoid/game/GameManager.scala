@@ -28,7 +28,7 @@ class GameManager(val modelUpdater: GameModelUpdater) {
 
       if (game.player1Id == playerId) {
         game.player1Input = input
-      } else if (game.player1Id == playerId) {
+      } else if (game.player2Id == playerId) {
         game.player2Input = input
       }
     }

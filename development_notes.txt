@@ -1,3 +1,10 @@
 
 exception when trying to use websocket too early:
     MessageSender.js:15 Uncaught InvalidStateError: Failed to execute 'send' on 'WebSocket': Still in CONNECTING state.
+
+Planet generator:
+http://donjon.bin.sh/world/index.cgi
+
+Space ships (Creative Commons):
+http://opengameart.org/content/space-shooter-redux
+

@@ -16,6 +16,38 @@ Planetoid.Config = {
         name: 'MissileFired',
         path: 'assets/sound/shoot.ogg',
         numConcurrent: 3
-    }]
+    }],
 
+    images: {
+        player1: {
+            path: 'assets/images/playerShip2_blue.png',
+            scale: 1,
+            width: 112,
+            height: 75
+        },
+        player2: {
+            path: 'assets/images/playerShip2_orange.png',
+            scale: 1,
+            width: 112,
+            height: 75
+        },
+        player1Missile: {
+            path: 'assets/images/laserBlue08.png',
+            scale: 0.25,
+            width: 112,
+            height: 75
+        },
+        player2Missile: {
+            path: 'assets/images/laserRed08.png',
+            scale: 0.25,
+            width: 112,
+            height: 75
+        },
+        planet: {
+            path: 'assets/images/worldgen.gif',
+            scale: 3,
+            width: 200,
+            height: 200
+        }
+    }
 };

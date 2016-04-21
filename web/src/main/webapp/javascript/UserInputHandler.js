@@ -21,22 +21,22 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
                         var actionName = keyCodesForActions[keyCode];
                         if (actionName) {
                             gameDetails.getUserInput()[actionName] = true;
+                            playerInputMessageSender.sendMessage();
                         }
-
-                        playerInputMessageSender.sendMessage();
                     }
                 }
             );
 
             container.addEventListener('keyup',
                 function (event) {
-                    var keyCode = event.keyCode;
-                    var actionName = keyCodesForActions[keyCode];
-                    if (actionName) {
-                        gameDetails.getUserInput()[actionName] = false;
+                    if (gameDetails.isGameInProggress()) {
+                        var keyCode = event.keyCode;
+                        var actionName = keyCodesForActions[keyCode];
+                        if (actionName) {
+                            gameDetails.getUserInput()[actionName] = false;
+                            playerInputMessageSender.sendMessage();
+                        }
                     }
-
-                    playerInputMessageSender.sendMessage();
                 }
             );
         }
