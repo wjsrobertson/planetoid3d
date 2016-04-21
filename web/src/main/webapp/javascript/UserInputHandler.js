@@ -8,8 +8,8 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
         37: 'left',
         39: 'right',
         38: 'thrust',
-        32: 'fireMissile'
-        // 40: 'reverseThrust'
+        32: 'fireMissile',
+        40: 'reverseThrust'
     };
 
     return {

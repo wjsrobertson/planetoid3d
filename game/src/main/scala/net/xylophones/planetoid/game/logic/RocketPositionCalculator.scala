@@ -1,7 +1,7 @@
 package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.maths.Vector2D
-import net.xylophones.planetoid.game.model.{Planet, PlayerInput, Rocket, GamePhysics}
+import net.xylophones.planetoid.game.model.{GamePhysics, Planet, PlayerInput, Rocket}
 
 class RocketPositionCalculator(boundsChecker: BoundsChecker) {
 
@@ -10,7 +10,9 @@ class RocketPositionCalculator(boundsChecker: BoundsChecker) {
 
     val rotation = newRotationBasedOnPlayerInput(rocket, input, physics.rocketRotationSpeed)
 
-    val thrustForce = if (input.thrust) rotation * physics.rocketThrustForce else Vector2D(0, 0)
+    val thrustForce = if (input.thrust) rotation * physics.rocketThrustForce
+                      else if (input.reverseThrust) rotation * physics.rocketReverseThrustForce
+                      else Vector2D(0, 0)
 
     val accel = (planetForce + thrustForce) / physics.rocketMass
 

@@ -43,6 +43,6 @@ public class GameControlMessageProcessorTest {
         underTest.handleMessage(message);
 
         // then
-        verify(gameService).applyUserInput("game id", "user id", new PlayerInput(false, true, false, true));
+        verify(gameService).applyUserInput("game id", "user id", new PlayerInput(false, true, false,false, true));
     }
 }

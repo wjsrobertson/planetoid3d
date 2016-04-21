@@ -13,7 +13,8 @@ Planetoid.GameDetails = function () {
         'left': false,
         'right': false,
         'thrust': false,
-        'fireMissile': false
+        'fireMissile': false,
+        'reverseThrust': false
     };
     var _gameInProgress;
     var _gameModel;

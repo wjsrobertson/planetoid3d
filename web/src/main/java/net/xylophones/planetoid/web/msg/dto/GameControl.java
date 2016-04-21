@@ -19,13 +19,16 @@ public class GameControl {
 
     private final boolean thrust;
 
+    private final boolean reverseThrust;
+
     @JsonCreator
     public GameControl(@JsonProperty("userId") String userId,
                        @JsonProperty("gameId") String gameId,
                        @JsonProperty("fireMissile") boolean fireMissile,
                        @JsonProperty("left") boolean left,
                        @JsonProperty("right") boolean right,
-                       @JsonProperty("thrust") boolean thrust) {
+                       @JsonProperty("thrust") boolean thrust,
+                       @JsonProperty("reverseThrust") boolean reverseThrust) {
 
         this.userId = userId;
         this.gameId = gameId;
@@ -33,6 +36,7 @@ public class GameControl {
         this.left = left;
         this.right = right;
         this.thrust = thrust;
+        this.reverseThrust = reverseThrust;
     }
 
     public String getUserId() {
@@ -59,6 +63,10 @@ public class GameControl {
         return thrust;
     }
 
+    public boolean isReverseThrust() {
+        return reverseThrust;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (! (other instanceof GameControl)) {
@@ -70,13 +78,14 @@ public class GameControl {
                 left == that.left &&
                 right == that.right &&
                 thrust == that.thrust &&
+                reverseThrust == that.reverseThrust &&
                 Objects.equal(userId, that.userId) &&
                 Objects.equal(gameId, that.gameId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(userId, gameId, fireMissile, left, right, thrust);
+        return Objects.hashCode(userId, gameId, fireMissile, left, right, thrust, reverseThrust);
     }
 
     @Override
@@ -88,6 +97,7 @@ public class GameControl {
                 .add("left", left)
                 .add("right", right)
                 .add("thrust", thrust)
+                .add("reverseThrust", reverseThrust)
                 .toString();
     }
 }
