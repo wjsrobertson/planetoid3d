@@ -13,7 +13,7 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
 
   test("missile gets launched when player is firing") {
     // given
-    val model = GameModel(createDummyPlanet(), createDummyPlayers(), Set.empty)
+    val model = GameModel(createDummyPlanet(), createDummyPlayers())
     val player1Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = true)
     val player2Input = PlayerInput(left = false, right = false, thrust = false, fireMissile = false)
 
@@ -24,8 +24,8 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
     val newModel = result.model
     val events = result.events
 
-    newModel.missiles should have size 1
-    val missileRotation = newModel.missiles.head.rotation
+    newModel.players(0).missiles should have size 1
+    val missileRotation = newModel.players(0).missiles(0).rotation
     val missileRotationMatchesRocket = missileRotation ~= model.players(0).rocket.rotation
     missileRotationMatchesRocket shouldBe true
 

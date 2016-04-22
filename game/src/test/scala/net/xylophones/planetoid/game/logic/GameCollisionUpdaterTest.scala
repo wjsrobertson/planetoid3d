@@ -17,9 +17,9 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     given
      */
     val planet = Planet(Vector2D(10, 10), 10)
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), alive = true)
+    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
-    val model = GameModel(planet, Vector(player1, createDummyPlayer()), Set.empty)
+    val model = GameModel(planet, Vector(player1, createDummyPlayer()))
 
     // when
     val result = underTest.updateForCollisions(model, physics)
@@ -28,7 +28,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val newModel = result.model
     val events = result.events
 
-    newModel.players(0).alive shouldBe false
+    newModel.players(0).numLives shouldBe 0
   }
 
   test("collision between player2 and planet is detected") {
@@ -36,9 +36,9 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     given
      */
     val planet = Planet(Vector2D(10, 10), 10)
-    val player2 = Player(createRocketAt(Vector2D(10, 10)), alive = true)
+    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
-    val model = GameModel(planet, Vector(createDummyPlayer(), player2), Set.empty)
+    val model = GameModel(planet, Vector(createDummyPlayer(), player2))
 
     // when
     val result = underTest.updateForCollisions(model, physics)
@@ -47,7 +47,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val newModel = result.model
     val events = result.events
 
-    newModel.players(1).alive shouldBe false
+    newModel.players(1).numLives shouldBe 0
   }
 
   test("collision between player1 and missile is detected and missile is removed") {
@@ -55,9 +55,10 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     given
      */
     val physics = new GamePhysics()
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), alive = true)
+    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
     val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
-    val model = GameModel(createDummyPlanet(), Vector(player1, createDummyPlayer()), Set(missile))
+    val player2 = createDummyPlayerWithMissile(missile)
+    val model = GameModel(createDummyPlanet(), Vector(player1, player2))
 
     // when
     val result = underTest.updateForCollisions(model, physics)
@@ -66,7 +67,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val newModel = result.model
     val events = result.events
 
-    newModel.players(0).alive shouldBe false
-    newModel.missiles shouldBe empty
+    newModel.players(0).numLives shouldBe 0
+    newModel.players(1).missiles shouldBe empty
   }
 }

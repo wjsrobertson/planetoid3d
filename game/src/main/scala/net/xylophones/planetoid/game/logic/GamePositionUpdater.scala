@@ -7,10 +7,9 @@ class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
                           boundsChecker: BoundsChecker) {
 
   def updateRocketAndMissilePositions(model: GameModel, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]) = {
-    val updatedMissiles = updateMissilesRemovingIfOffScreen(model, physics)
     val updatedPlayers = updateRocketsWarpingIfOffScreen(model, physics, playerInputs)
 
-    new GameModelUpdateResult(GameModel(model.planet, updatedPlayers, updatedMissiles), Set.empty)
+    new GameModelUpdateResult(GameModel(model.planet, updatedPlayers), Set.empty)
   }
 
   private def updateRocketsWarpingIfOffScreen(model: GameModel, physics: GamePhysics, inputs: IndexedSeq[PlayerInput]) = {
@@ -20,15 +19,16 @@ class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
     )
 
     val updatedPlayers = model.players.map(p => {
+      val missiles = updateMissilesRemovingIfOffScreen(p.missiles, physics)
       val rocket = rocketCalculator.updateRocketPosition(p.rocket, playerInput(p), model.planet, physics)
-      Player(rocket, p.alive)
+      Player(rocket, p.numLives, p.points, missiles)
     })
 
     updatedPlayers
   }
 
-  private def updateMissilesRemovingIfOffScreen(gameModel: GameModel, physics: GamePhysics) = {
-    val updatedMissiles = gameModel.missiles
+  private def updateMissilesRemovingIfOffScreen(missiles: IndexedSeq[Missile], physics: GamePhysics) = {
+    val updatedMissiles = missiles
       .map(m => missileCalculator.updateMissilePosition(m, physics))
       .filter(m => boundsChecker.isWithinBounds(m.position, physics))
 

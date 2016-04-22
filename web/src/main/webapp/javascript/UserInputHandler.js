@@ -23,6 +23,8 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
                             gameDetails.getUserInput()[actionName] = true;
                             playerInputMessageSender.sendMessage();
                         }
+
+                        event.stopPropagation();
                     }
                 }
             );
@@ -36,6 +38,8 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
                             gameDetails.getUserInput()[actionName] = false;
                             playerInputMessageSender.sendMessage();
                         }
+
+                        event.stopPropagation();
                     }
                 }
             );

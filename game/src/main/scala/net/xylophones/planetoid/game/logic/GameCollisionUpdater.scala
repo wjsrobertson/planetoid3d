@@ -4,21 +4,32 @@ import net.xylophones.planetoid.game.model._
 
 class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
 
-  private case class CollisionResult(val player: Player,
-                                     val isCollision: Boolean = false,
-                                     val events: Set[GameEvent.Value] = Set.empty,
-                                     val impactMissiles: Set[Missile] = Set.empty)
+  private case class CollisionResult(val isCollision: Boolean = false,
+                                     val impactMissiles: IndexedSeq[Missile] = IndexedSeq.empty)
+
+  private object CollisionResult {
+    def empty = CollisionResult()
+  }
 
   def updateForCollisions(model: GameModel, physics: GamePhysics): GameModelUpdateResult = {
-    val p1Result = checkMissileOrPlanetCollision(model.players(0), model.missiles, model.planet)
-    val p2Result = checkMissileOrPlanetCollision(model.players(1), model.missiles, model.planet)
+    val player1 = model.players(0)
+    val p1Result = checkMissileOrPlanetCollision(player1, model.players(1).missiles, model.planet)
+
+    val player2 = model.players(1)
+    val p2Result = checkMissileOrPlanetCollision(player2, model.players(0).missiles, model.planet)
 
     if (p1Result.isCollision || p2Result.isCollision) {
-      val impactMissiles = p1Result.impactMissiles ++ p2Result.impactMissiles
-      val remainingMissiles = model.missiles -- impactMissiles
+      val p1Lives = if (p1Result.isCollision) player1.numLives - 1 else player1.numLives
+      val p2Missiles = if (p1Result.isCollision) player2.missiles diff p1Result.impactMissiles else player2.missiles
 
-      val newModel = GameModel(model.planet, Vector(p1Result.player, p2Result.player), remainingMissiles)
-      val events = p1Result.events ++ p2Result.events
+      val p2Lives = if (p2Result.isCollision) player2.numLives - 1 else player2.numLives
+      val p1Missiles = if (p2Result.isCollision) player1.missiles diff p1Result.impactMissiles else player1.missiles
+
+      val p1 = Player(player1.rocket, p1Lives, player1.points, p1Missiles)
+      val p2 = Player(player2.rocket, p2Lives, player2.points, p2Missiles)
+
+      val events = Set(GameEvent.PlayerLoseLife)
+      val newModel = GameModel(model.planet, Vector(p1, p2))
 
       new GameModelUpdateResult(newModel, events)
     } else {
@@ -26,33 +37,25 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
     }
   }
 
-  private def checkMissileOrPlanetCollision(player: Player, missiles: Set[Missile], planet: Planet) = {
+  private def checkMissileOrPlanetCollision(player: Player, missiles: IndexedSeq[Missile], planet: Planet) = {
     val missileResult = checkMissileCollision(player, missiles)
     val planetResult = checkPlanetCollision(player, planet)
 
     mergeCollisionResults(missileResult, planetResult)
   }
 
-  private def checkMissileCollision(player: Player, missiles: Set[Missile]) = {
+  private def checkMissileCollision(player: Player, missiles: IndexedSeq[Missile]) = {
     val collidingMissiles = missiles.filter((m: Missile) => collisionCalculator.isCollision(m, player.rocket))
 
-    if (collidingMissiles.nonEmpty) {
-      val updatedPlayer = Player(player.rocket, alive = false)
-
-      CollisionResult(player = updatedPlayer, isCollision = true, events = Set(GameEvent.PlayerLoseLife), impactMissiles = collidingMissiles)
-    } else CollisionResult(player = player)
+    if (collidingMissiles.nonEmpty) CollisionResult(isCollision = true, impactMissiles = collidingMissiles)
+    else CollisionResult.empty
   }
 
   private def checkPlanetCollision(player: Player, planet: Planet): CollisionResult = {
     val isColliding = collisionCalculator.isCollision(player.rocket, planet)
 
-    if (isColliding) {
-      val updatedPlayer = Player(player.rocket, alive = false)
-
-      CollisionResult(player = updatedPlayer, isCollision = true, events = Set(GameEvent.PlayerLoseLife))
-    } else {
-      CollisionResult(player = player)
-    }
+    if (isColliding) CollisionResult(isCollision = true)
+    else CollisionResult.empty
   }
 
   private def mergeCollisionResults(r1: CollisionResult, r2: CollisionResult) = {
@@ -61,7 +64,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
     } else if (r2.isCollision && !r1.isCollision) {
       r2
     } else {
-      CollisionResult(r1.player, isCollision = true, r1.events ++ r2.events, r1.impactMissiles ++ r2.impactMissiles)
+      CollisionResult(isCollision = true, r1.impactMissiles ++ r2.impactMissiles)
     }
   }
 }

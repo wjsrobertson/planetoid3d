@@ -31,7 +31,6 @@ public class ScalaModelJasksonTool {
         GameModelUpdateResult result = new GameModelUpdateResult(
                 new GameModel(
                         new Planet(new Vector2D(1D, 1D), 10),
-                        null,
                         null
                 ), scalaSet
         );

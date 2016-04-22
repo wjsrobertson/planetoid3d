@@ -26,14 +26,14 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val xOffscreen = phys.universeWidth + 99
     val missile = new Missile(Vector2D(xOffscreen, 10), Vector2D(1, 0), 10)
     val inputs = createDummyPlayerInput()
-    val model = createGameModelFromMissile(missile)
+    val model = createGameModelWithPlayer1Missile(missile)
 
     // when
     val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
 
     // then
     val newModel = result.model
-    newModel.missiles shouldBe empty
+    newModel.players(0).missiles shouldBe empty
   }
 
   test("missile is not removed if it is onscreen") {
@@ -44,14 +44,14 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val xOnScreen = phys.universeWidth - 10
     val missile = new Missile(Vector2D(xOnScreen, 10), Vector2D(1, 0), 10)
     val inputs = createDummyPlayerInput()
-    val model = createGameModelFromMissile(missile)
+    val model = createGameModelWithPlayer1Missile(missile)
 
     // when
     val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
 
     // then
     val newModel = result.model
-    newModel.missiles should have size 1
+    newModel.players(0).missiles should have size 1
   }
 
   test("rocket gets warped to other side if it is offscreen") {
@@ -91,25 +91,4 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val player1 = newModel.players(0)
     player1.rocket.position.x shouldBe xOnScreen +- tolerance
   }
-
-  def createGameModelWithRocketAsPLayer1(rocket: Rocket) = {
-    val players = Vector(Player(rocket, alive = true), createDummyPlayer())
-    val planet = createDummyPlanet()
-    val model = GameModel(planet, players, Set.empty)
-
-    model
-  }
-
-  def createGameModelFromMissile(missile: Missile): GameModel = {
-    val players = createDummyPlayers()
-    val planet = createDummyPlanet()
-    val model = GameModel(planet, players, Set(missile))
-
-    model
-  }
-
-  private def createDummyPlayerInput() = {
-    Vector(PlayerInput(), PlayerInput())
-  }
-
 }

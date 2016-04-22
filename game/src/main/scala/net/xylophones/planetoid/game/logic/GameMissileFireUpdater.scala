@@ -5,25 +5,30 @@ import net.xylophones.planetoid.game.model._
 class GameMissileFireUpdater {
 
   def updateToFireMissiles(model: GameModel, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
-    val p1Missile = createMissileIfFiring(model.players(0), playerInputs(0))
-    val p2Missile = createMissileIfFiring(model.players(1), playerInputs(1))
-    val missiles = model.missiles ++ p1Missile ++ p2Missile
+    val numMissilesAtStart = getNumMissiles(model)
 
-    val newModel = GameModel(model.planet, model.players, missiles)
-    val missileFired = p1Missile.isDefined || p2Missile.isDefined
+    val p1 = createMissileIfFiring(model.players(0), playerInputs(0))
+    val p2 = createMissileIfFiring(model.players(1), playerInputs(1))
+
+    val newModel = GameModel(model.planet, Vector(p1, p2))
+    val missileFired = getNumMissiles(newModel) > numMissilesAtStart
     val events: Set[GameEvent.Value] = if (missileFired) Set(GameEvent.MissileFired) else Set.empty
 
     new GameModelUpdateResult(newModel, events)
   }
 
-  def createMissileIfFiring(player: Player, input: PlayerInput) = {
-    if (player.alive && input.fireMissile) {
-      val missile = new Missile(player.rocket.position, player.rocket.rotation, 10)
-
-      Some(missile)
-    } else {
-      None
-    }
+  def getNumMissiles(model: GameModel): Int = {
+    model.players(0).missiles.size + model.players(1).missiles.size
   }
 
+  def createMissileIfFiring(player: Player, input: PlayerInput) = {
+    if (player.missiles.isEmpty && input.fireMissile) {
+      val missile = new Missile(player.rocket.position, player.rocket.rotation, 10)
+      val missiles = player.missiles :+ missile
+
+      Player(player.rocket, player.numLives, player.points, missiles)
+    } else {
+      player
+    }
+  }
 }
