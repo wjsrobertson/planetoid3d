@@ -29,6 +29,7 @@ public class LiveGameRepository {
 
     public Optional<LiveGame> findBySessionId(String sessionId) {
         return games.stream().filter(game -> game.getPlayer1().getSession().getId().equals(sessionId)
-                || game.getPlayer2().getSession().getId().equals(sessionId)).findFirst();
+                || game.getPlayer2().getSession().getId().equals(sessionId))
+                .findFirst();
     }
 }

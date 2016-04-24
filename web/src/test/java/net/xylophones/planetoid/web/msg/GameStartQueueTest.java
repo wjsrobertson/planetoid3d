@@ -6,9 +6,12 @@ import net.xylophones.planetoid.web.msg.model.DownstreamPlayerPair;
 import org.junit.Before;
 import org.junit.Test;
 
+import javax.websocket.Session;
 import java.util.concurrent.TimeUnit;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class GameStartQueueTest {
 
@@ -48,16 +51,27 @@ public class GameStartQueueTest {
     }
 
     private void addSecondEntryInNewThreadAfterTwoSeconds(final GameStartQueue underTest) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2_000);
-                } catch (InterruptedException e) {
-                    // never mind
-                }
-                underTest.add(new DownstreamPlayer(null, null, null));
+        new Thread(() -> {
+            try {
+                Thread.sleep(2_000);
+            } catch (InterruptedException e) {
+                // never mind
             }
+            underTest.add(new DownstreamPlayer(null, null, null));
         }).start();
+    }
+
+    @Test
+    public void checkRemoveDownstreamPlayerWithSessionIdDoesRemove() {
+        // given
+        Session session = mock(Session.class);
+        when(session.getId()).thenReturn("session id");
+        underTest.add(new DownstreamPlayer(null, null, session));
+
+        // when
+        underTest.removeDownstreamPlayerWithSessionId("session id");
+
+        // then
+        assertThat(underTest.numWaiting()).isEqualTo(0);
     }
 }

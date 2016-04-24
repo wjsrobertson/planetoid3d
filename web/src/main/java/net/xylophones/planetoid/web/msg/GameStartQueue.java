@@ -20,11 +20,21 @@ public class GameStartQueue {
 
     /*
      * Blocks until a pair is available
+     *
+     * // TODO - handle case where session for player 1 or player 2 has closed
      */
     public DownstreamPlayerPair getNextGameStartSessionPair() throws InterruptedException {
         DownstreamPlayer player1 = queue.take();
         DownstreamPlayer player2 = queue.take();
 
         return new DownstreamPlayerPair(player1, player2);
+    }
+
+    public void removeDownstreamPlayerWithSessionId(String sessionId) {
+        queue.removeIf(p -> p.getSession().getId().equals(sessionId));
+    }
+
+    public int numWaiting() {
+        return queue.size();
     }
 }
