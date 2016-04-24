@@ -8,3 +8,12 @@ http://donjon.bin.sh/world/index.cgi
 Space ships (Creative Commons):
 http://opengameart.org/content/space-shooter-redux
 
+TODO - give user points when they win a round
+TODO - remove games from set when connection is lost
+TODO - end games where connection to a player is lost
+TODO - fire missile from JS and display
+TODO - display opponent name in GUI
+TODO - display round, lives and points in GUI
+TODO - highlight user's spaceship when they start playing
+TODO - facility to notify all sessions
+TODO - player waiting message to notify if a user is waiting to play
