@@ -2,7 +2,6 @@ package net.xylophones.planetoid.web.msg.model;
 
 import java.util.Optional;
 
-// TODO - get rid of the prefixes and just use the enum constants
 public enum IncomingMessageType {
 
     GameStartRequest, GameControl;

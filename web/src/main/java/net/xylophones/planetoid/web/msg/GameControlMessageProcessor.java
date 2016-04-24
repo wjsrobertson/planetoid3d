@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import javax.websocket.Session;
 
-// TODO - keep an index of session ID -> user ID and game ID sever side so client doesn't need to send
 @Component
 public class GameControlMessageProcessor extends AbstractIncomingMessageProcessor<GameControl> {
 
