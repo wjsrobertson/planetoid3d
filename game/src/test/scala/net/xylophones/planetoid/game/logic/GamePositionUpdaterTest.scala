@@ -29,7 +29,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val model = createGameModelWithPlayer1Missile(missile)
 
     // when
-    val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
+    val result = underTest.update(resultFromModel(model), phys, inputs)
 
     // then
     val newModel = result.model
@@ -47,7 +47,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val model = createGameModelWithPlayer1Missile(missile)
 
     // when
-    val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
+    val result = underTest.update(resultFromModel(model), phys, inputs)
 
     // then
     val newModel = result.model
@@ -65,7 +65,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val model = createGameModelWithRocketAsPLayer1(rocket)
 
     // when
-    val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
+    val result = underTest.update(resultFromModel(model), phys, inputs)
 
     // then
     val newModel = result.model
@@ -84,7 +84,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     val model = createGameModelWithRocketAsPLayer1(rocket)
 
     // when
-    val result = underTest.updateRocketAndMissilePositions(model, phys, inputs)
+    val result = underTest.update(resultFromModel(model), phys, inputs)
 
     // then
     val newModel = result.model

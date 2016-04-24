@@ -4,12 +4,13 @@ import net.xylophones.planetoid.game.model._
 
 class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
                           rocketCalculator: RocketPositionCalculator,
-                          boundsChecker: BoundsChecker) {
+                          boundsChecker: BoundsChecker) extends GameModelResultUpdater {
 
-  def updateRocketAndMissilePositions(model: GameModel, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]) = {
-    val updatedPlayers = updateRocketsWarpingIfOffScreen(model, physics, playerInputs)
+  override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
+    val updatedPlayers = updateRocketsWarpingIfOffScreen(initialResult.model, physics, playerInputs)
 
-    new GameModelUpdateResult(GameModel(model.planet, updatedPlayers), Set.empty)
+    val newModel = initialResult.model.copy(players = updatedPlayers)
+    new GameModelUpdateResult(newModel, initialResult.events)
   }
 
   private def updateRocketsWarpingIfOffScreen(model: GameModel, physics: GamePhysics, inputs: IndexedSeq[PlayerInput]) = {
@@ -21,6 +22,7 @@ class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
     val updatedPlayers = model.players.map(p => {
       val missiles = updateMissilesRemovingIfOffScreen(p.missiles, physics)
       val rocket = rocketCalculator.updateRocketPosition(p.rocket, playerInput(p), model.planet, physics)
+
       Player(rocket, p.numLives, p.points, missiles)
     })
 

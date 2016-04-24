@@ -2,19 +2,20 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.model._
 
-class GameMissileFireUpdater {
+class GameMissileFireUpdater extends GameModelResultUpdater {
 
-  def updateToFireMissiles(model: GameModel, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
+  override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
+    val model = initialResult.model
     val numMissilesAtStart = getNumMissiles(model)
 
     val p1 = createMissileIfFiring(model.players(0), playerInputs(0))
     val p2 = createMissileIfFiring(model.players(1), playerInputs(1))
 
-    val newModel = GameModel(model.planet, Vector(p1, p2))
+    val newModel = model.copy(players = Vector(p1, p2))
     val missileFired = getNumMissiles(newModel) > numMissilesAtStart
-    val events: Set[GameEvent.Value] = if (missileFired) Set(GameEvent.MissileFired) else Set.empty
+    val newEvents: Set[GameEvent.Value] = if (missileFired) Set(GameEvent.MissileFired) else Set.empty
 
-    new GameModelUpdateResult(newModel, events)
+    new GameModelUpdateResult(newModel, newEvents ++ initialResult.events)
   }
 
   def getNumMissiles(model: GameModel): Int = {

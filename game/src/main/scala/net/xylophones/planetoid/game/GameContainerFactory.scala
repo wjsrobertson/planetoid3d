@@ -21,8 +21,8 @@ class GameContainerFactory {
     val player2Pos = Vector2D(player2X, playerY)
     val player2Rotation = (planetPosition - player1Pos).normalise
     val player2 = Player(Rocket(player2Pos, player2Rotation, Vector2D(0, 0), phys.rocketRadius), phys.numLives)
-
-    val model = GameModel(planet, Vector(player1, player2))
+    val roundTimer = RoundCountdownTimer(remainingTimeMs = phys.roundStartDelayMilliseconds)
+    val model = GameModel(planet, Vector(player1, player2), roundTimer = roundTimer)
 
     new GameContainer(uuid, player1Id, player2Id, phys, model, PlayerInput(), PlayerInput())
   }

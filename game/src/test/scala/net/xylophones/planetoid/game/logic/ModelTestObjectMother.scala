@@ -62,4 +62,11 @@ object ModelTestObjectMother {
   def createDummyPlayerInput() = {
     Vector(PlayerInput(), PlayerInput())
   }
+
+  def createDummyRocket() = {
+    Rocket(vec, vec, vec, 10)
+  }
+
+
+  def resultFromModel(model: GameModel) = new GameModelUpdateResult(model, Set.empty)
 }

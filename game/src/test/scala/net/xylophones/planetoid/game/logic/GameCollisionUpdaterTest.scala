@@ -6,6 +6,7 @@ import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.{FunSuite, Matchers}
+import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 
 @RunWith(classOf[JUnitRunner])
 class GameCollisionUpdaterTest extends FunSuite with Matchers {
@@ -22,7 +23,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(planet, Vector(player1, createDummyPlayer()))
 
     // when
-    val result = underTest.updateForCollisions(model, physics)
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
 
     // then
     val newModel = result.model
@@ -41,7 +42,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(planet, Vector(createDummyPlayer(), player2))
 
     // when
-    val result = underTest.updateForCollisions(model, physics)
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
 
     // then
     val newModel = result.model
@@ -61,7 +62,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val model = GameModel(createDummyPlanet(), Vector(player1, player2))
 
     // when
-    val result = underTest.updateForCollisions(model, physics)
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
 
     // then
     val newModel = result.model

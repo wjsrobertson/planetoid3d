@@ -12,8 +12,12 @@ class PlanetoidsGameServiceFactory {
     val rocketCalculator = new RocketPositionCalculator(boundsChecker)
     val collisionUpdater = new GameCollisionUpdater(collisionCalculator)
     val positionUpdater = new GamePositionUpdater(missilePositionCalculator, rocketCalculator, boundsChecker)
+    val roundCompleteUpdater = new RoundCompleteUpdater
+    val currentTimeSource = new CurrentTimeSource
+    val roundStartUpdater = new RoundStartCountdownUpdater(currentTimeSource)
     val factory = new GameContainerFactory
-    val modelUpdater = new GameModelUpdater(positionUpdater, collisionUpdater, missileFireUpdater)
+    val updaters = Vector(positionUpdater, collisionUpdater, missileFireUpdater, roundCompleteUpdater)
+    val modelUpdater = new GameUpdater(updaters, roundStartUpdater)
     val manager = new GameManager(modelUpdater)
     val service = new PlanetoidsGameService(manager, factory)
 

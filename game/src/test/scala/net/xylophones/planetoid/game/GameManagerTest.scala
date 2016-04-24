@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game
 
-import net.xylophones.planetoid.game.logic.GameModelUpdater
+import net.xylophones.planetoid.game.logic.GameUpdater
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import net.xylophones.planetoid.game.model.{GameModelUpdateResult, GameContainer, GamePhysics, PlayerInput}
 import org.junit.runner.RunWith
@@ -14,7 +14,7 @@ import org.mockito.Matchers.{eq => eqm}
 @RunWith(classOf[JUnitRunner])
 class GameManagerTest extends FunSuite with Matchers with MockitoSugar {
 
-  val modelUpdater = mock[GameModelUpdater]
+  val modelUpdater = mock[GameUpdater]
   val result = mock[GameModelUpdateResult]
   val inputCaptor = ArgumentCaptor.forClass(classOf[Vector[PlayerInput]])
 

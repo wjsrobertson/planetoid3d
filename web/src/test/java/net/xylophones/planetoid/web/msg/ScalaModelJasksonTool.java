@@ -3,10 +3,7 @@ package net.xylophones.planetoid.web.msg;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.scala.DefaultScalaModule;
 import net.xylophones.planetoid.game.maths.Vector2D;
-import net.xylophones.planetoid.game.model.GameEvent;
-import net.xylophones.planetoid.game.model.GameModel;
-import net.xylophones.planetoid.game.model.GameModelUpdateResult;
-import net.xylophones.planetoid.game.model.Planet;
+import net.xylophones.planetoid.game.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import scala.Enumeration;
@@ -31,7 +28,9 @@ public class ScalaModelJasksonTool {
         GameModelUpdateResult result = new GameModelUpdateResult(
                 new GameModel(
                         new Planet(new Vector2D(1D, 1D), 10),
-                        null
+                        null,
+                        new RoundCountdownTimer(1, 10L, 20L),
+                        Winner.withName("Draw")
                 ), scalaSet
         );
 

@@ -2,7 +2,7 @@ package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.model._
 
-class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
+class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends GameModelResultUpdater {
 
   private case class CollisionResult(val isCollision: Boolean = false,
                                      val impactMissiles: IndexedSeq[Missile] = IndexedSeq.empty)
@@ -11,7 +11,9 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
     def empty = CollisionResult()
   }
 
-  def updateForCollisions(model: GameModel, physics: GamePhysics): GameModelUpdateResult = {
+  override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
+    val model = initialResult.model
+
     val player1 = model.players(0)
     val p1Result = checkMissileOrPlanetCollision(player1, model.players(1).missiles, model.planet)
 
@@ -29,11 +31,11 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) {
       val p2 = Player(player2.rocket, p2Lives, player2.points, p2Missiles)
 
       val events = Set(GameEvent.PlayerLoseLife)
-      val newModel = GameModel(model.planet, Vector(p1, p2))
+      val newModel = model.copy(players = Vector(p1, p2))
 
-      new GameModelUpdateResult(newModel, events)
+      new GameModelUpdateResult(newModel, events ++ initialResult.events)
     } else {
-      new GameModelUpdateResult(model, Set.empty)
+      new GameModelUpdateResult(model, initialResult.events)
     }
   }
 

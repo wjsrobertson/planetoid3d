@@ -2,12 +2,12 @@ package net.xylophones.planetoid.game
 
 import java.util.concurrent.ConcurrentHashMap
 
-import net.xylophones.planetoid.game.logic.GameModelUpdater
+import net.xylophones.planetoid.game.logic.GameUpdater
 import net.xylophones.planetoid.game.model._
 
 import scala.collection.convert.decorateAsScala._
 
-class GameManager(val modelUpdater: GameModelUpdater) {
+class GameManager(val modelUpdater: GameUpdater) {
 
   private val games = new ConcurrentHashMap[String, GameContainer]().asScala
 
