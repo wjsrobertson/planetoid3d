@@ -30,6 +30,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val events = result.events
 
     newModel.players.p1.numLives shouldBe 0
+    newModel.players.p2.points shouldBe 1
   }
 
   test("collision between player2 and planet is detected") {
@@ -49,6 +50,7 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     val events = result.events
 
     newModel.players.p2.numLives shouldBe 0
+    newModel.players.p1.points shouldBe 1
   }
 
   test("collision between player1 and missile is detected and missile is removed") {
@@ -70,5 +72,6 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
 
     newModel.players.p1.numLives shouldBe 0
     newModel.players.p2.missiles shouldBe empty
+    newModel.players.p2.points shouldBe 1
   }
 }
