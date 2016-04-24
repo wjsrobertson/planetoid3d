@@ -14,11 +14,11 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
   override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val model = initialResult.model
 
-    val player1 = model.players(0)
-    val p1Result = checkMissileOrPlanetCollision(player1, model.players(1).missiles, model.planet)
+    val player1 = model.players.p1
+    val p1Result = checkMissileOrPlanetCollision(player1, model.players.p2.missiles, model.planet)
 
-    val player2 = model.players(1)
-    val p2Result = checkMissileOrPlanetCollision(player2, model.players(0).missiles, model.planet)
+    val player2 = model.players.p1
+    val p2Result = checkMissileOrPlanetCollision(player2, model.players.p1.missiles, model.planet)
 
     if (p1Result.isCollision || p2Result.isCollision) {
       val p1Lives = if (p1Result.isCollision) player1.numLives - 1 else player1.numLives
@@ -31,7 +31,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
       val p2 = Player(player2.rocket, p2Lives, player2.points, p2Missiles)
 
       val events = Set(GameEvent.PlayerLoseLife)
-      val newModel = model.copy(players = Vector(p1, p2))
+      val newModel = model.copy(players = Players(p1, p2))
 
       new GameModelUpdateResult(newModel, events ++ initialResult.events)
     } else {

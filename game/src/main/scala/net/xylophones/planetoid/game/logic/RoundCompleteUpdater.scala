@@ -8,7 +8,7 @@ class RoundCompleteUpdater extends GameModelResultUpdater {
     val model = initialResult.model
 
     if (initialResult.events.contains(GameEvent.PlayerLoseLife)) {
-      val winner = determineWinner(model.players(0), model.players(1))
+      val winner = determineWinner(model.players.p1, model.players.p2)
 
       val events: Set[GameEvent.Value] = if (winner == Winner.None) Set.empty
                                          else Set(GameEvent.GameOver)

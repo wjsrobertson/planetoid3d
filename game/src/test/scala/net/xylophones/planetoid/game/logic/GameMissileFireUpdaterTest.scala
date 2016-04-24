@@ -24,9 +24,9 @@ class GameMissileFireUpdaterTest extends FunSuite with Matchers {
     val newModel = result.model
     val events = result.events
 
-    newModel.players(0).missiles should have size 1
-    val missileRotation = newModel.players(0).missiles(0).rotation
-    val missileRotationMatchesRocket = missileRotation ~= model.players(0).rocket.rotation
+    newModel.players.p1.missiles should have size 1
+    val missileRotation = newModel.players.p1.missiles(0).rotation
+    val missileRotationMatchesRocket = missileRotation ~= model.players.p1.rocket.rotation
     missileRotationMatchesRocket shouldBe true
 
     // and

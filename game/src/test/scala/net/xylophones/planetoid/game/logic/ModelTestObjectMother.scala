@@ -26,7 +26,7 @@ object ModelTestObjectMother {
   def createDummyPlayers() = {
     val rocket = Rocket(vec, vec, vec, 10)
 
-    Vector(createDummyPlayer(), createDummyPlayer())
+    Players(createDummyPlayer(), createDummyPlayer())
   }
 
   def createRocketAtOriginPointingUp() = {
@@ -41,9 +41,8 @@ object ModelTestObjectMother {
 
   def createDummyModel() = GameModel(createDummyPlanet(), createDummyPlayers())
 
-
   def createGameModelWithRocketAsPLayer1(rocket: Rocket) = {
-    val players = Vector(Player(rocket, numLives = 1), createDummyPlayer())
+    val players = Players(Player(rocket, numLives = 1), createDummyPlayer())
     val planet = createDummyPlanet()
     val model = GameModel(planet, players)
 
@@ -54,7 +53,7 @@ object ModelTestObjectMother {
     val player1 = createDummyPlayerWithMissile(missile)
     val player2 = createDummyPlayer()
     val planet = createDummyPlanet()
-    val model = GameModel(planet, Vector(player1, player2))
+    val model = GameModel(planet, Players(player1, player2))
 
     model
   }

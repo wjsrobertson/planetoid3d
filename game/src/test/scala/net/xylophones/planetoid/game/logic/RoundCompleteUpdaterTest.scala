@@ -16,7 +16,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 0)
     val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Vector(player1, player2)), Set(GameEvent.PlayerLoseLife))
+      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -32,7 +32,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val player1 = Player(createDummyRocket(), 0)
     val player2 = Player(createDummyRocket(), 1)
     val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Vector(player1, player2)), Set(GameEvent.PlayerLoseLife))
+      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -48,7 +48,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val player1 = Player(createDummyRocket(), 0)
     val player2 = Player(createDummyRocket(), 0)
     val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Vector(player1, player2)), Set(GameEvent.PlayerLoseLife))
+      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -64,7 +64,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 1)
     val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Vector(player1, player2)), Set(GameEvent.PlayerLoseLife))
+      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)

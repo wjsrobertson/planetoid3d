@@ -32,11 +32,11 @@ class GameContainerFactoryTest extends FunSuite with Matchers {
      */
     val planet = gameContainer.model.planet
 
-    val p1Distance: Double = (planet.position - gameContainer.model.players(0).rocket.position).magnitude
-    (p1Distance > (planet.radius + gameContainer.model.players(0).rocket.radius)) shouldBe true
+    val p1Distance: Double = (planet.position - gameContainer.model.players.p1.rocket.position).magnitude
+    (p1Distance > (planet.radius + gameContainer.model.players.p1.rocket.radius)) shouldBe true
 
-    val p2Distance = (planet.position - gameContainer.model.players(1).rocket.position).magnitude
-    (p1Distance > (planet.radius + gameContainer.model.players(1).rocket.radius)) shouldBe true
+    val p2Distance = (planet.position - gameContainer.model.players.p2.rocket.position).magnitude
+    (p1Distance > (planet.radius + gameContainer.model.players.p2.rocket.radius)) shouldBe true
   }
 
   test("players are not colliding with each other") {
@@ -48,8 +48,8 @@ class GameContainerFactoryTest extends FunSuite with Matchers {
      */
     val planet = gameContainer.model.planet
 
-    val p1 = gameContainer.model.players(0).rocket
-    val p2 = gameContainer.model.players(1).rocket
+    val p1 = gameContainer.model.players.p1.rocket
+    val p2 = gameContainer.model.players.p2.rocket
 
     val distance: Double = (p2.position - p1.position).magnitude
     (distance > (p1.radius + p2.radius)) shouldBe true

@@ -33,7 +33,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
     // then
     val newModel = result.model
-    newModel.players(0).missiles shouldBe empty
+    newModel.players.p1.missiles shouldBe empty
   }
 
   test("missile is not removed if it is onscreen") {
@@ -51,7 +51,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
     // then
     val newModel = result.model
-    newModel.players(0).missiles should have size 1
+    newModel.players.p1.missiles should have size 1
   }
 
   test("rocket gets warped to other side if it is offscreen") {
@@ -69,7 +69,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
     // then
     val newModel = result.model
-    val player1 = newModel.players(0)
+    val player1 = newModel.players.p1
     player1.rocket.position.x shouldBe 99d +- tolerance
   }
 
@@ -88,7 +88,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
     // then
     val newModel = result.model
-    val player1 = newModel.players(0)
+    val player1 = newModel.players.p1
     player1.rocket.position.x shouldBe xOnScreen +- tolerance
   }
 }
