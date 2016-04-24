@@ -25,7 +25,7 @@ public class IncomingMessageCreatorTest {
     @Test
     public void checkGameRequestMessageGetsParsed() throws Exception {
         // given
-        String message = "greq:blah blah";
+        String message = "GameStartRequest:blah blah";
 
         // when
         Optional<IncomingMessage> maybeMessage = underTest.parse(message, session);

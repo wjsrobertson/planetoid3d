@@ -16,7 +16,7 @@ Planetoid.PlayerInputMessageSender = function (gameDetails, messageSender) {
 
     return {
         sendMessage: function () {
-            messageSender.sendMessage("ctrl", createMessage());
+            messageSender.sendMessage("GameControl", createMessage());
         }
     }
 };

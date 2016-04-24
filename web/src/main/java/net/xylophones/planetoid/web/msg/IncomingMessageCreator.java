@@ -15,7 +15,7 @@ public class IncomingMessageCreator {
 
         if (maybeMessageType.isPresent()) {
             IncomingMessageType messageType = maybeMessageType.get();
-            String payload = message.substring(messageType.prefix.length());
+            String payload = message.substring(message.indexOf(":") + 1);
 
             return Optional.of(new IncomingMessage(messageType, payload, session));
         } else {

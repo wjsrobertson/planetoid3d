@@ -11,7 +11,7 @@ public class IncomingMessageTypeTest {
     @Test
     public void checkGetMessageTypeForGameRequest() throws Exception {
         // given
-        String message = "greq:blahblah";
+        String message = "GameStartRequest:blahblah";
 
         // when
         Optional<IncomingMessageType> messageType = IncomingMessageType.getMessageType(message);

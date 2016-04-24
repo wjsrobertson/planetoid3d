@@ -13,7 +13,7 @@ Planetoid.GameStartRequestMessageSender = function (messageSender, gameDetails) 
 
     return {
         sendMessage: function () {
-            messageSender.sendMessage("greq", createMessage());
+            messageSender.sendMessage("GameStartRequest", createMessage());
         }
     }
 };
