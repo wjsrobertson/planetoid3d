@@ -22,6 +22,7 @@ Planetoid.GameDetails = function () {
     var _userId;
     var _gameId;
     var _opponentName;
+    var _isPlayer1;
 
     return {
         setGameInProggress: function(gameInProggress) {
@@ -62,6 +63,12 @@ Planetoid.GameDetails = function () {
         },
         getOpponentName: function() {
             return _opponentName;
+        },
+        setIsPlayer1: function(isPlayer1) {
+            _isPlayer1 = isPlayer1
+        },
+        isPlayer1: function() {
+            return _isPlayer1;
         }
     }
 };

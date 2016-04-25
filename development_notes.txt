@@ -11,7 +11,8 @@ http://opengameart.org/content/space-shooter-redux
 Space background:
 http://opengameart.org/content/seamless-space-stars
 
+TODO - explosions
+TODO - make the scoreboard look good
 TODO - sounds and other event handling
-TODO - highlight user's spaceship when they start playing
 TODO - facility to notify all sessions
 TODO - player waiting message to notify if a user is waiting to play

@@ -15,7 +15,10 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
         player2: loadImage(imageConfig.player2),
         planet: loadImage(imageConfig.planet),
         player1Missile: loadImage(imageConfig.player1Missile),
-        player2Missile: loadImage(imageConfig.player2Missile)
+        player2Missile: loadImage(imageConfig.player2Missile),
+        highlight1: loadImage(imageConfig.shield1),
+        highlight2: loadImage(imageConfig.shield2),
+        highlight3: loadImage(imageConfig.shield3)
     };
 
     updateRatios();
@@ -42,6 +45,40 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
     function updateRatios() {
         _xRatio = _canvasWidth / _gameWidth;
         _yRatio = _canvasHeight / _gameHeight;
+    }
+
+    function renderSurround(model, entities, remainingTime) {
+        var totalTime = 3000;
+        var ratio = remainingTime / totalTime;
+        var angle = (360 * ratio * 3) % 360;
+
+        var numFrames = 3;
+        var framesInTotalTime = 360;
+        var index =  Math.floor((ratio * framesInTotalTime)) % numFrames;
+
+        var scale = ratio * 1.5
+
+        var entity = entities[index];
+
+        var modelHeight = model.radius * 2;
+
+        var height = scale * modelHeight * _yRatio;
+        var width = height * (entity.config.height / entity.config.width);
+
+        var midX = _xRatio * model.position.x;
+        var midY = _xRatio * model.position.y;
+        var x = midX - (width / 2);
+        var y = midY - (height / 2);
+
+        entity.imageElement.setAttribute('width', width);
+        entity.imageElement.setAttribute('height', height);
+        entity.imageElement.setAttribute('visibility', 'visibile');
+        entity.imageElement.setAttribute('x', x);
+        entity.imageElement.setAttribute('y', y);
+
+        var translate = 'rotate(' + angle + ' ' + midX + ' ' + midY + ')';
+
+        entity.imageElement.setAttribute('transform', translate);
     }
 
     function render(model, entity) {
@@ -79,6 +116,15 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
             var gameModel = gameDetails.getGameModel();
             if (gameModel) {
                 render(gameModel.planet, _entities.planet);
+
+                if (gameModel.roundTimer.remainingTimeMs > 300) {
+                    var rocket = gameDetails.isPlayer1() ? gameModel.players.p1.rocket : gameModel.players.p2.rocket;
+                    renderSurround(rocket, [_entities.highlight1, _entities.highlight2, _entities.highlight3], gameModel.roundTimer.remainingTimeMs);
+                } else {
+                    hideEntity(_entities.highlight1);
+                    hideEntity(_entities.highlight2);
+                    hideEntity(_entities.highlight3);
+                }
 
                 render(gameModel.players.p1.rocket, _entities.player1);
                 if (gameModel.players.p1.missiles.length > 0) {

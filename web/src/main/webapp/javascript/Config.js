@@ -48,6 +48,24 @@ Planetoid.Config = {
             scale: 1,
             width: 200,
             height: 200
+        },
+        shield1: {
+            path: 'assets/images/shield1.png',
+            scale: 1,
+            width: 133,
+            height: 108
+        },
+        shield2: {
+            path: 'assets/images/shield2.png',
+            scale: 1,
+            width: 143,
+            height: 119
+        },
+        shield3: {
+            path: 'assets/images/shield3.png',
+            scale: 1,
+            width: 144,
+            height: 137
         }
     }
 };
