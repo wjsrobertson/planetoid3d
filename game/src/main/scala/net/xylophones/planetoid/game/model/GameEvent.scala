@@ -11,6 +11,7 @@ object GameEvent extends Enumeration {
   val PlayerLoseLife = Value("PlayerLoseLife")
   val MissileFired = Value("MissileFired")
   val RoundStart = Value("RoundStart")
+  val RoundInitialised = Value("RoundInitialised")
   val GameOver = Value("GameOver")
 
 }

@@ -76,7 +76,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     result.model.roundTimer.round shouldBe 1
   }
 
-  test("no winner then players positions are reset") {
+  test("if no winner then players positions are reset and round initialised event is triggered") {
     // given
     val phys = new GamePhysics
     val player1 = Player(createDummyRocket(), 1)
@@ -90,5 +90,6 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // then
     result.model.players.p1.rocket.position.x should be < (phys.universeWidth / 2).toDouble
     result.model.players.p2.rocket.position.x should be > (phys.universeWidth / 2).toDouble
+    result.events should contain(GameEvent.RoundInitialised)
   }
 }
