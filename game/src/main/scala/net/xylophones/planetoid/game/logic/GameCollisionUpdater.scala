@@ -17,7 +17,7 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
     val player1 = model.players.p1
     val p1Result = checkMissileOrPlanetCollision(player1, model.players.p2.missiles, model.planet)
 
-    val player2 = model.players.p1
+    val player2 = model.players.p2
     val p2Result = checkMissileOrPlanetCollision(player2, model.players.p1.missiles, model.planet)
 
     if (p1Result.isCollision || p2Result.isCollision) {

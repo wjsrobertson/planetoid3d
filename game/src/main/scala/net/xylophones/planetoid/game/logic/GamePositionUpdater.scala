@@ -8,7 +8,7 @@ class GamePositionUpdater(missileCalculator: MissilePositionCalculator,
 
   override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val p1 = updatePlayer(initialResult.model.players.p1, playerInputs(0), initialResult.model, physics)
-    val p2 = updatePlayer(initialResult.model.players.p1, playerInputs(1), initialResult.model, physics)
+    val p2 = updatePlayer(initialResult.model.players.p2, playerInputs(1), initialResult.model, physics)
     val updatedPlayers = Players(p1, p2)
 
     val newModel = initialResult.model.copy(players = updatedPlayers)
