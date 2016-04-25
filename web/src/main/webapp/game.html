@@ -28,16 +28,46 @@
 
 <hr/>
 <div id="game">
-<svg id="canvas" width="960" height="540" style="background:black;">
-    <!--
-    <image xlink:href="assets/images/playerShip2_blue.png" width="66" height="38" x="700" y="260"></image>
-    <image xlink:href="assets/images/playerShip2_orange.png" width="66" height="38" x="100" y="260"></image>
-    <image xlink:href="assets/images/worldgen.gif" width="200" height="200" x="270" y="260"></image>
-    <image xlink:href="assets/images/laserRed08.png" width="15" height="15" x="100" y="360"></image>
-    <image xlink:href="assets/images/laserBlue08.png" width="15" height="15" x="700" y="360"></image>
-    -->
-</svg>
+    <svg id="canvas" width="960" height="540" style="background:black;"></svg>
 </div>
+
+<table>
+    <tr>
+        <th></th>
+        <th>Player 1</th>
+        <th>Player 2</th>
+    </tr>
+    <tr>
+        <td>Name</td>
+        <td id="player1Name"></td>
+        <td id="player2Name"></td>
+    </tr>
+    <tr>
+        <td>Lives</td>
+        <td id="player1Lives"></td>
+        <td id="player2Lives"></td>
+    </tr>
+    <tr>
+        <td>Points</td>
+        <td id="player1Points"></td>
+        <td id="player2Points"></td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td>Round</td>
+        <td id="round"></td>
+    </tr>
+    <tr>
+        <td>Countdown</td>
+        <td id="countdown"></td>
+    </tr>
+    <tr>
+        <td>Winner</td>
+        <td id="winner"></td>
+    </tr>
+</table>
 
 <script>
     window.addEventListener("load", function () {

@@ -93,6 +93,19 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
                 } else {
                     hideEntity(_entities.player2Missile);
                 }
+
+                document.getElementById("player1Points").textContent = gameModel.players.p1.points;
+                document.getElementById("player2Points").textContent = gameModel.players.p2.points;
+
+                document.getElementById("player1Lives").textContent = gameModel.players.p1.numLives;
+                document.getElementById("player2Lives").textContent = gameModel.players.p2.numLives;
+
+                document.getElementById("player1Name").textContent = gameDetails.getUserName();
+                document.getElementById("player2Name").textContent = gameDetails.getOpponentName();
+
+                document.getElementById("round").textContent = gameModel.roundTimer.round;
+                document.getElementById("countdown").textContent = gameModel.roundTimer.remainingTimeMs;
+                document.getElementById("winner").textContent = gameModel.winner;
             }
         }
     }
