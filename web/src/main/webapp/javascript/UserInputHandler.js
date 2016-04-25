@@ -2,6 +2,7 @@
 
 var Planetoid = Planetoid || {};
 
+// TODO - remove duplication
 Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessageSender) {
 
     var keyCodesForActions = {
@@ -25,6 +26,7 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
                         }
 
                         event.stopPropagation();
+                        event.preventDefault();
                     }
                 }
             );
@@ -40,6 +42,7 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
                         }
 
                         event.stopPropagation();
+                        event.preventDefault();
                     }
                 }
             );

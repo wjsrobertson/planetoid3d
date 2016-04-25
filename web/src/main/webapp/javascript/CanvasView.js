@@ -56,7 +56,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
         var framesInTotalTime = 360;
         var index =  Math.floor((ratio * framesInTotalTime)) % numFrames;
 
-        var scale = ratio * 1.5
+        var scale = ratio * 1.5;
 
         var entity = entities[index];
 
