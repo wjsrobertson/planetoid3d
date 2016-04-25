@@ -21,11 +21,36 @@
     <script src="javascript/SoundPlayer.js"></script>
     <script src="javascript/UserInputHandler.js"></script>
     <script src="javascript/WebSocketContainer.js"></script>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
 
     <style>
+        * {
+            font-family: Aldrich;
+        }
+
+        #game {
+            margin:2px;
+            padding:5px;
+            margin-left: 0px;
+            margin-right:0px;
+
+            width:960px;
+            background: black url('assets/images/seamless_space.png');
+            background-size: 45%;
+            background-position-y: 100px;
+        }
+
+        #playerInfo {
+            border: 0px solid white;
+            border-bottom-width: 3px;
+            color:white;
+        }
+
         #canvas {
             background-image: url('assets/images/seamless_space.png');
             background-size: 45%;
+            width:960px;
+            height:540px;
         }
     </style>
 <body>
@@ -35,32 +60,17 @@
 
 <hr/>
 <div id="game">
-    <svg id="canvas" width="960" height="540"
-         style=""></svg>
+    <div id="playerInfo">
+        <div id="player1Info" style="float:left;">
+            <b id="player1Name">Player 1</b> -<span id="player1Points">0</span> points , <span id="player1Lives">0</span> lives
+        </div>
+        <div id="player2Info" style="float:right;">
+            <b id="player2Name">Player 2</b> -<span id="player2Points">0</span> points , <span id="player2Lives">0</span> lives
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <svg id="canvas"></svg>
 </div>
-
-<table>
-    <tr>
-        <th></th>
-        <th>Player 1</th>
-        <th>Player 2</th>
-    </tr>
-    <tr>
-        <td>Name</td>
-        <td id="player1Name"></td>
-        <td id="player2Name"></td>
-    </tr>
-    <tr>
-        <td>Lives</td>
-        <td id="player1Lives"></td>
-        <td id="player2Lives"></td>
-    </tr>
-    <tr>
-        <td>Points</td>
-        <td id="player1Points"></td>
-        <td id="player2Points"></td>
-    </tr>
-</table>
 
 <table>
     <tr>
