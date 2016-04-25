@@ -2,23 +2,28 @@ package net.xylophones.planetoid.game
 
 import net.xylophones.planetoid.game.logic.GameUpdater
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
-import net.xylophones.planetoid.game.model.{GameModelUpdateResult, GameContainer, GamePhysics, PlayerInput}
+import net.xylophones.planetoid.game.model._
 import org.junit.runner.RunWith
 import org.mockito.ArgumentCaptor
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.mock.MockitoSugar
-import org.scalatest.{FunSuite, Matchers}
+import org.scalatest.{BeforeAndAfterEach, FunSuite, Matchers}
 import org.mockito.Mockito._
 import org.mockito.Matchers.{eq => eqm}
 
 @RunWith(classOf[JUnitRunner])
-class GameManagerTest extends FunSuite with Matchers with MockitoSugar {
+class GameManagerTest extends FunSuite with Matchers with MockitoSugar with BeforeAndAfterEach {
 
   val modelUpdater = mock[GameUpdater]
   val result = mock[GameModelUpdateResult]
+  val model = mock[GameModel]
   val inputCaptor = ArgumentCaptor.forClass(classOf[Vector[PlayerInput]])
 
   val underTest = new GameManager(modelUpdater)
+
+  override def beforeEach() = {
+    when(result.model).thenReturn(model)
+  }
 
   test("game can be added then removed") {
     // given
@@ -53,15 +58,16 @@ class GameManagerTest extends FunSuite with Matchers with MockitoSugar {
     p1Input.thrust shouldBe true
   }
 
-  private def createGameContainer() = {
-    new GameContainer(
-      "game ID",
-      "player 1 ID",
-      "player 2 ID",
-      new GamePhysics,
-      createDummyModel(),
-      PlayerInput(),
-      PlayerInput()
-    )
+  test("game is removed once complete") {
+    // given
+    val container = createGameContainerWithWinner()
+    underTest.addGame(container)
+
+    // when
+    when(modelUpdater.update(eqm(container.model), eqm(container.physics), inputCaptor.capture())).thenReturn(result)
+    underTest.updateGame("game ID")
+
+    // then
+    underTest.numCurrentGames shouldBe 0
   }
 }

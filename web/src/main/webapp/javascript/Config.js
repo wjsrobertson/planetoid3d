@@ -33,19 +33,19 @@ Planetoid.Config = {
         },
         player1Missile: {
             path: 'assets/images/laserBlue08.png',
-            scale: 0.25,
+            scale: 1,
             width: 112,
             height: 75
         },
         player2Missile: {
             path: 'assets/images/laserRed08.png',
-            scale: 0.25,
+            scale: 1,
             width: 112,
             height: 75
         },
         planet: {
             path: 'assets/images/worldgen.gif',
-            scale: 3,
+            scale: 1,
             width: 200,
             height: 200
         }

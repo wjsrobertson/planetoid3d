@@ -67,8 +67,10 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
       r1
     } else if (r2.isCollision && !r1.isCollision) {
       r2
-    } else {
+    } else if (r1.isCollision && r2.isCollision) {
       CollisionResult(isCollision = true, r1.impactMissiles ++ r2.impactMissiles)
+    } else {
+      CollisionResult.empty
     }
   }
 }

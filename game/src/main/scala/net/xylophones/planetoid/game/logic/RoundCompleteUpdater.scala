@@ -1,24 +1,30 @@
 package net.xylophones.planetoid.game.logic
 
+import net.xylophones.planetoid.game.RocketFactory
 import net.xylophones.planetoid.game.model._
 
-class RoundCompleteUpdater extends GameModelResultUpdater {
+class RoundCompleteUpdater(rocketFactory: RocketFactory) extends GameModelResultUpdater {
 
   override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val model = initialResult.model
 
     if (initialResult.events.contains(GameEvent.PlayerLoseLife)) {
       val winner = determineWinner(model.players.p1, model.players.p2)
+      val p1Rocket =  rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player1, physics)
+      val p2Rocket = rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player2, physics)
+      val players = Players.apply(model.players.p1.copy(rocket=p1Rocket), model.players.p2.copy(rocket=p2Rocket))
 
-      val events: Set[GameEvent.Value] = if (winner == Winner.None) Set.empty
-                                         else Set(GameEvent.GameOver)
+      if (winner == Winner.None) {
+        val newTimer = createIncrementedRoundTimer(physics, model.roundTimer)
+        val newModel = model.copy(players = players, roundTimer = newTimer, winner = winner)
 
-      val newTimer = if (winner == Winner.None) createIncrementedRoundTimer(physics, model.roundTimer)
-                     else model.roundTimer
+        new GameModelUpdateResult(newModel, initialResult.events)
+      } else {
+        val newModel = model.copy(players = players, winner = winner)
+        val event = GameEvent.GameOver
 
-      val newModel = model.copy(roundTimer = newTimer, winner = winner)
-
-      new GameModelUpdateResult(newModel, events ++ initialResult.events)
+        new GameModelUpdateResult(newModel, initialResult.events + event)
+      }
     } else {
       initialResult
     }
@@ -34,6 +40,6 @@ class RoundCompleteUpdater extends GameModelResultUpdater {
   }
 
   def createIncrementedRoundTimer(physics: GamePhysics, timer: RoundCountdownTimer) = {
-    RoundCountdownTimer(timer.round + 1, System.currentTimeMillis, -physics.roundStartDelayMilliseconds)
+    RoundCountdownTimer(timer.round + 1, remainingTimeMs = physics.roundStartDelayMilliseconds)
   }
 }

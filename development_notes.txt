@@ -8,8 +8,9 @@ http://donjon.bin.sh/world/index.cgi
 Space ships (Creative Commons):
 http://opengameart.org/content/space-shooter-redux
 
-TODO - display opponent name in GUI
-TODO - display round, lives and points in GUI
+Space background:
+http://opengameart.org/content/seamless-space-stars
+
 TODO - highlight user's spaceship when they start playing
 TODO - facility to notify all sessions
 TODO - player waiting message to notify if a user is waiting to play

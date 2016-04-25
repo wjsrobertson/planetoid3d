@@ -8,7 +8,7 @@ import org.scalatest.{FunSuite, Matchers}
 @RunWith(classOf[JUnitRunner])
 class GameContainerFactoryTest extends FunSuite with Matchers {
 
-  val underTest = new GameContainerFactory
+  val underTest = new GameContainerFactory(new RocketFactory)
 
   test("game has correct player IDs") {
     val gameContainer: GameContainer = underTest.createGameContainer("p1", "p2")

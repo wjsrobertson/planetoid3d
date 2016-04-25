@@ -45,10 +45,21 @@ class GameManager(val modelUpdater: GameUpdater) {
 
       game.model = updateResults.model
 
+      removeGameIfComplete(game)
+
       Some(updateResults)
     } else {
       None
     }
   }
 
+  def numCurrentGames = {
+    games.size
+  }
+
+  private def removeGameIfComplete(game: GameContainer): Any = {
+    if (game.model.winner != Winner.None) {
+      removeGame(game.gameId)
+    }
+  }
 }

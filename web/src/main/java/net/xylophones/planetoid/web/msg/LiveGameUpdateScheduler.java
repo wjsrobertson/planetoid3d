@@ -15,7 +15,7 @@ public class LiveGameUpdateScheduler {
 
     private static final long NO_START_DELAY = 0L;
 
-    private static final long PAUSE_BETWEEN_UPDATES_MS = 20L;
+    private static final long PAUSE_BETWEEN_UPDATES_MS = 40L;
 
     @Autowired
     private LiveGameRepository liveGameRepository;

@@ -30,7 +30,7 @@ public class ScalaModelJasksonTool {
                         new Planet(new Vector2D(1D, 1D), 10),
                         null,
                         new RoundCountdownTimer(1, 10L, 20L),
-                        Winner.withName("Draw")
+                        PlayerIdentifier.withName("Draw")
                 ), scalaSet
         );
 

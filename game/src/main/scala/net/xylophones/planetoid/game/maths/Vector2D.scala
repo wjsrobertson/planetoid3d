@@ -40,3 +40,7 @@ case class Vector2D(val x: Double,
     abs(x - that.x) < epsilon && abs(y - that.y) < epsilon
   }
 }
+
+object Vector2D {
+  val zero = Vector2D(0,0)
+}
