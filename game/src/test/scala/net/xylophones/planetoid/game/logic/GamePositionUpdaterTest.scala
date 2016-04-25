@@ -40,7 +40,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     /*
      given
       */
-    val phys = new GamePhysics
+    val phys = new GamePhysics(missileSpeed = 0)
     val xOnScreen = phys.universeWidth - 10
     val missile = new Missile(Vector2D(xOnScreen, 10), Vector2D(1, 0), 10)
     val inputs = createDummyPlayerInput()

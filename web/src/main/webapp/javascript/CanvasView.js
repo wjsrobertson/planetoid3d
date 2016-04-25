@@ -70,13 +70,29 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
         }
     }
 
+    function hideEntity(entity) {
+        entity.imageElement.setAttribute('visibility', 'hidden');
+    }
+
     return {
         draw: function () {
             var gameModel = gameDetails.getGameModel();
             if (gameModel) {
                 render(gameModel.planet, _entities.planet);
-                render(gameModel.players[0].rocket, _entities.player1);
-                render(gameModel.players[1].rocket, _entities.player2);
+
+                render(gameModel.players.p1.rocket, _entities.player1);
+                if (gameModel.players.p1.missiles.length > 0) {
+                    render(gameModel.players.p1.missiles[0], _entities.player1Missile);
+                } else {
+                    hideEntity(_entities.player1Missile);
+                }
+
+                render(gameModel.players.p2.rocket, _entities.player2);
+                if (gameModel.players.p2.missiles.length > 0) {
+                    render(gameModel.players.p2.missiles[0], _entities.player2Missile);
+                } else {
+                    hideEntity(_entities.player2Missile);
+                }
             }
         }
     }
