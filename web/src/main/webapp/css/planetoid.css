@@ -1,0 +1,93 @@
+* {
+    font-family: Aldrich;
+    color: white;
+}
+
+body {
+    background: black;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    font-size: 25pt;
+}
+
+input {
+    color: black;
+}
+
+#game {
+    width: 960px;
+    padding: 5px;
+    margin: auto;
+    background: black url('../assets/images/seamless_space.png');
+    background-size: 45%;
+    background-position-y: 100px;
+    border: 1px solid white;
+}
+
+#player-info {
+    border: 0 solid white;
+    border-bottom-width: 3px;
+    color: white;
+    padding: 15px;
+}
+
+#canvas {
+    background-image: url('../assets/images/seamless_space.png');
+    background-size: 45%;
+    width: 960px;
+    height: 540px;
+    display: none;
+}
+
+#user-notification-area {
+    background: black;
+    background-size: 45%;
+    width: 960px;
+    height: 540px;
+    display: inline-flex;
+}
+
+#user-notification-area > div {
+    width: 300px;
+    margin: auto;
+    padding-bottom: 100px;
+    text-align: center;
+}
+
+#user-notification-area {
+}
+
+#login-pane {
+    visibility: visible;
+}
+
+#win-pane, #lose-pane, #draw-pane, #waiting-pane {
+    display: none;
+}
+
+#controls {
+    text-align: left;
+}
+
+#footer {
+    border: 0 solid white;
+    padding: 15px;
+    border-top-width: 3px;
+    color: white;
+}
+
+.copyright, #player1-info {
+    float: left;
+}
+
+.about, #player2-info {
+    float: right;
+}
+
+.clear {
+    clear: both;
+}

@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+<!--
+    Full source code is here: https://github.com/wjsrobertson/planetoid
+-->
 <html lang="en">
 <head>
     <title>Planetoid</title>
     <meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich"/>
+    <link rel="stylesheet" type="text/css" href="css/planetoid.css">
 
     <script src="javascript/AssetFactory.js"></script>
     <script src="javascript/CanvasView.js"></script>
@@ -21,71 +26,105 @@
     <script src="javascript/SoundPlayer.js"></script>
     <script src="javascript/UserInputHandler.js"></script>
     <script src="javascript/WebSocketContainer.js"></script>
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Aldrich" />
 
     <style>
-        * {
-            font-family: Aldrich;
-        }
 
-        #game {
-            margin:2px;
-            padding:5px;
-            margin-left: 0px;
-            margin-right:0px;
 
-            width:960px;
-            background: black url('assets/images/seamless_space.png');
-            background-size: 45%;
-            background-position-y: 100px;
-        }
-
-        #playerInfo {
-            border: 0px solid white;
-            border-bottom-width: 3px;
-            color:white;
-        }
-
-        #canvas {
-            background-image: url('assets/images/seamless_space.png');
-            background-size: 45%;
-            width:960px;
-            height:540px;
-        }
     </style>
 <body>
 
-<input id="name" type="text"/>
-<input id="start" type="button" value="start game"/>
 
-<hr/>
 <div id="game">
-    <div id="playerInfo">
-        <div id="player1Info" style="float:left;">
-            <b id="player1Name">Player 1</b> -<span id="player1Points">0</span> points , <span id="player1Lives">0</span> lives
+    <div id="player-info">
+        <div id="player1-info">
+            <b id="player1-name">Player 1</b> -<span id="player1-points">0</span> points , <span id="player1-lives">0</span> lives
         </div>
-        <div id="player2Info" style="float:right;">
-            <b id="player2Name">Player 2</b> -<span id="player2Points">0</span> points , <span id="player2Lives">0</span> lives
+        <div id="player2-info">
+            <b id="player2-name">Player 2</b> -<span id="player2-points">0</span> points , <span id="player2-lives">0</span> lives
         </div>
-        <div style="clear: both;"></div>
+        <div class="clear"></div>
     </div>
-    <svg id="canvas"></svg>
-</div>
 
-<table>
-    <tr>
-        <td>Round</td>
-        <td id="round"></td>
-    </tr>
-    <tr>
-        <td>Countdown</td>
-        <td id="countdown"></td>
-    </tr>
-    <tr>
-        <td>Winner</td>
-        <td id="winner"></td>
-    </tr>
-</table>
+    <svg id="canvas"></svg>
+
+    <div id="user-notification-area">
+        <div id="waiting-pane">
+            <h1>Waiting for opponent to join</h1>
+
+            <p>The game will start when somebody else joins...</p>
+        </div>
+        <div id="lose-pane">
+            <h1>You LOSE!</h1>
+
+            <p>Oh no!</p>
+
+            <p>All the people on the planetoid are dead now :(</p>
+
+            <p><input id="start" type="button" value="play again"/></p>
+        </div>
+        <div id="win-pane">
+            <h1>You WIN!</h1>
+
+            <p>Congratulations!</p>
+
+            <p>You saved the planetoid</p>
+
+            <p><input id="start" type="button" value="play again"/></p>
+        </div>
+        <div id="draw-pane">
+            <h1>DRAW!</h1>
+
+            <p>This means you totally failed to win :(</p>
+
+            <p><input id="start" type="button" value="play again"/></p>
+        </div>
+        <div id="login-pane">
+            <h1>Planetoid</h1>
+            <hr/>
+
+            <div>
+                <p><b>INCOMING ALERT</b></p>
+
+                <p>The planetoid is under attack!</p>
+
+                <p>Do you have the balls to save it?</p>
+            </div>
+
+            <p>
+                <input id="name" type="text" value="name"
+                       onfocus="if (this.value == 'name') {this.value = ''}"
+                       onblur="if ( this.value=='') {this.value = 'name'}"/>
+                <input id="start" type="button" value="start game"/>
+            </p>
+
+            <p><i>Enter your name and click &quot;start game&quot;</i></p>
+
+            <hr/>
+
+            <p><b>Controls</b></p>
+
+            <div id="controls">
+                <p>
+                    LEFT arrow key - rotate left<br/>
+                    RIGHT arrow key - rotate right<br/>
+                    UP arrow key - forward thrust<br/>
+                    DOWN arrow key - reverse thrust<br/>
+                    S - toggle sound on/off
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div class="copyright">
+            &copy; 2016 William Robertson
+        </div>
+        <div class="about">
+            <a href="about.html">learn more about this game</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
 
 <script>
     window.addEventListener("load", function () {
