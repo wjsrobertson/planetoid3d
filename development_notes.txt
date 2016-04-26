@@ -11,8 +11,9 @@ http://opengameart.org/content/space-shooter-redux
 Space background:
 http://opengameart.org/content/seamless-space-stars
 
+TODO - handle expired sessions
+TODO - websocket heartbeat
 TODO - explosions
-TODO - make the scoreboard look good
 TODO - sounds and other event handling
 TODO - facility to notify all sessions
 TODO - player waiting message to notify if a user is waiting to play

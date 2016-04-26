@@ -26,13 +26,8 @@
     <script src="javascript/SoundPlayer.js"></script>
     <script src="javascript/UserInputHandler.js"></script>
     <script src="javascript/WebSocketContainer.js"></script>
-
-    <style>
-
-
-    </style>
+    <script src="javascript/forms/TextInputDescription.js"></script>
 <body>
-
 
 <div id="game">
     <div id="player-info">
@@ -60,7 +55,7 @@
 
             <p>All the people on the planetoid are dead now :(</p>
 
-            <p><input id="start" type="button" value="play again"/></p>
+            <p><input id="start1" type="button" value="play again"/></p>
         </div>
         <div id="win-pane">
             <h1>You WIN!</h1>
@@ -69,14 +64,14 @@
 
             <p>You saved the planetoid</p>
 
-            <p><input id="start" type="button" value="play again"/></p>
+            <p><input id="start2" type="button" value="play again"/></p>
         </div>
         <div id="draw-pane">
             <h1>DRAW!</h1>
 
             <p>This means you totally failed to win :(</p>
 
-            <p><input id="start" type="button" value="play again"/></p>
+            <p><input id="start3" type="button" value="play again"/></p>
         </div>
         <div id="login-pane">
             <h1>Planetoid</h1>
@@ -91,9 +86,7 @@
             </div>
 
             <p>
-                <input id="name" type="text" value="name"
-                       onfocus="if (this.value == 'name') {this.value = ''}"
-                       onblur="if ( this.value=='') {this.value = 'name'}"/>
+                <input id="name" type="text" value=""/>
                 <input id="start" type="button" value="start game"/>
             </p>
 
@@ -127,8 +120,31 @@
 </div>
 
 <script>
-    window.addEventListener("load", function () {
-        Planetoid.Initialiser.bindAndListenForGameStart ('canvas', 'name', 'start');
+    window.addEventListener('load', function () {
+        Planetoid.Initialiser.bindAndListenForGameStart ({
+            userInputElements: {
+                nameInputId: 'name',
+                startGameButtonId: 'start',
+                restartButtonIds: ['start1', 'start2', 'start3']
+            },
+            inGameStatsDisplayElements: {
+                player1NameDisplayId: 'player1-name',
+                player1PointsDisplayId: 'player1-points',
+                player1LivesDisplayId: 'player1-lives',
+                player2NameDisplayId: 'player2-name',
+                player2PointsDisplayId: 'player2-points',
+                player2LivesDisplayId: 'player2-lives'
+            },
+            viewPaneElements: {
+                notificationAreaId: 'user-notification-area',
+                waitingPaneId: 'waiting-pane',
+                losePaneId: 'lose-pane',
+                winPaneId: 'win-pane',
+                drawPaneId: 'draw-pane',
+                loginPaneId: 'login-pane',
+                canvasId: 'canvas'
+            }
+        });
     });
 </script>
 
