@@ -11,6 +11,7 @@ http://opengameart.org/content/space-shooter-redux
 Space background:
 http://opengameart.org/content/seamless-space-stars
 
+TODO - websocket JS onOpen callback
 TODO - handle expired sessions
 TODO - websocket heartbeat
 TODO - explosions

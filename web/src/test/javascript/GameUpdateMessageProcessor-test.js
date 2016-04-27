@@ -4,7 +4,7 @@ describe("GameUpdateMessageProcessor", function() {
 
     //var processor = new Planetoid.GameUpdateMessageProcessor(liveGameDetails, "aaa");
 
-    it("x", function() {
+    it("getElementsByIds", function() {
 
     })
 });

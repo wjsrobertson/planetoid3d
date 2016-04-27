@@ -4,8 +4,8 @@ var Planetoid = Planetoid || {};
 
 Planetoid.TextInputDescription = {
     addDescription: function(input, description) {
-        if (! input.textContent) {
-            input.textContent = description
+        if (input.value == '') {
+            input.value = description
         }
 
         input.addEventListener('focus', function(){

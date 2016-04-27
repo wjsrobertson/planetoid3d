@@ -16,6 +16,9 @@
     <script src="javascript/GameOrchestrator.js"></script>
     <script src="javascript/GameStarter.js"></script>
     <script src="javascript/Initialiser.js"></script>
+    <script src="javascript/forms/TextInputDescription.js"></script>
+    <script src="javascript/util/ElementRetriever.js"></script>
+    <script src="javascript/DisplayControl.js"></script>
     <script src="javascript/messaging/GameStartNotificationMessageProcessor.js"></script>
     <script src="javascript/messaging/GameStartRequestMessageSender.js"></script>
     <script src="javascript/messaging/GameUpdateMessageProcessor.js"></script>
@@ -46,7 +49,7 @@
         <div id="waiting-pane">
             <h1>Waiting for opponent to join</h1>
 
-            <p>The game will start when somebody else joins...</p>
+            <p>This is a two-player game - the game will start when somebody else joins...</p>
         </div>
         <div id="lose-pane">
             <h1>You LOSE!</h1>
@@ -102,6 +105,7 @@
                     RIGHT arrow key - rotate right<br/>
                     UP arrow key - forward thrust<br/>
                     DOWN arrow key - reverse thrust<br/>
+                    SPACE - fire missile<br/>
                     S - toggle sound on/off
                 </p>
             </div>
@@ -123,26 +127,26 @@
     window.addEventListener('load', function () {
         Planetoid.Initialiser.bindAndListenForGameStart ({
             userInputElements: {
-                nameInputId: 'name',
-                startGameButtonId: 'start',
-                restartButtonIds: ['start1', 'start2', 'start3']
+                nameInput: 'name',
+                startGameButton: 'start',
+                restartButtons: ['start1', 'start2', 'start3']
             },
             inGameStatsDisplayElements: {
-                player1NameDisplayId: 'player1-name',
-                player1PointsDisplayId: 'player1-points',
-                player1LivesDisplayId: 'player1-lives',
-                player2NameDisplayId: 'player2-name',
-                player2PointsDisplayId: 'player2-points',
-                player2LivesDisplayId: 'player2-lives'
+                player1NameDisplay: 'player1-name',
+                player1PointsDisplay: 'player1-points',
+                player1LivesDisplay: 'player1-lives',
+                player2NameDisplay: 'player2-name',
+                player2PointsDisplay: 'player2-points',
+                player2LivesDisplay: 'player2-lives'
             },
             viewPaneElements: {
-                notificationAreaId: 'user-notification-area',
-                waitingPaneId: 'waiting-pane',
-                losePaneId: 'lose-pane',
-                winPaneId: 'win-pane',
-                drawPaneId: 'draw-pane',
-                loginPaneId: 'login-pane',
-                canvasId: 'canvas'
+                notificationArea: 'user-notification-area',
+                waitingPane: 'waiting-pane',
+                losePane: 'lose-pane',
+                winPane: 'win-pane',
+                drawPane: 'draw-pane',
+                loginPane: 'login-pane',
+                canvas: 'canvas'
             }
         });
     });

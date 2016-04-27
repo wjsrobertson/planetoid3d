@@ -7,9 +7,8 @@ Planetoid.GameOrchestrator = function (view, gameDetails) {
     function updateView() {
         if (gameDetails.isGameInProggress()) {
             view.draw();
+            requestAnimationFrame(updateView);
         }
-
-        requestAnimationFrame(updateView);
     }
 
     return {
