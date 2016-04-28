@@ -41,7 +41,6 @@ public class LiveGameUpdateScheduler {
                     liveGameUpdater.updateGameAndNotifyPlayers(liveGame);
                 } catch (Exception e) {
                     // keep on trucking
-                    // TODO - handle. IOException will be quite common if player ends websocket session
                 }
             });
         }, NO_START_DELAY, PAUSE_BETWEEN_UPDATES_MS, TimeUnit.MILLISECONDS);
