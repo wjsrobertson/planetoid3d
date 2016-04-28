@@ -4,11 +4,31 @@ var Planetoid = Planetoid || {};
 
 Planetoid.WebSocketContainer = function (messageRouter, websocketUrl) {
 
+    var heartbeatTimeMs = 10000;
+
     var _webSocket = null;
+
+    var _timerId = null;
 
     function onMessage(event) {
         var message = JSON.parse(event.data);
         messageRouter.routeMessage(message);
+    }
+
+    function onClose() {
+        _webSocket = null;
+
+        if (_timerId != null) {
+            clearTimeout(_timerId);
+        }
+    }
+
+    function onOpen(webSocket, message) {
+        webSocket.send(message);
+
+        setInterval(function () {
+            webSocket.send("heartbeat");
+        }, heartbeatTimeMs);
     }
 
     function createWebSocket(message) {
@@ -19,12 +39,12 @@ Planetoid.WebSocketContainer = function (messageRouter, websocketUrl) {
         };
 
         webSocket.onclose = function () {
-            _webSocket = null;
+            onClose();
         };
 
         if (message) {
             webSocket.onopen = function () {
-                webSocket.send(message);
+                onOpen(webSocket, message);
             };
         }
 

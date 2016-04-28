@@ -11,8 +11,7 @@ http://opengameart.org/content/space-shooter-redux
 Space background:
 http://opengameart.org/content/seamless-space-stars
 
-TODO - websocket JS onOpen callback
-TODO - websocket heartbeat
+TODO - fix play again buttons
 TODO - handle expired sessions
 TODO - when user dies remove missile from model
 TODO - explosions
