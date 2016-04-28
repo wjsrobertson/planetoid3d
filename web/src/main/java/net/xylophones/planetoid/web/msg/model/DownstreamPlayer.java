@@ -1,5 +1,7 @@
 package net.xylophones.planetoid.web.msg.model;
 
+import com.google.common.base.Objects;
+
 import javax.websocket.Session;
 
 public class DownstreamPlayer {
@@ -26,5 +28,21 @@ public class DownstreamPlayer {
 
     public Session getSession() {
         return session;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (! (other instanceof DownstreamPlayer)) {
+            return false;
+        }
+
+        DownstreamPlayer that = (DownstreamPlayer) other;
+
+        return Objects.equal(userId, that.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(userId);
     }
 }

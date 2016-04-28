@@ -1,8 +1,6 @@
 Planet generator:
 http://donjon.bin.sh/world/index.cgi
 
-TODO - fix play again buttons
-TODO - handle expired sessions
 TODO - when user dies remove missile from model
 TODO - explosions
 TODO - sounds and other event handling
