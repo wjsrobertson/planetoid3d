@@ -38,6 +38,14 @@ object ModelTestObjectMother {
     Rocket(position, rotation, velocity, 999)
   }
 
+  def createRocketAt10_0PointingUp() = {
+    val position = Vector2D(0, 10)
+    val rotation = Vector2D(0, 1)
+    val velocity = Vector2D(0, 0)
+
+    Rocket(position, rotation, velocity, 999)
+  }
+
   def createRocketAt(position: Vector2D) = Rocket(position, Vector2D(0, 1), Vector2D(0, 0), 5)
 
   def createDummyModel() = GameModel(createDummyPlanet(), createDummyPlayers())

@@ -48,9 +48,9 @@ class BoundsCheckerTest extends FunSuite with Matchers {
     isWarped shouldBe true
   }
 
-  test("point is warped over height") {
+  test("point is warped over width when negative") {
     // given
-    val position = Vector2D(5, 15)
+    val position = Vector2D(-5, 5)
     val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
 
     // when
@@ -61,9 +61,22 @@ class BoundsCheckerTest extends FunSuite with Matchers {
     isWarped shouldBe true
   }
 
-  test("point is warped over width and height") {
+  test("point is warped over height when negative") {
     // given
-    val position = Vector2D(15, 15)
+    val position = Vector2D(5, -5)
+    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+
+    // when
+    val warped = underTest.warpOverBounds(position, phys)
+
+    // then
+    val isWarped = warped ~= Vector2D(5, 5)
+    isWarped shouldBe true
+  }
+
+  test("point is warped over width and height when negative") {
+    // given
+    val position = Vector2D(-5, -5)
     val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
 
     // when

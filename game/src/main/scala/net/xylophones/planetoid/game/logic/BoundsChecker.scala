@@ -15,8 +15,8 @@ class BoundsChecker {
   def warpOverBounds(position: Vector2D, gamePhysics: GamePhysics): Vector2D = {
     if (isWithinBounds(position, gamePhysics)) position
     else {
-      val x = math.round(position.x) % gamePhysics.universeWidth
-      val y = math.round(position.y) % gamePhysics.universeHeight
+      val x = (math.round(position.x) + gamePhysics.universeWidth) % gamePhysics.universeWidth
+      val y = (math.round(position.y) + gamePhysics.universeHeight) % gamePhysics.universeHeight
 
       Vector2D(x, y)
     }

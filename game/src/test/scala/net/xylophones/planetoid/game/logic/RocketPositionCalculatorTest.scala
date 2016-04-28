@@ -68,15 +68,15 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
   }
 
   test("rocket moves backwards when user input indicates reverse thrust") {
-    val physics: GamePhysics = new GamePhysics(gForce = 0, rocketReverseThrustForce = -10, rocketMass = 1)
+    val physics: GamePhysics = new GamePhysics(gForce = 0, rocketReverseThrustForce = -5, rocketMass = 1)
     val input = PlayerInput(reverseThrust = true)
-    val rocket = createRocketAtOriginPointingUp()
+    val rocket = createRocketAt10_0PointingUp()
 
     // when
     val updatedRocket: Rocket = underTest.updateRocketPosition(rocket, input, planet, physics)
 
     // then
-    val positionIsUp10 = updatedRocket.position ~= Vector2D(0, -10)
+    val positionIsUp10 = updatedRocket.position ~= Vector2D(0, 5)
     positionIsUp10 shouldBe true
   }
 }
