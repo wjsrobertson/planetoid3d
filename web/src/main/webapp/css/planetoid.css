@@ -61,6 +61,11 @@ input {
     text-align: center;
 }
 
+#user-notification-area h1 {
+    margin-top:0;
+    padding-top:30px;
+}
+
 #login-pane {
     display: block;
 }
