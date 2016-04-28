@@ -4,25 +4,27 @@ var Planetoid = Planetoid || {};
 
 Planetoid.Initialiser = {};
 
-Planetoid.Initialiser.bindAndListenForGameStart = function (settings) {
+Planetoid.Initialiser.bindAndListen = function (settings) {
+
+    var gameDetails = Planetoid.GameDetails();
+    var canvas = document.getElementById(settings.viewPaneElements.canvas);
+    var gameView = Planetoid.CanvasView(canvas, gameDetails, Planetoid.Config.images);
 
     var displayControlElements = Planetoid.ElementRetriever.getElementsByIds(settings.viewPaneElements);
-    var displayControl = new Planetoid.DisplayControl(displayControlElements);
+    var displayControl = new Planetoid.DisplayControl(displayControlElements, gameDetails);
 
     var input = document.getElementById(settings.userInputElements.nameInput);
     Planetoid.TextInputDescription.addDescription(input, 'enter your name');
 
     var assetFactory = Planetoid.AssetFactory(Planetoid.Config.webRoot);
     var soundPlayer = Planetoid.SoundPlayer(Planetoid.Config.sounds, assetFactory);
-    var gameDetails = Planetoid.GameDetails();
 
-    var canvas = document.getElementById(settings.viewPaneElements.canvas);
-    var view = Planetoid.CanvasView(canvas, gameDetails, Planetoid.Config.images);
-    var gameOrchestrator = Planetoid.GameOrchestrator(view, gameDetails);
+    var gameOrchestrator = Planetoid.GameOrchestrator(gameView, gameDetails);
 
     var messageProcessors = {
         'GameStartNotification': Planetoid.GameStartNotificationMessageProcessor(gameDetails, displayControl, gameOrchestrator),
-        'GameModelUpdateResult': Planetoid.GameUpdateMessageProcessor(gameDetails, soundPlayer, displayControl)
+        'GameModelUpdateResult': Planetoid.GameUpdateMessageProcessor(gameDetails, soundPlayer, displayControl),
+        'GameAbortNotification': Planetoid.GameAbortMessageProcessor(gameDetails, displayControl)
     };
     var messageRouter = Planetoid.MessageRouter(messageProcessors);
 
@@ -40,7 +42,7 @@ Planetoid.Initialiser.bindAndListenForGameStart = function (settings) {
     var startGameButton = document.getElementById(settings.userInputElements.startGameButton);
     var gameStarter = Planetoid.GameStarter(nameInput, startGameButton, gameDetails, startRequestMessageSender, displayControl);
 
-    userInputHandler.bindAndListenForGameStart();
+    userInputHandler.bindAndListen();
     gameStarter.bindAndListenForGameStart();
 
 };

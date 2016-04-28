@@ -2,10 +2,10 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.GameUpdateMessageProcessor = function (liveGameDetails, soundPlayer, displayControl) {
+Planetoid.GameUpdateMessageProcessor = function (gameDetails, soundPlayer, displayControl) {
 
     function updateGameModel(gameModel) {
-        liveGameDetails.setGameModel(gameModel);
+        gameDetails.setGameModel(gameModel);
     }
 
     function handleEvent(gameEvent) {
@@ -13,16 +13,18 @@ Planetoid.GameUpdateMessageProcessor = function (liveGameDetails, soundPlayer, d
 
         if (gameEvent == 'GameOver') {
             handleGameOver();
+        } else if (gameEvent == 'PlayerLoseLife' || gameEvent == 'RoundInitialised' || gameEvent == 'RoundStart') {
+            displayControl.updateStats();
         }
     }
 
     function handleGameOver() {
-        var winner = liveGameDetails.getGameModel().winner;
+        var winner = gameDetails.getGameModel().winner;
 
         if (winner == 'Draw') {
             displayControl.displayDrawScreen();
         } else if (winner == 'Player1') {
-            if (liveGameDetails.isPlayer1()) {
+            if (gameDetails.isPlayer1()) {
                 displayControl.displayWinScreen();
             } else {
                 displayControl.displayLoseScreen();

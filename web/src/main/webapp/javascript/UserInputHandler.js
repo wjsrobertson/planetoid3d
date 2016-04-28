@@ -2,7 +2,6 @@
 
 var Planetoid = Planetoid || {};
 
-// TODO - remove duplication
 Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessageSender) {
 
     var keyCodesForActions = {
@@ -13,37 +12,31 @@ Planetoid.UserInputHandler = function (container, gameDetails, playerInputMessag
         40: 'reverseThrust'
     };
 
+    function setOrUnsetActionFlag(event, setOrUnset) {
+        if (gameDetails.isGameInProggress()) {
+            var keyCode = event.keyCode;
+            var actionName = keyCodesForActions[keyCode];
+            if (actionName) {
+                gameDetails.getUserInput()[actionName] = setOrUnset;
+                playerInputMessageSender.sendMessage();
+
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        }
+    }
+
     return {
-        bindAndListenForGameStart: function () {
+        bindAndListen: function () {
             container.addEventListener('keydown',
                 function (event) {
-                    if (gameDetails.isGameInProggress()) {
-                        var keyCode = event.keyCode;
-                        var actionName = keyCodesForActions[keyCode];
-                        if (actionName) {
-                            gameDetails.getUserInput()[actionName] = true;
-                            playerInputMessageSender.sendMessage();
-                        }
-
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }
+                    setOrUnsetActionFlag(event, true);
                 }
             );
 
             container.addEventListener('keyup',
                 function (event) {
-                    if (gameDetails.isGameInProggress()) {
-                        var keyCode = event.keyCode;
-                        var actionName = keyCodesForActions[keyCode];
-                        if (actionName) {
-                            gameDetails.getUserInput()[actionName] = false;
-                            playerInputMessageSender.sendMessage();
-                        }
-
-                        event.stopPropagation();
-                        event.preventDefault();
-                    }
+                    setOrUnsetActionFlag(event, false);
                 }
             );
         }

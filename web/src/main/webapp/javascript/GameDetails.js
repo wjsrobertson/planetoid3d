@@ -10,12 +10,13 @@ var Planetoid = Planetoid || {};
 Planetoid.GameDetails = function () {
 
     var _userInput = {
-        'left': false,
-        'right': false,
-        'thrust': false,
-        'fireMissile': false,
-        'reverseThrust': false
+        left: false,
+        right: false,
+        thrust: false,
+        fireMissile: false,
+        reverseThrust: false
     };
+
     var _gameInProgress;
     var _gameModel;
     var _userName;
@@ -25,28 +26,28 @@ Planetoid.GameDetails = function () {
     var _isPlayer1;
 
     return {
-        setGameInProggress: function(gameInProggress) {
+        setGameInProggress: function (gameInProggress) {
             _gameInProgress = gameInProggress
         },
-        isGameInProggress: function() {
+        isGameInProggress: function () {
             return _gameInProgress;
         },
-        setUserId: function(userId) {
+        setUserId: function (userId) {
             _userId = userId
         },
-        getUserId: function() {
+        getUserId: function () {
             return _userId;
         },
-        setUserName: function(userName) {
+        setUserName: function (userName) {
             _userName = userName
         },
-        getUserName: function() {
+        getUserName: function () {
             return _userName;
         },
-        setGameId: function(gameId) {
+        setGameId: function (gameId) {
             _gameId = gameId;
         },
-        getGameId: function() {
+        getGameId: function () {
             return _gameId;
         },
         setGameModel: function (gameModel) {
@@ -58,16 +59,16 @@ Planetoid.GameDetails = function () {
         getUserInput: function () {
             return _userInput;
         },
-        setOpponentName: function(opponentName) {
+        setOpponentName: function (opponentName) {
             _opponentName = opponentName
         },
-        getOpponentName: function() {
+        getOpponentName: function () {
             return _opponentName;
         },
-        setIsPlayer1: function(isPlayer1) {
+        setIsPlayer1: function (isPlayer1) {
             _isPlayer1 = isPlayer1
         },
-        isPlayer1: function() {
+        isPlayer1: function () {
             return _isPlayer1;
         }
     }

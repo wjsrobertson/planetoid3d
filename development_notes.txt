@@ -13,6 +13,7 @@ http://opengameart.org/content/seamless-space-stars
 
 TODO - websocket JS onOpen callback
 TODO - handle expired sessions
+TODO - when user dies remove missile from model
 TODO - websocket heartbeat
 TODO - explosions
 TODO - sounds and other event handling

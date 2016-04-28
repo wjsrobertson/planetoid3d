@@ -45,6 +45,8 @@ input {
 }
 
 #user-notification-area {
+    margin: 0;
+    padding: 0;
     background: black;
     background-size: 45%;
     width: 960px;
@@ -59,14 +61,11 @@ input {
     text-align: center;
 }
 
-#user-notification-area {
-}
-
 #login-pane {
-    visibility: visible;
+    display: block;
 }
 
-#win-pane, #lose-pane, #draw-pane, #waiting-pane {
+#win-pane, #lose-pane, #draw-pane, #waiting-pane, #abort-pane  {
     display: none;
 }
 

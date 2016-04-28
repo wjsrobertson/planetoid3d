@@ -2,7 +2,7 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
+Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements) {
 
     var _gameWidth = 3840;
     var _gameHeight = 2160;
@@ -47,14 +47,14 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
         _yRatio = _canvasHeight / _gameHeight;
     }
 
-    function renderSurround(model, entities, remainingTime) {
+    function showPlayerHighlight(model, entities, remainingTime) {
         var totalTime = 3000;
         var ratio = remainingTime / totalTime;
         var angle = (360 * ratio * 3) % 360;
 
         var numFrames = 3;
         var framesInTotalTime = 360;
-        var index =  Math.floor((ratio * framesInTotalTime)) % numFrames;
+        var index = Math.floor((ratio * framesInTotalTime)) % numFrames;
 
         var scale = ratio * 1.5;
 
@@ -107,47 +107,54 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig) {
         }
     }
 
+    function isVisible(entity) {
+        return 'hidden' == entity.imageElement.getAttribute('visibility');
+    }
+
     function hideEntity(entity) {
-        entity.imageElement.setAttribute('visibility', 'hidden');
+        if (isVisible(entity)) {
+            entity.imageElement.setAttribute('visibility', 'hidden');
+        }
+    }
+
+    function renderPlayer(player, playerEntity, missileEntity) {
+        if (player.numLives > 0) {
+            render(player.rocket, playerEntity);
+        }
+
+        if (player.missiles.length > 0) {
+            render(player.missiles[0], missileEntity);
+        } else {
+            hideEntity(missileEntity);
+        }
+    }
+
+    function hidePlayerHighlight() {
+        hideEntity(_entities.highlight1);
+        hideEntity(_entities.highlight2);
+        hideEntity(_entities.highlight3);
+    }
+
+    function drawPlanet() {
+        render(gameDetails.getGameModel().planet, _entities.planet);
     }
 
     return {
         draw: function () {
             var gameModel = gameDetails.getGameModel();
-            if (gameModel) {
-                render(gameModel.planet, _entities.planet);
 
+            if (gameModel) {
                 if (gameModel.roundTimer.remainingTimeMs > 300) {
                     var rocket = gameDetails.isPlayer1() ? gameModel.players.p1.rocket : gameModel.players.p2.rocket;
-                    renderSurround(rocket, [_entities.highlight1, _entities.highlight2, _entities.highlight3], gameModel.roundTimer.remainingTimeMs);
+                    showPlayerHighlight(rocket, [_entities.highlight1, _entities.highlight2, _entities.highlight3], gameModel.roundTimer.remainingTimeMs);
                 } else {
-                    hideEntity(_entities.highlight1);
-                    hideEntity(_entities.highlight2);
-                    hideEntity(_entities.highlight3);
+                    hidePlayerHighlight();
                 }
 
-                render(gameModel.players.p1.rocket, _entities.player1);
-                if (gameModel.players.p1.missiles.length > 0) {
-                    render(gameModel.players.p1.missiles[0], _entities.player1Missile);
-                } else {
-                    hideEntity(_entities.player1Missile);
-                }
+                drawPlanet();
 
-                render(gameModel.players.p2.rocket, _entities.player2);
-                if (gameModel.players.p2.missiles.length > 0) {
-                    render(gameModel.players.p2.missiles[0], _entities.player2Missile);
-                } else {
-                    hideEntity(_entities.player2Missile);
-                }
-
-                document.getElementById("player1-points").textContent = gameModel.players.p1.points;
-                document.getElementById("player2-points").textContent = gameModel.players.p2.points;
-
-                document.getElementById("player1-lives").textContent = gameModel.players.p1.numLives;
-                document.getElementById("player2-lives").textContent = gameModel.players.p2.numLives;
-
-                document.getElementById("player1-name").textContent = gameDetails.getUserName();
-                document.getElementById("player2-name").textContent = gameDetails.getOpponentName();
+                renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);
+                renderPlayer(gameModel.players.p2, _entities.player2, _entities.player2Missile);
             }
         }
     }

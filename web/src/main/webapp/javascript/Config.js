@@ -4,7 +4,7 @@ var Planetoid = Planetoid || {};
 
 Planetoid.Config = {
 
-    webRoot: 'http:/localhost:8080/planetoid',
+    webRoot: 'http://localhost:8080/planetoid',
 
     websocketUrl: 'ws:/localhost:8080/planetoid/websocket',
 
