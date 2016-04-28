@@ -108,7 +108,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
     }
 
     function isVisible(entity) {
-        return 'hidden' == entity.imageElement.getAttribute('visibility');
+        return 'visibile' == entity.imageElement.getAttribute('visibility');
     }
 
     function hideEntity(entity) {

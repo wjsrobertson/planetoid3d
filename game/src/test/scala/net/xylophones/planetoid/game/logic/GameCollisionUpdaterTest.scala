@@ -74,4 +74,27 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     newModel.players.p2.missiles shouldBe empty
     newModel.players.p2.points shouldBe 1
   }
+
+  test("missiles are removed for player 2, even when collision between player1 and planet is detected") {
+    /*
+    given
+     */
+    val planet = Planet(Vector2D(10, 10), 10)
+    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val player2 = createDummyPlayerWithMissile(missile)
+    val physics = new GamePhysics()
+    val model = GameModel(planet, Players(player1, player2))
+
+    // when
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
+
+    // then
+    val newModel = result.model
+    val events = result.events
+
+    newModel.players.p2.missiles shouldBe empty
+  }
+
+
 }
