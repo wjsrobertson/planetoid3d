@@ -31,6 +31,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
 
     newModel.players.p1.numLives shouldBe 0
     newModel.players.p2.points shouldBe 1
+    events should contain (GameEvent.Player1LoseLife)
+    events should contain (GameEvent.PlayerLoseLife)
   }
 
   test("collision between player2 and planet is detected") {

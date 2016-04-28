@@ -30,10 +30,12 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
       val p1 = Player(player1.rocket, p1Lives, p1Points, Vector.empty)
       val p2 = Player(player2.rocket, p2Lives, p2Points, Vector.empty)
 
-      val events = Set(GameEvent.PlayerLoseLife)
-      val newModel = model.copy(players = Players(p1, p2))
+      val playerEvent = if (p1Lives != player1.numLives) GameEvent.Player1LoseLife
+                        else GameEvent.Player2LoseLife
 
-      new GameModelUpdateResult(newModel, events ++ initialResult.events)
+      val newModel = model.copy(players = Players(p1, p2))
+      val events = initialResult.events + playerEvent + GameEvent.PlayerLoseLife
+      new GameModelUpdateResult(newModel, events)
     } else {
       new GameModelUpdateResult(model, initialResult.events)
     }
