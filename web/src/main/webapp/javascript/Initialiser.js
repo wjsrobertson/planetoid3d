@@ -10,7 +10,7 @@ Planetoid.Initialiser.bindAndListen = function (settings) {
     var canvas = document.getElementById(settings.viewPaneElements.canvas);
     var gameView = Planetoid.CanvasView(canvas, gameDetails, Planetoid.Config.images);
 
-    var displayControlElements = Planetoid.ElementRetriever.getElementsByIds(settings.viewPaneElements);
+    var displayControlElements = Planetoid.ElementRetriever.getMapOfElementsByIds(settings.viewPaneElements);
     var displayControl = new Planetoid.DisplayControl(displayControlElements, gameDetails);
 
     var input = document.getElementById(settings.userInputElements.nameInput);
@@ -38,8 +38,9 @@ Planetoid.Initialiser.bindAndListen = function (settings) {
     var startRequestMessageSender = Planetoid.GameStartRequestMessageSender(messageSender, gameDetails);
 
     var nameInput = document.getElementById(settings.userInputElements.nameInput);
-    var startGameButton = document.getElementById(settings.userInputElements.startGameButton);
-    var gameStarter = Planetoid.GameStarter(nameInput, startGameButton, gameDetails, startRequestMessageSender, displayControl);
+
+    var startGameButtons = Planetoid.ElementRetriever.getArrayOfElementsByIds(settings.userInputElements.startGameButtons);
+    var gameStarter = Planetoid.GameStarter(nameInput, startGameButtons, gameDetails, startRequestMessageSender, displayControl);
 
     userInputHandler.bindAndListen();
     gameStarter.bindAndListenForGameStart();
