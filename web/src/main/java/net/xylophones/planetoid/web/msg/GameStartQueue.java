@@ -23,16 +23,14 @@ public class GameStartQueue {
 
     /*
      * Blocks until a pair is available
-     *
-     * // TODO - handle case where session for player 1 or player 2 has closed
      */
     public DownstreamPlayerPair getNextGameStartSessionPair() throws InterruptedException {
         Set<DownstreamPlayer> nextPair = newHashSet();
 
         while (nextPair.size() < 2) {
             DownstreamPlayer nextPlayer = queue.take();
+            
             nextPair.add(nextPlayer);
-
             nextPair.removeIf(player -> !player.getSession().isOpen());
         }
 
