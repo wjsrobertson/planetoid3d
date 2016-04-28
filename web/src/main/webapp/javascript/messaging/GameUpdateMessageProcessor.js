@@ -33,6 +33,12 @@ Planetoid.GameUpdateMessageProcessor = function (gameDetails, soundPlayer, displ
             } else {
                 displayControl.displayLoseScreen();
             }
+        } else if (winner == 'Player2') {
+            if (gameDetails.isPlayer1()) {
+                displayControl.displayLoseScreen();
+            } else {
+                displayControl.displayWinScreen();
+            }
         }
     }
 
