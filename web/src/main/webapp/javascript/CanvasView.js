@@ -153,8 +153,15 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
 
                 drawPlanet();
 
-                renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);
-                renderPlayer(gameModel.players.p2, _entities.player2, _entities.player2Missile);
+                if (gameModel.roundTimer.remainingTimeMs < 1000) {
+                    renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);
+                    renderPlayer(gameModel.players.p2, _entities.player2, _entities.player2Missile);
+                } else {
+                    hideEntity(_entities.player1);
+                    hideEntity(_entities.player1Missile);
+                    hideEntity(_entities.player2);
+                    hideEntity(_entities.player2Missile);
+                }
             }
         }
     }

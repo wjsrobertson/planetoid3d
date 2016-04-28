@@ -8,8 +8,8 @@ class GameMissileFireUpdater extends GameModelResultUpdater {
     val model = initialResult.model
     val numMissilesAtStart = getNumMissiles(model)
 
-    val p1 = createMissileIfFiring(model.players.p1, playerInputs(0))
-    val p2 = createMissileIfFiring(model.players.p2, playerInputs(1))
+    val p1 = createMissileIfFiring(model.players.p1, playerInputs(0), physics)
+    val p2 = createMissileIfFiring(model.players.p2, playerInputs(1), physics)
 
     val newModel = model.copy(players = Players(p1, p2))
     val missileFired = getNumMissiles(newModel) > numMissilesAtStart
@@ -22,9 +22,9 @@ class GameMissileFireUpdater extends GameModelResultUpdater {
     model.players.p1.missiles.size + model.players.p2.missiles.size
   }
 
-  def createMissileIfFiring(player: Player, input: PlayerInput) = {
+  def createMissileIfFiring(player: Player, input: PlayerInput, physics: GamePhysics) = {
     if (player.missiles.isEmpty && input.fireMissile) {
-      val missile = new Missile(player.rocket.position, player.rocket.rotation, 10)
+      val missile = new Missile(player.rocket.position, player.rocket.rotation, physics.missileRadius)
       val missiles = player.missiles :+ missile
 
       Player(player.rocket, player.numLives, player.points, missiles)
