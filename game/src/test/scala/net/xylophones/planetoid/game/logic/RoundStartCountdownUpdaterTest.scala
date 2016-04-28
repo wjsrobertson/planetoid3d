@@ -10,7 +10,7 @@ import org.mockito.Matchers.{eq => eqm}
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 
 @RunWith(classOf[JUnitRunner])
-class RoundStartCountdownUpdaterTest extends FunSuite with Matchers  with MockitoSugar{
+class RoundStartCountdownUpdaterTest extends FunSuite with Matchers with MockitoSugar {
 
   val currentTimeSource = mock[CurrentTimeSource]
 
@@ -26,7 +26,7 @@ class RoundStartCountdownUpdaterTest extends FunSuite with Matchers  with Mockit
     val result = underTest.updateRoundTimer(model)
 
     // then
-    result.events should contain (GameEvent.RoundStart)
+    result.events should contain(GameEvent.RoundStart)
     result.model.roundTimer.remainingTimeMs shouldBe 0
     result.model.roundTimer.round shouldBe 1
   }

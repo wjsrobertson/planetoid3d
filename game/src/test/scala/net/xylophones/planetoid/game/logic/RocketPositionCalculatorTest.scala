@@ -16,7 +16,7 @@ class RocketPositionCalculatorTest extends FunSuite with Matchers {
 
   test("planet's gravity attracts rocket") {
     // given
-    val physics: GamePhysics = new GamePhysics()
+    val physics: GamePhysics = new GamePhysics(gForce=0.2)
     val input = PlayerInput()
     val rocket = createRocketAtOriginPointingUp()
 
