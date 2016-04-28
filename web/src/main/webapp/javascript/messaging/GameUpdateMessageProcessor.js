@@ -8,18 +8,22 @@ Planetoid.GameUpdateMessageProcessor = function (gameDetails, soundPlayer, displ
         gameDetails.setGameModel(gameModel);
     }
 
-    function handleEvent(gameEvent) {
+    function handleEvent(gameEvent, gameModel) {
         soundPlayer.playSound(gameEvent);
 
+        console.log("received game event " + gameEvent);
+
         if (gameEvent == 'GameOver') {
-            handleGameOver();
+            handleGameOver(gameModel);
         } else if (gameEvent == 'PlayerLoseLife' || gameEvent == 'RoundInitialised' || gameEvent == 'RoundStart') {
             displayControl.updateStats();
         }
     }
 
-    function handleGameOver() {
-        var winner = gameDetails.getGameModel().winner;
+    function handleGameOver(gameModel) {
+        gameDetails.setGameInProggress(false);
+
+        var winner = gameModel.winner;
 
         if (winner == 'Draw') {
             displayControl.displayDrawScreen();
@@ -37,7 +41,7 @@ Planetoid.GameUpdateMessageProcessor = function (gameDetails, soundPlayer, displ
             updateGameModel(gameUpdate.model);
 
             gameUpdate.events.forEach(function (event) {
-                handleEvent(event);
+                handleEvent(event, gameUpdate.model);
             });
         }
     }

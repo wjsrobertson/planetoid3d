@@ -8,6 +8,7 @@ Planetoid.MessageRouter = function (messageProcessors) {
         routeMessage: function(message){
             var messageProcessor = messageProcessors[message.messageType];
             if (messageProcessor) {
+                console.log("received message with type " + message.messageType);
                 messageProcessor.processMessage(message.payload);
             }
         }
