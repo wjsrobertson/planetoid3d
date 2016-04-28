@@ -12,10 +12,8 @@ Space background:
 http://opengameart.org/content/seamless-space-stars
 
 TODO - websocket JS onOpen callback
+TODO - websocket heartbeat
 TODO - handle expired sessions
 TODO - when user dies remove missile from model
-TODO - websocket heartbeat
 TODO - explosions
 TODO - sounds and other event handling
-TODO - facility to notify all sessions
-TODO - player waiting message to notify if a user is waiting to play

@@ -12,7 +12,9 @@ Planetoid.MessageSender = function (webSocketContainer) {
         sendMessage(messageType, payload) {
             var message = createMessage(messageType, payload);
 
-            webSocketContainer.getWebSocket().send(message);
+            webSocketContainer.sendWhenOpen(message);
+
+                //.getWebSocket().send(message);
         }
     }
 };

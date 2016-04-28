@@ -29,7 +29,6 @@ Planetoid.Initialiser.bindAndListen = function (settings) {
     var messageRouter = Planetoid.MessageRouter(messageProcessors);
 
     var webSocketContainer = Planetoid.WebSocketContainer(messageRouter, Planetoid.Config.websocketUrl);
-    webSocketContainer.getWebSocket(); // create one straight away for now - TODO remove and add game states (use onopen as well)
 
     var messageSender = Planetoid.MessageSender(webSocketContainer);
     var playerInputMessageSender = Planetoid.PlayerInputMessageSender(gameDetails, messageSender);
