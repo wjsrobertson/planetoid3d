@@ -5,5 +5,8 @@ case class RoundCountdownTimer(val round: Int = 0,
                                val remainingTimeMs: Long = 0) {
 
   def isComplete = remainingTimeMs == 0
+}
 
+object RoundCountdownTimer {
+  val empty = RoundCountdownTimer(0,0,0)
 }

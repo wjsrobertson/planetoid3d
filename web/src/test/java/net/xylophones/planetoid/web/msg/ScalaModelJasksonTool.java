@@ -7,6 +7,7 @@ import net.xylophones.planetoid.game.model.*;
 import org.junit.Before;
 import org.junit.Test;
 import scala.Enumeration;
+import scala.Option;
 import scala.collection.immutable.Set;
 import scala.collection.immutable.Set$;
 
@@ -29,8 +30,8 @@ public class ScalaModelJasksonTool {
                 new GameModel(
                         new Planet(new Vector2D(1D, 1D), 10),
                         null,
-                        new RoundCountdownTimer(1, 10L, 20L),
-                        PlayerIdentifier.withName("Draw")
+                        null, Winner.withName("Draw"), new RoundCountdownTimer(1, 10L, 20L),
+                        Option.empty()//new Some(new RoundCountdownTimer(1, 10L, 20L)),
                 ), scalaSet
         );
 

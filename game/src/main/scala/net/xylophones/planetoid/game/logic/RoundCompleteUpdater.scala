@@ -8,15 +8,15 @@ class RoundCompleteUpdater(rocketFactory: RocketFactory) extends GameModelResult
   override def update(initialResult: GameModelUpdateResult, physics: GamePhysics, playerInputs: IndexedSeq[PlayerInput]): GameModelUpdateResult = {
     val model = initialResult.model
 
-    if (initialResult.events.contains(GameEvent.PlayerLoseLife)) {
+    if (isRoundEndTimerComplete(model)) {
       val winner = determineWinner(model.players.p1, model.players.p2)
-      val p1Rocket =  rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player1, physics)
+      val p1Rocket = rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player1, physics)
       val p2Rocket = rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player2, physics)
-      val players = Players.apply(model.players.p1.copy(rocket=p1Rocket), model.players.p2.copy(rocket=p2Rocket))
+      val players = Players.apply(model.players.p1.copy(rocket = p1Rocket), model.players.p2.copy(rocket = p2Rocket))
 
       if (winner == Winner.None) {
         val newTimer = createIncrementedRoundTimer(physics, model.roundTimer)
-        val newModel = model.copy(players = players, roundTimer = newTimer, winner = winner)
+        val newModel = model.copy(players = players, winner = winner, roundTimer = newTimer, endRoundTimer = None)
         val event = GameEvent.RoundInitialised
 
         new GameModelUpdateResult(newModel, initialResult.events + event)
@@ -29,6 +29,10 @@ class RoundCompleteUpdater(rocketFactory: RocketFactory) extends GameModelResult
     } else {
       initialResult
     }
+  }
+
+  def isRoundEndTimerComplete(model: GameModel): Boolean = {
+    model.endRoundTimer.isDefined && model.endRoundTimer.get.isComplete
   }
 
   def determineWinner(player1: Player, player2: Player): Winner.Value = {

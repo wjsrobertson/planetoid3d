@@ -24,6 +24,12 @@ object ModelTestObjectMother {
     Player(rocket, numLives = 1, missiles = Vector(missile))
   }
 
+  def createDummyPlayerAtPosition(position: Vector2D) = {
+    val rocket = Rocket(position, vec, vec, 10)
+
+    Player(rocket, numLives = 1)
+  }
+
   def createDummyPlayers() = {
     val rocket = Rocket(vec, vec, vec, 10)
 

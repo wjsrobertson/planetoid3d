@@ -10,14 +10,14 @@ import org.scalatest.{FunSuite, Matchers}
 @RunWith(classOf[JUnitRunner])
 class RoundCompleteUpdaterTest extends FunSuite with Matchers {
 
+  val completTimer = RoundCountdownTimer(remainingTimeMs = 0)
   val underTest = new RoundCompleteUpdater(new RocketFactory)
 
   test("player 1 wins and round not incremented when player 2 has no lives left and a PlayerLoseLife has been triggered") {
     // given
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 0)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), endRoundTimer = Some(completTimer)), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -32,8 +32,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // given
     val player1 = Player(createDummyRocket(), 0)
     val player2 = Player(createDummyRocket(), 1)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), endRoundTimer = Some(completTimer)), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -48,8 +47,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // given
     val player1 = Player(createDummyRocket(), 0)
     val player2 = Player(createDummyRocket(), 0)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), endRoundTimer = Some(completTimer)), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -64,8 +62,7 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     // given
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 1)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), endRoundTimer = Some(completTimer)), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult, new GamePhysics, Vector.empty)
@@ -76,13 +73,12 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     result.model.roundTimer.round shouldBe 1
   }
 
-  test("if no winner then players positions are reset and round initialised event is triggered") {
+  test("if no winner then players positions are reset, round initialised event is triggered and end round timer is None") {
     // given
     val phys = new GamePhysics
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 1)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(),
-      Players(player1, player2)), Set(GameEvent.PlayerLoseLife))
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), endRoundTimer = Some(completTimer)), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult,phys, Vector.empty)
@@ -91,5 +87,6 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     result.model.players.p1.rocket.position.x should be < (phys.universeWidth / 2).toDouble
     result.model.players.p2.rocket.position.x should be > (phys.universeWidth / 2).toDouble
     result.events should contain(GameEvent.RoundInitialised)
+    result.model.endRoundTimer.isDefined shouldBe false
   }
 }

@@ -5,5 +5,7 @@ import net.xylophones.planetoid.game.model.Winner.Winner
 
 case class GameModel(val planet: Planet,
                      val players: Players,
-                     val roundTimer: RoundCountdownTimer = RoundCountdownTimer(),
-                     @JsonScalaEnumeration(classOf[WinnerType]) val winner: Winner = Winner.None)
+                     val explosions: Set[Explosion] = Set(),
+                     @JsonScalaEnumeration(classOf[WinnerType]) val winner: Winner = Winner.None,
+                     val roundTimer: RoundCountdownTimer = RoundCountdownTimer.empty,
+                     val endRoundTimer: Option[RoundCountdownTimer] = None)
