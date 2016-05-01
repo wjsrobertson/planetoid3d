@@ -14,10 +14,11 @@ class GameUpdaterTest extends FunSuite with Matchers with MockitoSugar {
 
   val inGameUpdater = mock[GameModelResultUpdater]
   val roundStartUpdater = mock[RoundStartCountdownUpdater]
+  val roundCompleteCountdownUpdater = mock[RoundCompleteCountdownUpdater]
   val roundTimer = mock[RoundCountdownTimer]
 
   val updaters = Vector(inGameUpdater)
-  val underTest = new GameUpdater(updaters, roundStartUpdater)
+  val underTest = new GameUpdater(updaters, roundStartUpdater, roundCompleteCountdownUpdater)
 
   test("round start check is not performed when timer is complete") {
     // given
@@ -45,6 +46,18 @@ class GameUpdaterTest extends FunSuite with Matchers with MockitoSugar {
 
     // then
     verify(roundStartUpdater).updateRoundTimer(model)
+    verifyNoMoreInteractions(inGameUpdater)
+  }
+
+  test("round end check is performed when round end timer is present") {
+    // given
+    val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundEndTimer = Some(roundTimer))
+
+    // when
+    val result = underTest.update(model, new GamePhysics, Vector())
+
+    // then
+    verify(roundCompleteCountdownUpdater).update(any(classOf[GameModelUpdateResult]), any(classOf[GamePhysics]), any(classOf[IndexedSeq[PlayerInput]]))
     verifyNoMoreInteractions(inGameUpdater)
   }
 

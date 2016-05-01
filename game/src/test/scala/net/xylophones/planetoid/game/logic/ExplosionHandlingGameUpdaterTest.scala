@@ -14,7 +14,7 @@ class ExplosionHandlingGameUpdaterTest extends FunSuite with Matchers with Mocki
 
   val underTest = new ExplosionHandlingGameUpdater
 
-  test("explosions created for both players and round countdown created") {
+  test("explosions created for both players, round countdown created and explosion event created") {
     // given
     val events = Set(GameEvent.PlayerLoseLife, GameEvent.Player1LoseLife, GameEvent.Player2LoseLife)
     val player1 = createDummyPlayerAtPosition(Vector2D(10, 10))
@@ -34,7 +34,8 @@ class ExplosionHandlingGameUpdaterTest extends FunSuite with Matchers with Mocki
 
     results.model.explosions should contain (explosion1)
     results.model.explosions should contain (explosion2)
-    results.model.endRoundTimer.isDefined shouldBe true
+    results.model.roundEndTimer.isDefined shouldBe true
+    results.events should contain(GameEvent.Explosion)
   }
 
   test("explosions NOT created when no lives lost") {

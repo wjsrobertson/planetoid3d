@@ -19,7 +19,7 @@ class ExplosionHandlingGameUpdater extends GameModelResultUpdater {
 
       val explosions: Set[Explosion] = model.explosions ++ e1 ++ e2
       val endGameTimer = RoundCountdownTimer(remainingTimeMs = physics.explosionDurationMilliseconds)
-      new GameModelUpdateResult(model.copy(explosions = explosions, endRoundTimer = Some(endGameTimer)), events)
+      new GameModelUpdateResult(model.copy(explosions = explosions, roundEndTimer = Some(endGameTimer)), events + GameEvent.Explosion)
     } else {
       initialResults
     }

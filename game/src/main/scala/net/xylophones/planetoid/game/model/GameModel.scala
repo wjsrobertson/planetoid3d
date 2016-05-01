@@ -8,4 +8,4 @@ case class GameModel(val planet: Planet,
                      val explosions: Set[Explosion] = Set(),
                      @JsonScalaEnumeration(classOf[WinnerType]) val winner: Winner = Winner.None,
                      val roundTimer: RoundCountdownTimer = RoundCountdownTimer.empty,
-                     val endRoundTimer: Option[RoundCountdownTimer] = None)
+                     val roundEndTimer: Option[RoundCountdownTimer] = None)

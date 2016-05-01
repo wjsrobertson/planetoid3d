@@ -18,14 +18,14 @@ class RoundCompleteCountdownUpdaterTest extends FunSuite with Matchers with Mock
 
   test("counter gets decremented when exists") {
       // given
-      val model = GameModel(createDummyPlanet(), createDummyPlayers(), endRoundTimer = Some(RoundCountdownTimer(0, 1000, 600)))
+      val model = GameModel(createDummyPlanet(), createDummyPlayers(), roundEndTimer = Some(RoundCountdownTimer(0, 1000, 600)))
       when(currentTimeSource.currentTime()).thenReturn(1599)
 
       // when
       val result = underTest.update(resultFromModel(model), new GamePhysics(), null)
 
       // then
-      result.model.endRoundTimer.get.remainingTimeMs shouldBe 1
+      result.model.roundEndTimer.get.remainingTimeMs shouldBe 1
     }
 
 }
