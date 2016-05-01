@@ -66,6 +66,102 @@ Planetoid.Config = {
             scale: 1,
             width: 144,
             height: 137
+        },
+        explosion1: {
+            path: 'assets/images/explosion1.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion2: {
+            path: 'assets/images/explosion2.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion3: {
+            path: 'assets/images/explosion3.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion4: {
+            path: 'assets/images/explosion4.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion5: {
+            path: 'assets/images/explosion5.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion6: {
+            path: 'assets/images/explosion6.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion7: {
+            path: 'assets/images/explosion7.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion8: {
+            path: 'assets/images/explosion8.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion9: {
+            path: 'assets/images/explosion9.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion10: {
+            path: 'assets/images/explosion10.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion11: {
+            path: 'assets/images/explosion11.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion12: {
+            path: 'assets/images/explosion12.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion13: {
+            path: 'assets/images/explosion13.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion14: {
+            path: 'assets/images/explosion14.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion15: {
+            path: 'assets/images/explosion15.png',
+            scale: 1,
+            width: 128,
+            height: 128
+        },
+        explosion16: {
+            path: 'assets/images/explosion16.png',
+            scale: 1,
+            width: 128,
+            height: 128
         }
     }
 };

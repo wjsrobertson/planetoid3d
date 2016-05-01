@@ -10,6 +10,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
     var _canvasHeight = 540;
     var _xRatio;
     var _yRatio;
+
     var _entities = {
         player1: loadImage(imageConfig.player1),
         player2: loadImage(imageConfig.player2),
@@ -21,6 +22,42 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
         highlight3: loadImage(imageConfig.shield3)
     };
 
+    var explosionEntities = [[
+        loadImage(imageConfig.explosion1),
+        loadImage(imageConfig.explosion2),
+        loadImage(imageConfig.explosion3),
+        loadImage(imageConfig.explosion4),
+        loadImage(imageConfig.explosion5),
+        loadImage(imageConfig.explosion6),
+        loadImage(imageConfig.explosion7),
+        loadImage(imageConfig.explosion8),
+        loadImage(imageConfig.explosion9),
+        loadImage(imageConfig.explosion10),
+        loadImage(imageConfig.explosion11),
+        loadImage(imageConfig.explosion12),
+        loadImage(imageConfig.explosion13),
+        loadImage(imageConfig.explosion14),
+        loadImage(imageConfig.explosion15),
+        loadImage(imageConfig.explosion16)
+    ], [
+        loadImage(imageConfig.explosion1),
+        loadImage(imageConfig.explosion2),
+        loadImage(imageConfig.explosion3),
+        loadImage(imageConfig.explosion4),
+        loadImage(imageConfig.explosion5),
+        loadImage(imageConfig.explosion6),
+        loadImage(imageConfig.explosion7),
+        loadImage(imageConfig.explosion8),
+        loadImage(imageConfig.explosion9),
+        loadImage(imageConfig.explosion10),
+        loadImage(imageConfig.explosion11),
+        loadImage(imageConfig.explosion12),
+        loadImage(imageConfig.explosion13),
+        loadImage(imageConfig.explosion14),
+        loadImage(imageConfig.explosion15),
+        loadImage(imageConfig.explosion16)
+    ]];
+
     updateRatios();
 
     function loadImage(imageConfig) {
@@ -31,7 +68,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
         image.setAttributeNS(xlinkNamespaceURI, 'href', imageConfig.path);
         image.setAttribute('x', '50');
         image.setAttribute('y', '50');
-        image.setAttribute('visibility', 'visible');
+        image.setAttribute('visibility', 'hidden');
 
         canvas.appendChild(image);
 
@@ -45,6 +82,21 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
     function updateRatios() {
         _xRatio = _canvasWidth / _gameWidth;
         _yRatio = _canvasHeight / _gameHeight;
+    }
+
+    function showExplosion(model, remainingTime, entities) {
+        var totalTime = 1000;
+        var ratio = remainingTime / totalTime;
+
+        hideEntities(entities);
+
+        if (remainingTime < totalTime) {
+            var framesInTotalTime = entities.length;
+            var index = Math.floor((ratio * framesInTotalTime)) % framesInTotalTime;
+            var entity = entities[index];
+
+            render(model, entity);
+        }
     }
 
     function showPlayerHighlight(model, entities, remainingTime) {
@@ -111,6 +163,12 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
         return 'visibile' == entity.imageElement.getAttribute('visibility');
     }
 
+    function hideEntities(entities) {
+        entities.forEach(function (entity) {
+            hideEntity(entity)
+        });
+    }
+
     function hideEntity(entity) {
         if (isVisible(entity)) {
             entity.imageElement.setAttribute('visibility', 'hidden');
@@ -153,7 +211,9 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
 
                 drawPlanet();
 
-                if (gameModel.roundTimer.remainingTimeMs < 1000) {
+                if (gameModel.roundTimer.remainingTimeMs < 1000
+                    && ((!gameModel.roundEndTimer) || (gameModel.roundEndTimer.remainingTimeMs > 200))
+                ) {
                     renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);
                     renderPlayer(gameModel.players.p2, _entities.player2, _entities.player2Missile);
                 } else {
@@ -161,6 +221,19 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
                     hideEntity(_entities.player1Missile);
                     hideEntity(_entities.player2);
                     hideEntity(_entities.player2Missile);
+                }
+
+                if (gameModel.explosions && gameModel.roundEndTimer) {
+                    for (var i = 0; i < gameModel.explosions.length; i++) {
+                        var explosionModel = gameModel.explosions[i];
+                        var ei = explosionEntities[i];
+                        var remainingTimeMs = gameModel.roundEndTimer.remainingTimeMs;
+
+                        showExplosion(explosionModel, remainingTimeMs, ei);
+                    }
+                } else {
+                    hideEntities(explosionEntities[0]);
+                    hideEntities(explosionEntities[1]);
                 }
             }
         }

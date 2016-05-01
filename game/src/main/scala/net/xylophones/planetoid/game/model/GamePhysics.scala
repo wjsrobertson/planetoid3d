@@ -15,4 +15,4 @@ class GamePhysics(val gForce: Double = 0.2,
                   val numLives: Int = 3,
                   val maxMissilesPerPlayer: Int = 1,
                   val roundStartDelayMilliseconds: Int = 3000,
-                  val explosionDurationMilliseconds: Int = 1500)
+                  val explosionDurationMilliseconds: Int = 1000)
