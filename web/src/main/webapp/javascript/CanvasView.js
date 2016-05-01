@@ -136,7 +136,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
     function render(model, entity) {
         var modelHeight = model.radius * 2;
 
-        var height = modelHeight * _yRatio;
+        var height = modelHeight * _yRatio * entity.config.scale;
         var width = height * (entity.config.height / entity.config.width);
 
         var midX = _xRatio * model.position.x;
@@ -198,6 +198,16 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
     }
 
     return {
+        hideAll: function() {
+            hidePlayerHighlight();
+            hideEntity(_entities.planet);
+            hideEntity(_entities.player1);
+            hideEntity(_entities.player1Missile);
+            hideEntity(_entities.player2);
+            hideEntity(_entities.player2Missile);
+            hideEntities(explosionEntities[0]);
+            hideEntities(explosionEntities[1]);
+        },
         draw: function () {
             var gameModel = gameDetails.getGameModel();
 
@@ -212,7 +222,7 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
                 drawPlanet();
 
                 if (gameModel.roundTimer.remainingTimeMs < 1000
-                    && ((!gameModel.roundEndTimer) || (gameModel.roundEndTimer.remainingTimeMs > 200))
+                    && ((!gameModel.roundEndTimer) || (gameModel.roundEndTimer.remainingTimeMs > 0))
                 ) {
                     renderPlayer(gameModel.players.p1, _entities.player1, _entities.player1Missile);
                     renderPlayer(gameModel.players.p2, _entities.player2, _entities.player2Missile);

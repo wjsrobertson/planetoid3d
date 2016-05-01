@@ -3,5 +3,4 @@ http://donjon.bin.sh/world/index.cgi
 
 http://opengameart.org/content/explosion-effects-and-more
 
-TODO - explosions
 TODO - sounds and other event handling
