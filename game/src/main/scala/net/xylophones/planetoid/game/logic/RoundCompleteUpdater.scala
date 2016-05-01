@@ -16,7 +16,7 @@ class RoundCompleteUpdater(rocketFactory: RocketFactory) extends GameModelResult
 
       if (winner == Winner.None) {
         val newTimer = createIncrementedRoundTimer(physics, model.roundTimer)
-        val newModel = model.copy(players = players, winner = winner, roundTimer = newTimer, roundEndTimer = None)
+        val newModel = model.copy(players = players, winner = winner, roundTimer = newTimer, roundEndTimer = None, explosions = Set.empty)
         val event = GameEvent.RoundInitialised
 
         new GameModelUpdateResult(newModel, initialResult.events + event)

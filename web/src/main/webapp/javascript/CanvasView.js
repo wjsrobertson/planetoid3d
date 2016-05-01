@@ -224,12 +224,12 @@ Planetoid.CanvasView = function (canvas, gameDetails, imageConfig, statsElements
                 }
 
                 if (gameModel.explosions && gameModel.roundEndTimer) {
-                    for (var i = 0; i < gameModel.explosions.length; i++) {
+                    for (var i = 0; i < Math.min(2, gameModel.explosions.length); i++) {
                         var explosionModel = gameModel.explosions[i];
-                        var ei = explosionEntities[i];
+                        var ee = explosionEntities[i];
                         var remainingTimeMs = gameModel.roundEndTimer.remainingTimeMs;
 
-                        showExplosion(explosionModel, remainingTimeMs, ei);
+                        showExplosion(explosionModel, remainingTimeMs, ee);
                     }
                 } else {
                     hideEntities(explosionEntities[0]);

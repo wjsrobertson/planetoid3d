@@ -73,12 +73,12 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     result.model.roundTimer.round shouldBe 1
   }
 
-  test("if no winner then players positions are reset, round initialised event is triggered and end round timer is None") {
+  test("if no winner then players positions are reset, round initialised event is triggered, end round timer is None and no explosions") {
     // given
     val phys = new GamePhysics
     val player1 = Player(createDummyRocket(), 1)
     val player2 = Player(createDummyRocket(), 1)
-    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), roundEndTimer = Some(completTimer)), Set.empty)
+    val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), roundEndTimer = Some(completTimer), explosions = Set(createDummyExplosion())), Set.empty)
 
     //when
     val result = underTest.update(modelUpdateResult,phys, Vector.empty)
@@ -88,5 +88,6 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     result.model.players.p2.rocket.position.x should be > (phys.universeWidth / 2).toDouble
     result.events should contain(GameEvent.RoundInitialised)
     result.model.roundEndTimer.isDefined shouldBe false
+    result.model.explosions.size shouldBe 0
   }
 }

@@ -108,4 +108,6 @@ object ModelTestObjectMother {
       PlayerInput()
     )
   }
+
+  def createDummyExplosion() = Explosion(vec, 9)
 }
