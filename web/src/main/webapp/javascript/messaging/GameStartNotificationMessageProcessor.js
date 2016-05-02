@@ -2,7 +2,7 @@
 
 var Planetoid = Planetoid || {};
 
-Planetoid.GameStartNotificationMessageProcessor = function (gameDetails, displayControl, gameOrchestrator) {
+Planetoid.GameStartNotificationMessageProcessor = function (gameDetails, displayControl, gameOrchestrator, soundPlayer) {
     return {
         processMessage: function (gameStartMessage) {
             gameDetails.setGameId(gameStartMessage.gameId);
@@ -13,6 +13,8 @@ Planetoid.GameStartNotificationMessageProcessor = function (gameDetails, display
             displayControl.displayGameScreen();
 
             gameOrchestrator.startGameLoop();
+
+            soundPlayer.playSound('GameStart');
         }
     }
 };

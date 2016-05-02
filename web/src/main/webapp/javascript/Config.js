@@ -9,13 +9,25 @@ Planetoid.Config = {
     websocketUrl: 'ws:/localhost:8080/planetoid/websocket',
 
     sounds: [{
-        name: 'PlayerLoseLife',
-        path: 'assets/sound/game_over.ogg',
+        name: 'GameOver',
+        path: 'assets/sound/BellBoy_BC.ogg',
+        numConcurrent: 1
+    },{
+        name: 'GameStart',
+        path: 'assets/sound/In_SpaceSV.ogg',
         numConcurrent: 1
     }, {
+        name: 'Explosion',
+        path: 'assets/sound/FX_Perc9BC.ogg',
+        numConcurrent: 1
+    }, {
+        name: 'RoundInitialised',
+        path: 'assets/sound/In_SpaceSV.ogg',
+        numConcurrent: 1
+    },{
         name: 'MissileFired',
-        path: 'assets/sound/shoot.ogg',
-        numConcurrent: 3
+        path: 'assets/sound/SpaceFX_PX.ogg',
+        numConcurrent: 2
     }],
 
     images: {

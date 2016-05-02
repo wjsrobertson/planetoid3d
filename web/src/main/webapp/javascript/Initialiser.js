@@ -18,11 +18,11 @@ Planetoid.Initialiser.bindAndListen = function (settings) {
 
     var assetFactory = Planetoid.AssetFactory(Planetoid.Config.webRoot);
     var soundPlayer = Planetoid.SoundPlayer(Planetoid.Config.sounds, assetFactory);
-
+    
     var gameOrchestrator = Planetoid.GameOrchestrator(gameView, gameDetails);
 
     var messageProcessors = {
-        'GameStartNotification': Planetoid.GameStartNotificationMessageProcessor(gameDetails, displayControl, gameOrchestrator),
+        'GameStartNotification': Planetoid.GameStartNotificationMessageProcessor(gameDetails, displayControl, gameOrchestrator, soundPlayer),
         'GameModelUpdateResult': Planetoid.GameUpdateMessageProcessor(gameDetails, soundPlayer, displayControl),
         'GameAbortNotification': Planetoid.GameAbortMessageProcessor(gameDetails, displayControl)
     };
