@@ -98,5 +98,51 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     newModel.players.p2.missiles shouldBe empty
   }
 
+  test("collision between player1 and player2 is detected") {
+    /*
+    given
+     */
+    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val physics = new GamePhysics()
+    val model = GameModel(createDummyPlanet(), Players(player1, player2))
 
+    // when
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
+
+    // then
+    val newModel = result.model
+    val events = result.events
+
+    newModel.players.p1.numLives shouldBe 0
+    newModel.players.p1.points shouldBe 1
+    newModel.players.p2.numLives shouldBe 0
+    newModel.players.p2.points shouldBe 1
+    events should contain (GameEvent.Player2LoseLife)
+    events should contain (GameEvent.Player1LoseLife)
+    events should contain (GameEvent.PlayerLoseLife)
+  }
+
+  test("no collision between player1 and player2 when they are not intersecting") {
+    /*
+    given
+     */
+    val player1 = Player(createRocketAt(Vector2D(1000, 1000)), numLives = 1)
+    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val physics = new GamePhysics()
+    val model = GameModel(createDummyPlanet(), Players(player1, player2))
+
+    // when
+    val result = underTest.update(resultFromModel(model), physics, Vector.empty)
+
+    // then
+    val newModel = result.model
+    val events = result.events
+
+    newModel.players.p1 shouldBe player1
+    newModel.players.p2 shouldBe player2
+    events should not contain (GameEvent.Player2LoseLife)
+    events should not contain (GameEvent.Player1LoseLife)
+    events should not contain (GameEvent.PlayerLoseLife)
+  }
 }

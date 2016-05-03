@@ -15,37 +15,44 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
     val model = initialResult.model
 
     val player1 = model.players.p1
-    val p1Result = checkMissileOrPlanetCollision(player1, model.players.p2.missiles, model.planet)
-
     val player2 = model.players.p2
-    val p2Result = checkMissileOrPlanetCollision(player2, model.players.p1.missiles, model.planet)
+
+    val p1Result = checkMissileOrPlanetCollision(player1, model.players.p2.missiles, model.planet, player2)
+    val p2Result = checkMissileOrPlanetCollision(player2, model.players.p1.missiles, model.planet, player1)
 
     if (p1Result.isCollision || p2Result.isCollision) {
-      val p1Lives = if (p1Result.isCollision) player1.numLives - 1 else player1.numLives
-      val p2Points = if (p1Result.isCollision) player2.points + 1 else player2.points
+      val p1Lives = if (p1Result.isCollision) player1.numLives - 1
+                    else player1.numLives
+      val p2Points = if (p1Result.isCollision) player2.points + 1
+                     else player2.points
 
-      val p2Lives = if (p2Result.isCollision) player2.numLives - 1 else player2.numLives
-      val p1Points = if (p2Result.isCollision) player1.points + 1 else player1.points
+      val p2Lives = if (p2Result.isCollision) player2.numLives - 1
+                    else player2.numLives
+      val p1Points = if (p2Result.isCollision) player1.points + 1
+                     else player1.points
 
       val p1 = Player(player1.rocket, p1Lives, p1Points, Vector.empty)
       val p2 = Player(player2.rocket, p2Lives, p2Points, Vector.empty)
 
-      val playerEvent = if (p1Lives != player1.numLives) GameEvent.Player1LoseLife
-                        else GameEvent.Player2LoseLife
+      val player1Event = if (p1Lives != player1.numLives) Some(GameEvent.Player1LoseLife)
+                         else None
+      val player2Event = if (p2Lives != player2.numLives) Some(GameEvent.Player2LoseLife)
+                         else None
 
       val newModel = model.copy(players = Players(p1, p2))
-      val events = initialResult.events + playerEvent + GameEvent.PlayerLoseLife
+      val events = initialResult.events ++ player1Event ++ player2Event + GameEvent.PlayerLoseLife
       new GameModelUpdateResult(newModel, events)
     } else {
       new GameModelUpdateResult(model, initialResult.events)
     }
   }
 
-  private def checkMissileOrPlanetCollision(player: Player, missiles: IndexedSeq[Missile], planet: Planet) = {
+  private def checkMissileOrPlanetCollision(player: Player, missiles: IndexedSeq[Missile], planet: Planet, opponent: Player) = {
     val missileResult = checkMissileCollision(player, missiles)
-    val planetResult = checkPlanetCollision(player, planet)
+    val planetResult = checkTwoCircularObjectCollision(player.rocket, planet)
+    val playerResults = checkTwoCircularObjectCollision(player.rocket, opponent.rocket)
 
-    mergeCollisionResults(missileResult, planetResult)
+    mergeCollisionResults(playerResults, mergeCollisionResults(missileResult, planetResult))
   }
 
   private def checkMissileCollision(player: Player, missiles: IndexedSeq[Missile]) = {
@@ -55,8 +62,8 @@ class GameCollisionUpdater(collisionCalculator: CollisionCalculator) extends Gam
     else CollisionResult.empty
   }
 
-  private def checkPlanetCollision(player: Player, planet: Planet): CollisionResult = {
-    val isColliding = collisionCalculator.isCollision(player.rocket, planet)
+  private def checkTwoCircularObjectCollision(c1: Circular, c2: Circular): CollisionResult = {
+    val isColliding = collisionCalculator.isCollision(c1, c2)
 
     if (isColliding) CollisionResult(isCollision = true)
     else CollisionResult.empty
