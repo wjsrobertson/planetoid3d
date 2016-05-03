@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.model
 
-class GamePhysics(val gForce: Double = 0.2,
+class GamePhysics(val gForce: Double = 0.05,
                   val planetRadius: Int = 300,
                   val rocketMass: Double = 1,
                   val rocketThrustForce: Double = 1,
