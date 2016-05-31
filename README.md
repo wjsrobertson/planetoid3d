@@ -1,14 +1,10 @@
-Planetoid
-=========
+Planetoid 3D
+============
 
-[![Build Status](https://travis-ci.org/wjsrobertson/planetoid.svg?branch=master)](https://travis-ci.org/wjsrobertson/planetoid)
-[![Coverage Status](https://coveralls.io/repos/github/wjsrobertson/planetoid/badge.svg?branch=master)](https://coveralls.io/github/wjsrobertson/planetoid?branch=master)
+[![Build Status](https://travis-ci.org/wjsrobertson/planetoid.svg?branch=master)](https://travis-ci.org/wjsrobertson/planetoid3d)
+[![Coverage Status](https://coveralls.io/repos/github/wjsrobertson/planetoid/badge.svg?branch=master)](https://coveralls.io/github/wjsrobertson/planetoid3d?branch=master)
 
-A 2 Player HTML5 Game written in Scala, Java and JavaScript using websockets for client/server communication
-
-### Live Game
-
-Play online at [planetoids.co](http://planetoids.co/)
+A 3D version of Planetoid - a 2 Player HTML5 Game written in Scala, Java and JavaScript using websockets for client/server communication
 
 ### License
 
