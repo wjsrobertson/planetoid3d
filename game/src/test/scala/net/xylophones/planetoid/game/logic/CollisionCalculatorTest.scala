@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model.Circular
 import org.junit.runner.RunWith
 import org.scalatest.{Matchers, FunSuite}
@@ -17,12 +17,12 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 200
-      override def position = Vector2D(0,0)
+      override def position = Vector3D(0,0)
     }
 
     val c2 = new Circular {
       override def radius = 100
-      override def position = Vector2D(269,0)
+      override def position = Vector3D(269,0)
     }
 
     // when
@@ -38,12 +38,12 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 200
-      override def position = Vector2D(0,0)
+      override def position = Vector3D(0,0)
     }
 
     val c2 = new Circular {
       override def radius = 100
-      override def position = Vector2D(271,0)
+      override def position = Vector3D(271,0)
     }
 
     // when
@@ -59,7 +59,7 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 10
-      override def position = Vector2D(0,0)
+      override def position = Vector3D(0,0)
     }
 
     val c2 = c1
@@ -77,12 +77,12 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 10
-      override def position = Vector2D(0,0)
+      override def position = Vector3D(0,0)
     }
 
     val c2 = new Circular {
       override def radius = 2
-      override def position = Vector2D(90,0)
+      override def position = Vector3D(90,0)
     }
 
     // when

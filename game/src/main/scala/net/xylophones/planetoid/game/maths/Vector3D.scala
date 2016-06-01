@@ -39,4 +39,6 @@ case class Vector3D(val x: Double,
 
 object Vector3D {
   val zero = Vector3D(0, 0, 0)
+
+  def apply(x: Double, y: Double) = new Vector3D(x, y, 0)
 }

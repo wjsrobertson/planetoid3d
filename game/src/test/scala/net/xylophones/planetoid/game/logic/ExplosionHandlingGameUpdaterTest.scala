@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model.GameEvent.GameEvent
 import net.xylophones.planetoid.game.model._
 import org.junit.runner.RunWith
@@ -17,8 +17,8 @@ class ExplosionHandlingGameUpdaterTest extends FunSuite with Matchers with Mocki
   test("explosions created for both players, round countdown created and explosion event created") {
     // given
     val events = Set(GameEvent.PlayerLoseLife, GameEvent.Player1LoseLife, GameEvent.Player2LoseLife)
-    val player1 = createDummyPlayerAtPosition(Vector2D(10, 10))
-    val player2 = createDummyPlayerAtPosition(Vector2D(100, 100))
+    val player1 = createDummyPlayerAtPosition(Vector3D(10, 10))
+    val player2 = createDummyPlayerAtPosition(Vector3D(100, 100))
     val players = Players(player1, player2)
     val model = GameModel(createDummyPlanet(), players)
     val gameResults: GameModelUpdateResult = new GameModelUpdateResult(model, events)

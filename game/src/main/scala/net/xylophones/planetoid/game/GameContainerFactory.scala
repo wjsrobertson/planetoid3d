@@ -1,13 +1,13 @@
 package net.xylophones.planetoid.game
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model._
 
 class GameContainerFactory(rocketFactory: RocketFactory) {
 
   def createGameContainer(player1Id: String, player2Id: String) = {
     val phys = new GamePhysics
-    val planetPosition = Vector2D(phys.universeWidth / 2, phys.universeHeight / 2)
+    val planetPosition = Vector3D(phys.universeWidth / 2, phys.universeWidth / 2, phys.universeWidth / 2)
     val planet = Planet(planetPosition, phys.planetRadius)
 
     val p1Rocket = rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player1, phys)

@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model._
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
@@ -24,7 +24,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics
     val xOffscreen = phys.universeWidth + 99
-    val missile = new Missile(Vector2D(xOffscreen, 10), Vector2D(1, 0), 10)
+    val missile = new Missile(Vector3D(xOffscreen, 10), Vector3D(1, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithPlayer1Missile(missile)
 
@@ -42,7 +42,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics(missileSpeed = 0)
     val xOnScreen = phys.universeWidth - 10
-    val missile = new Missile(Vector2D(xOnScreen, 10), Vector2D(1, 0), 10)
+    val missile = new Missile(Vector3D(xOnScreen, 10), Vector3D(1, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithPlayer1Missile(missile)
 
@@ -60,7 +60,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
      */
     val phys = new GamePhysics(gForce = 0)
     val xOffScreen = phys.universeWidth + 99
-    val rocket = Rocket(Vector2D(xOffScreen, 10), vec, vec, 10)
+    val rocket = Rocket(Vector3D(xOffScreen, 10), vec, vec, 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithRocketAsPLayer1(rocket)
 
@@ -79,7 +79,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
      */
     val phys = new GamePhysics(gForce = 0)
     val xOnScreen = 120d
-    val rocket = Rocket(Vector2D(xOnScreen, 10), vec, vec, 10)
+    val rocket = Rocket(Vector3D(xOnScreen, 10), vec, vec, 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithRocketAsPLayer1(rocket)
 

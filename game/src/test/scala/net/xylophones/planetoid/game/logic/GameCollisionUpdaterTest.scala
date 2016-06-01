@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model._
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
@@ -17,8 +17,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     /*
     given
      */
-    val planet = Planet(Vector2D(10, 10), 10)
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val planet = Planet(Vector3D(10, 10), 10)
+    val player1 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
     val model = GameModel(planet, Players(player1, createDummyPlayer()))
 
@@ -39,8 +39,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     /*
     given
      */
-    val planet = Planet(Vector2D(10, 10), 10)
-    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val planet = Planet(Vector3D(10, 10), 10)
+    val player2 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
     val model = GameModel(planet, Players(createDummyPlayer(), player2))
 
@@ -60,8 +60,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     given
      */
     val physics = new GamePhysics()
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
-    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val player1 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
+    val missile = new Missile(Vector3D(10, 10), Vector3D(0, 0), 2)
     val player2 = createDummyPlayerWithMissile(missile)
     val model = GameModel(createDummyPlanet(), Players(player1, player2))
 
@@ -81,9 +81,9 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     /*
     given
      */
-    val planet = Planet(Vector2D(10, 10), 10)
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
-    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val planet = Planet(Vector3D(10, 10), 10)
+    val player1 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
+    val missile = new Missile(Vector3D(10, 10), Vector3D(0, 0), 2)
     val player2 = createDummyPlayerWithMissile(missile)
     val physics = new GamePhysics()
     val model = GameModel(planet, Players(player1, player2))
@@ -102,8 +102,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     /*
     given
      */
-    val player1 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
-    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val player1 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
+    val player2 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
     val model = GameModel(createDummyPlanet(), Players(player1, player2))
 
@@ -127,8 +127,8 @@ class GameCollisionUpdaterTest extends FunSuite with Matchers {
     /*
     given
      */
-    val player1 = Player(createRocketAt(Vector2D(1000, 1000)), numLives = 1)
-    val player2 = Player(createRocketAt(Vector2D(10, 10)), numLives = 1)
+    val player1 = Player(createRocketAt(Vector3D(1000, 1000)), numLives = 1)
+    val player2 = Player(createRocketAt(Vector3D(10, 10)), numLives = 1)
     val physics = new GamePhysics()
     val model = GameModel(createDummyPlanet(), Players(player1, player2))
 

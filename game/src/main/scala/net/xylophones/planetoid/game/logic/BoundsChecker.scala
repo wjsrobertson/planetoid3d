@@ -1,25 +1,19 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model.{GamePhysics, Circular}
 
 class BoundsChecker {
 
-  def isWithinBounds(position: Vector2D, gamePhysics: GamePhysics): Boolean = {
-    val x = position.x
-    val y = position.y
+  def isWithinBounds(position: Vector3D, gamePhysics: GamePhysics): Boolean = {
+    val centre = Vector3D(gamePhysics.universeWidth, gamePhysics.universeWidth, gamePhysics.universeWidth)
 
-    x > 0 && x < gamePhysics.universeWidth && y > 0 && y < gamePhysics.universeHeight
+    (centre - position).magnitude < gamePhysics.universeWidth
   }
 
-  def warpOverBounds(position: Vector2D, gamePhysics: GamePhysics): Vector2D = {
+  def warpOverBounds(position: Vector3D, gamePhysics: GamePhysics): Vector3D = {
     if (isWithinBounds(position, gamePhysics)) position
-    else {
-      val x = (math.round(position.x) + gamePhysics.universeWidth) % gamePhysics.universeWidth
-      val y = (math.round(position.y) + gamePhysics.universeHeight) % gamePhysics.universeHeight
-
-      Vector2D(x, y)
-    }
+    else Vector3D(-position.x, -position.y, -position.z)
   }
 
 }

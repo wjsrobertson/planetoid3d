@@ -1,7 +1,7 @@
 package net.xylophones.planetoid.game.logic
 
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model._
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
@@ -21,7 +21,7 @@ class MissilePlanetCollisionGameUpdaterTest extends FunSuite with Matchers with 
     // given
     val physics = new GamePhysics()
     val player1 = createDummyPlayer()
-    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val missile = new Missile(Vector3D(10, 10), Vector3D(0, 0), 2)
     val player2 = createDummyPlayerWithMissile(missile)
     val planet = createDummyPlanet()
     val model = GameModel(planet, Players(player1, player2))
@@ -39,7 +39,7 @@ class MissilePlanetCollisionGameUpdaterTest extends FunSuite with Matchers with 
     // given
     val physics = new GamePhysics()
     val player2 = createDummyPlayer()
-    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val missile = new Missile(Vector3D(10, 10), Vector3D(0, 0), 2)
     val player1 = createDummyPlayerWithMissile(missile)
     val planet = createDummyPlanet()
     val model = GameModel(planet, Players(player1, player2))
@@ -56,7 +56,7 @@ class MissilePlanetCollisionGameUpdaterTest extends FunSuite with Matchers with 
   test("player 1 and player 2 missiles do not get filtered when they are not colliding with the planet") {
     // given
     val physics = new GamePhysics()
-    val missile = new Missile(Vector2D(10, 10), Vector2D(0, 0), 2)
+    val missile = new Missile(Vector3D(10, 10), Vector3D(0, 0), 2)
     val player1 = createDummyPlayerWithMissile(missile)
     val player2 = createDummyPlayerWithMissile(missile)
     val planet = createDummyPlanet()

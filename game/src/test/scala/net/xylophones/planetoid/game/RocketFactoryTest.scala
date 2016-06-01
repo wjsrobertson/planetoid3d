@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game
 
-import net.xylophones.planetoid.game.maths.Vector2D
+import net.xylophones.planetoid.game.maths.Vector3D
 import net.xylophones.planetoid.game.model.{Rocket, PlayerIdentifier, GamePhysics}
 import org.scalatest.{FunSuite, Matchers}
 
@@ -16,7 +16,7 @@ class RocketFactoryTest extends FunSuite with Matchers {
     val rocket = underTest.getRocketAtInitialPosition(PlayerIdentifier.Player1, phys)
 
     // then
-    val facingLeft = rocket.rotation ~= Vector2D(-1, 0)
+    val facingLeft = rocket.rotation ~= Vector3D(-1, 0, 0)
     facingLeft shouldBe true
   }
 
@@ -40,7 +40,7 @@ class RocketFactoryTest extends FunSuite with Matchers {
     val rocket = underTest.getRocketAtInitialPosition(PlayerIdentifier.Player2, phys)
 
     // then
-    val facingRight = rocket.rotation ~= Vector2D(1, 0)
+    val facingRight = rocket.rotation ~= Vector3D(1, 0, 0)
     facingRight shouldBe true
   }
 
