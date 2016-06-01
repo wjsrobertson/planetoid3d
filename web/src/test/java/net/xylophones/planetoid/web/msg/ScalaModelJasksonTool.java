@@ -28,7 +28,7 @@ public class ScalaModelJasksonTool {
 
         GameModelUpdateResult result = new GameModelUpdateResult(
                 new GameModel(
-                        new Planet(new Vector3D(1D, 1D), 10),
+                        new Planet(new Vector3D(1D, 1D, 1D), 10),
                         null,
                         null, Winner.withName("Draw"), new RoundCountdownTimer(1, 10L, 20L),
                         Option.empty()//new Some(new RoundCountdownTimer(1, 10L, 20L)),

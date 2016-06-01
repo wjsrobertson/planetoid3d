@@ -84,8 +84,8 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val result = underTest.update(modelUpdateResult,phys, Vector.empty)
 
     // then
-    result.model.players.p1.rocket.position.x should be < (phys.universeWidth / 2).toDouble
-    result.model.players.p2.rocket.position.x should be > (phys.universeWidth / 2).toDouble
+    result.model.players.p1.rocket.position.z should be < (phys.universeWidth / 2).toDouble
+    result.model.players.p2.rocket.position.z should be > (phys.universeWidth / 2).toDouble
     result.events should contain(GameEvent.RoundInitialised)
     result.model.roundEndTimer.isDefined shouldBe false
     result.model.explosions.size shouldBe 0
