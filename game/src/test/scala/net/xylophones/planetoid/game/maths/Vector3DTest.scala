@@ -78,6 +78,19 @@ class Vector3DTest extends FunSuite with Matchers {
     result.z shouldBe 300d +- tolerance
   }
 
+  test("division by scalar") {
+    // given
+    val v1 = Vector3D(10, 20, 30)
+
+    // when
+    val result = v1 / 10
+
+    // then
+    result.x shouldBe 1d +- tolerance
+    result.y shouldBe 2d +- tolerance
+    result.z shouldBe 3d +- tolerance
+  }
+
   test("magnitude") {
     // given
     val v1 = Vector3D(7, 8, 9)

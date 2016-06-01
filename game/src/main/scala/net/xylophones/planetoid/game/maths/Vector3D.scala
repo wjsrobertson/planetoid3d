@@ -25,17 +25,8 @@ case class Vector3D(val x: Double,
 
   def normalise = {
     if (magnitude > 0) this * (1 / magnitude)
-    else Vector3D(0, 0, 0)
+    else Vector3D.zero
   }
-
-  /*
-  def rotate(radians: Double): Vector3D = {
-    val x1 = (x * cos(radians)) - (y * sin(radians))
-    val y1 = (x * sin(radians)) + (y * cos(radians))
-
-    Vector3D(x1, y1)
-  }
-  */
 
   def ~=(that: Vector3D) = {
     val epsilon = 0.00001
