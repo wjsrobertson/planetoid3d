@@ -23,16 +23,16 @@ class RocketFactory {
   }
 
   private def player1InitialPosition(phys: GamePhysics): Vector3D = {
-    val x = phys.universeWidth / 2
-    val y = phys.universeWidth / 2
-    val z = (phys.universeWidth - phys.planetRadius) / 8
+    val x = 0
+    val y = 0
+    val z = -(phys.universeWidth - (phys.universeWidth - phys.planetRadius) / 8)
 
     Vector3D(x, y, z)
   }
 
   private def player2InitialPosition(phys: GamePhysics): Vector3D = {
-    val x = phys.universeWidth / 2
-    val y = phys.universeWidth / 2
+    val x = 0
+    val y = 0
     val z = phys.universeWidth - (phys.universeWidth - phys.planetRadius) / 8
 
     Vector3D(x, y, z)

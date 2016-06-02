@@ -17,12 +17,14 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 200
-      override def position = Vector3D(0,0)
+
+      override def position = Vector3D(0, 0, 0)
     }
 
     val c2 = new Circular {
       override def radius = 100
-      override def position = Vector3D(269,0)
+
+      override def position = Vector3D(269, 0, 0)
     }
 
     // when
@@ -38,12 +40,14 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 200
-      override def position = Vector3D(0,0)
+
+      override def position = Vector3D(0, 0, 0)
     }
 
     val c2 = new Circular {
       override def radius = 100
-      override def position = Vector3D(271,0)
+
+      override def position = Vector3D(271, 0, 0)
     }
 
     // when
@@ -59,7 +63,8 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 10
-      override def position = Vector3D(0,0)
+
+      override def position = Vector3D(0, 0, 0)
     }
 
     val c2 = c1
@@ -77,12 +82,14 @@ class CollisionCalculatorTest extends FunSuite with Matchers {
      */
     val c1 = new Circular {
       override def radius = 10
-      override def position = Vector3D(0,0)
+
+      override def position = Vector3D(0, 0, 0)
     }
 
     val c2 = new Circular {
       override def radius = 2
-      override def position = Vector3D(90,0)
+
+      override def position = Vector3D(90, 0, 0)
     }
 
     // when

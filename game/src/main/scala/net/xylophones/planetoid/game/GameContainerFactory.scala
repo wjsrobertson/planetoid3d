@@ -7,7 +7,7 @@ class GameContainerFactory(rocketFactory: RocketFactory) {
 
   def createGameContainer(player1Id: String, player2Id: String) = {
     val phys = new GamePhysics
-    val planetPosition = Vector3D(phys.universeWidth / 2, phys.universeWidth / 2, phys.universeWidth / 2)
+    val planetPosition = Vector3D(0, 0, 0)
     val planet = Planet(planetPosition, phys.planetRadius)
 
     val p1Rocket = rocketFactory.getRocketAtInitialPosition(PlayerIdentifier.Player1, phys)

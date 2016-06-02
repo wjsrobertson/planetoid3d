@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector3D
+import net.xylophones.planetoid.game.maths.{RotationDegreesToDirectionVector, Vector3D}
 import net.xylophones.planetoid.game.model._
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
@@ -12,9 +12,11 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
   val tolerance: Double = 0.00001
 
+  val rotationDirectionCalculator: RotationDegreesToDirectionVector = new RotationDegreesToDirectionVector
+
   val underTest = new GamePositionUpdater(
-    new MissilePositionCalculator,
-    new RocketPositionCalculator(new BoundsChecker),
+    new MissilePositionCalculator(rotationDirectionCalculator),
+    new RocketPositionCalculator(new BoundsChecker, rotationDirectionCalculator),
     new BoundsChecker
   )
 
@@ -24,7 +26,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics
     val xOffscreen = phys.universeWidth + 99
-    val missile = new Missile(Vector3D(xOffscreen, 10), Vector3D(1, 0), 10)
+    val missile = new Missile(Vector3D(xOffscreen, 10, 0), Vector3D(1, 0, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithPlayer1Missile(missile)
 
@@ -42,7 +44,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
       */
     val phys = new GamePhysics(missileSpeed = 0)
     val xOnScreen = phys.universeWidth - 10
-    val missile = new Missile(Vector3D(xOnScreen, 10), Vector3D(1, 0), 10)
+    val missile = new Missile(Vector3D(xOnScreen, 10, 0), Vector3D(1, 0, 0), 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithPlayer1Missile(missile)
 
@@ -59,8 +61,8 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
      given
      */
     val phys = new GamePhysics(gForce = 0)
-    val xOffScreen = phys.universeWidth + 99
-    val rocket = Rocket(Vector3D(xOffScreen, 10), vec, vec, 10)
+    val xOffScreen = -(phys.universeWidth + 99)
+    val rocket = Rocket(Vector3D(xOffScreen, 0, 0), vec, vec, 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithRocketAsPLayer1(rocket)
 
@@ -70,7 +72,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     // then
     val newModel = result.model
     val player1 = newModel.players.p1
-    player1.rocket.position.x shouldBe 99d +- tolerance
+    player1.rocket.position.x shouldBe phys.universeWidth.toDouble +- tolerance
   }
 
   test("rocket does not get warped to other side if it is onscreen") {
@@ -79,7 +81,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
      */
     val phys = new GamePhysics(gForce = 0)
     val xOnScreen = 120d
-    val rocket = Rocket(Vector3D(xOnScreen, 10), vec, vec, 10)
+    val rocket = Rocket(Vector3D(xOnScreen, 10, 0), vec, vec, 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithRocketAsPLayer1(rocket)
 

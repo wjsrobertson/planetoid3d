@@ -21,6 +21,10 @@ public class GameControl {
 
     private final boolean reverseThrust;
 
+    private final boolean up;
+
+    private final boolean down;
+
     @JsonCreator
     public GameControl(@JsonProperty("userId") String userId,
                        @JsonProperty("gameId") String gameId,
@@ -28,7 +32,9 @@ public class GameControl {
                        @JsonProperty("left") boolean left,
                        @JsonProperty("right") boolean right,
                        @JsonProperty("thrust") boolean thrust,
-                       @JsonProperty("reverseThrust") boolean reverseThrust) {
+                       @JsonProperty("reverseThrust") boolean reverseThrust,
+                       @JsonProperty("up") boolean up,
+                       @JsonProperty("down") boolean down) {
 
         this.userId = userId;
         this.gameId = gameId;
@@ -37,6 +43,8 @@ public class GameControl {
         this.right = right;
         this.thrust = thrust;
         this.reverseThrust = reverseThrust;
+        this.up = up;
+        this.down = down;
     }
 
     public String getUserId() {
@@ -67,6 +75,14 @@ public class GameControl {
         return reverseThrust;
     }
 
+    public boolean isUp() {
+        return up;
+    }
+
+    public boolean isDown() {
+        return down;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (! (other instanceof GameControl)) {
@@ -80,12 +96,14 @@ public class GameControl {
                 thrust == that.thrust &&
                 reverseThrust == that.reverseThrust &&
                 Objects.equal(userId, that.userId) &&
-                Objects.equal(gameId, that.gameId);
+                Objects.equal(gameId, that.gameId) &&
+                up == that.up &&
+                down == that.down;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(userId, gameId, fireMissile, left, right, thrust, reverseThrust);
+        return Objects.hashCode(userId, gameId, fireMissile, left, right, thrust, reverseThrust, up, down);
     }
 
     @Override
@@ -98,6 +116,8 @@ public class GameControl {
                 .add("right", right)
                 .add("thrust", thrust)
                 .add("reverseThrust", reverseThrust)
+                .add("up", up)
+                .add("down", down)
                 .toString();
     }
 }
