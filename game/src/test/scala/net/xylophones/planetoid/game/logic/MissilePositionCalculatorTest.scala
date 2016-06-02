@@ -13,8 +13,8 @@ class MissilePositionCalculatorTest extends FunSuite with Matchers {
 
   test("missile should move according to speed") {
     // given
-    val position = Vector3D(0, 0)
-    val rotation = Vector3D(0, 1)
+    val position = Vector3D(0, 0, 0)
+    val rotation = Vector3D(0, 1, 0)
     val missile = new Missile(position, rotation, 999)
     val physics = new GamePhysics(missileSpeed = 10)
 
@@ -22,7 +22,7 @@ class MissilePositionCalculatorTest extends FunSuite with Matchers {
     val updatedMissile = underTest.updateMissilePosition(missile, physics)
 
     // then
-    val correctPosition = updatedMissile.position ~= Vector3D(0, 10)
+    val correctPosition = updatedMissile.position ~= Vector3D(0, 10, 0)
     correctPosition shouldBe true
   }
 
