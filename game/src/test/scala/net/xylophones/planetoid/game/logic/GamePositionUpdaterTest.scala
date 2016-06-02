@@ -59,8 +59,8 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
      given
      */
     val phys = new GamePhysics(gForce = 0)
-    val xOffScreen = phys.universeWidth + 99
-    val rocket = Rocket(Vector3D(xOffScreen, 10), vec, vec, 10)
+    val xOffScreen = -(phys.universeWidth + 99)
+    val rocket = Rocket(Vector3D(xOffScreen, 0, 0), vec, vec, 10)
     val inputs = createDummyPlayerInput()
     val model = createGameModelWithRocketAsPLayer1(rocket)
 
@@ -70,7 +70,7 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
     // then
     val newModel = result.model
     val player1 = newModel.players.p1
-    player1.rocket.position.x shouldBe 99d +- tolerance
+    player1.rocket.position.x shouldBe phys.universeWidth.toDouble +- tolerance
   }
 
   test("rocket does not get warped to other side if it is onscreen") {

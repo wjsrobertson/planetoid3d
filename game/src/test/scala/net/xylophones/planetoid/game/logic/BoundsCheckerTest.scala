@@ -13,8 +13,8 @@ class BoundsCheckerTest extends FunSuite with Matchers {
 
   test("point is within bounds") {
     // given
-    val position = Vector3D(5, 5)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(5, 5, 5)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val isWithinBounds = underTest.isWithinBounds(position, phys)
@@ -25,8 +25,8 @@ class BoundsCheckerTest extends FunSuite with Matchers {
 
   test("point is outside bounds") {
     // given
-    val position = Vector3D(15, 15)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(15, 15, 15)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val isWithinBounds = underTest.isWithinBounds(position, phys)
@@ -35,55 +35,57 @@ class BoundsCheckerTest extends FunSuite with Matchers {
     isWithinBounds shouldBe false
   }
 
-  test("point is warped over width") {
+  test("point is warped over x") {
     // given
-    val position = Vector3D(15, 5)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(11, 0, 0)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val warped = underTest.warpOverBounds(position, phys)
 
     // then
-    val isWarped = warped ~= Vector3D(5, 5)
+    val isWarped = warped ~= Vector3D(-10, 0, 0)
     isWarped shouldBe true
   }
 
-  test("point is warped over width when negative") {
+  test("point is warped over x when negative") {
     // given
-    val position = Vector3D(-5, 5)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(-10, 0, 0)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val warped = underTest.warpOverBounds(position, phys)
 
     // then
-    val isWarped = warped ~= Vector3D(5, 5)
+    val isWarped = warped ~= Vector3D(10, 0, 0)
     isWarped shouldBe true
   }
 
-  test("point is warped over height when negative") {
+  test("point is warped over y when negative") {
     // given
-    val position = Vector3D(5, -5)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(0, -10, 0)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val warped = underTest.warpOverBounds(position, phys)
 
     // then
-    val isWarped = warped ~= Vector3D(5, 5)
+    val isWarped = warped ~= Vector3D(0, 10, 0)
     isWarped shouldBe true
   }
 
-  test("point is warped over width and height when negative") {
+  test("point is warped over x, y and z") {
     // given
-    val position = Vector3D(-5, -5)
-    val phys = new GamePhysics(universeHeight = 10, universeWidth = 10)
+    val position = Vector3D(10, 10, 10)
+    val phys = new GamePhysics(universeWidth = 10)
 
     // when
     val warped = underTest.warpOverBounds(position, phys)
 
     // then
-    val isWarped = warped ~= Vector3D(5, 5)
+    val magnitude = Math.sqrt(10 * 10 + 10 * 10 + 10 * 10)
+    val distance = -10 * (phys.universeWidth / magnitude)
+    val isWarped = warped ~= Vector3D(distance, distance, distance)
     isWarped shouldBe true
   }
 

@@ -81,11 +81,11 @@ class RoundCompleteUpdaterTest extends FunSuite with Matchers {
     val modelUpdateResult = new GameModelUpdateResult(GameModel(createDummyPlanet(), Players(player1, player2), roundEndTimer = Some(completTimer), explosions = Set(createDummyExplosion())), Set.empty)
 
     //when
-    val result = underTest.update(modelUpdateResult,phys, Vector.empty)
+    val result = underTest.update(modelUpdateResult, phys, Vector.empty)
 
     // then
-    result.model.players.p1.rocket.position.x should be < (phys.universeWidth / 2).toDouble
-    result.model.players.p2.rocket.position.x should be > (phys.universeWidth / 2).toDouble
+    result.model.players.p1.rocket.position.x should not be player1.rocket.position
+    result.model.players.p2.rocket.position.x should not be player2.rocket.position
     result.events should contain(GameEvent.RoundInitialised)
     result.model.roundEndTimer.isDefined shouldBe false
     result.model.explosions.size shouldBe 0
