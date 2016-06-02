@@ -26,6 +26,6 @@ public class GameControlMessageProcessor extends AbstractIncomingMessageProcesso
 
     private PlayerInput createPlayerInput(GameControl payload) {
         return new PlayerInput(payload.isLeft(), payload.isRight(), payload.isThrust(), payload.isReverseThrust(),
-                payload.isFireMissile());
+                payload.isFireMissile(), payload.isUp(), payload.isDown());
     }
 }

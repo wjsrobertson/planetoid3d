@@ -1,6 +1,6 @@
 package net.xylophones.planetoid.game.logic
 
-import net.xylophones.planetoid.game.maths.Vector3D
+import net.xylophones.planetoid.game.maths.{RotationDegreesToDirectionVector, Vector3D}
 import net.xylophones.planetoid.game.model._
 import net.xylophones.planetoid.game.logic.ModelTestObjectMother._
 import org.junit.runner.RunWith
@@ -12,9 +12,11 @@ class GamePositionUpdaterTest extends FunSuite with Matchers {
 
   val tolerance: Double = 0.00001
 
+  val rotationDirectionCalculator: RotationDegreesToDirectionVector = new RotationDegreesToDirectionVector
+
   val underTest = new GamePositionUpdater(
-    new MissilePositionCalculator,
-    new RocketPositionCalculator(new BoundsChecker),
+    new MissilePositionCalculator(rotationDirectionCalculator),
+    new RocketPositionCalculator(new BoundsChecker, rotationDirectionCalculator),
     new BoundsChecker
   )
 

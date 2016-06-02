@@ -23,7 +23,7 @@ public class GameControlJacksonSerialiseTest {
     @Test
     public void checkGameStartRequestCanBeSerialisedToJsonThenDeserialised() throws Exception {
         // given
-        GameControl gameControl = new GameControl("user id", "game id", true, false, true, false, false);
+        GameControl gameControl = new GameControl("user id", "game id", true, false, true, false, false, true, true);
 
         // when
         String json = jacksonObjectMapper.writeValueAsString(gameControl);

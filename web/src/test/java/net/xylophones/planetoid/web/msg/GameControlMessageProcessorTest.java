@@ -36,13 +36,13 @@ public class GameControlMessageProcessorTest {
     @Test
     public void checkProcess() {
         // given
-        String payload = "{\"userId\":\"user id\",\"gameId\":\"game id\",\"fireMissile\":true,\"left\":false,\"right\":true,\"thrust\":false}";
+        String payload = "{\"userId\":\"user id\",\"gameId\":\"game id\",\"fireMissile\":true,\"left\":false,\"right\":true,\"thrust\":false,\"up\":true,\"down\":true}";
         IncomingMessage message = new IncomingMessage(IncomingMessageType.GameControl, payload, null);
 
         // when
         underTest.handleMessage(message);
 
         // then
-        verify(gameService).applyUserInput("game id", "user id", new PlayerInput(false, true, false,false, true));
+        verify(gameService).applyUserInput("game id", "user id", new PlayerInput(false, true, false,false, true, true, true));
     }
 }

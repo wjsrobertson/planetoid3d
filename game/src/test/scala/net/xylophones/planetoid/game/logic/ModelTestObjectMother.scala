@@ -36,9 +36,17 @@ object ModelTestObjectMother {
     Players(createDummyPlayer(), createDummyPlayer())
   }
 
+  def createRocketAtOriginPointingForward() = {
+    val position = Vector3D(0, 0, 0)
+    val rotation = Vector3D(0, 0, 0)
+    val velocity = Vector3D(0, 0, 0)
+
+    Rocket(position, rotation, velocity, 999)
+  }
+
   def createRocketAtOriginPointingUp() = {
     val position = Vector3D(0, 0, 0)
-    val rotation = Vector3D(0, 1, 0)
+    val rotation = Vector3D(90, 0, 0)
     val velocity = Vector3D(0, 0, 0)
 
     Rocket(position, rotation, velocity, 999)
@@ -46,7 +54,7 @@ object ModelTestObjectMother {
 
   def createRocketAt10_0PointingUp() = {
     val position = Vector3D(0, 10, 0)
-    val rotation = Vector3D(0, 1, 0)
+    val rotation = Vector3D(90, 0, 0)
     val velocity = Vector3D(0, 0, 0)
 
     Rocket(position, rotation, velocity, 999)

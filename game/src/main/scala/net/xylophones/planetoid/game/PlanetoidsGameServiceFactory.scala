@@ -1,15 +1,17 @@
 package net.xylophones.planetoid.game
 
 import net.xylophones.planetoid.game.logic._
+import net.xylophones.planetoid.game.maths.RotationDegreesToDirectionVector
 
 class PlanetoidsGameServiceFactory {
 
   def create() = {
+    val rotationCalculator = new RotationDegreesToDirectionVector
     val boundsChecker = new BoundsChecker
     val collisionCalculator = new CollisionCalculator
-    val missilePositionCalculator = new MissilePositionCalculator
+    val missilePositionCalculator = new MissilePositionCalculator(rotationCalculator)
     val missileFireUpdater = new GameMissileFireUpdater
-    val rocketCalculator = new RocketPositionCalculator(boundsChecker)
+    val rocketCalculator = new RocketPositionCalculator(boundsChecker, rotationCalculator)
     val collisionUpdater = new GameCollisionUpdater(collisionCalculator)
     val planetMissileCollisionUpdater = new MissilePlanetCollisionGameUpdater(collisionCalculator)
     val positionUpdater = new GamePositionUpdater(missilePositionCalculator, rocketCalculator, boundsChecker)
